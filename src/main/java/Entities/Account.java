@@ -3,16 +3,13 @@ package Entities;
 // TODO: Update README.md
 
 /**
- * TODO: Write Javadoc
+ *  An entity class that represents a password manager account.
+ *
+ *  Each instance of Account contains a PrivateInfoManager which manages all the private information attached
+ *  to this Account.
  */
 public class Account{
 
-    /**
-     *  An entity class that represents a password manager account.
-     *
-     *  Each instance of Account contains a PrivateInfoManager which manages all the private information attached
-     *  to this Account.
-     */
     private String username;
     private String masterPassword;
     private PrivateInfoManager privateInfoManager;  // TODO: Maybe change the attribute name

@@ -13,6 +13,8 @@ public class LogIn extends PrivateInfo{
 //    private String webpage;
 //    private String url;
 
+    // {username: yousuf, password: pass123, webpage: Insta, url: insta.com}
+    // {}
 
     /**
      *
@@ -29,6 +31,7 @@ public class LogIn extends PrivateInfo{
         info.put("url", url);
 
     }}
+
 
 // TODO: DO WE NEED TO IMPLEMENT EXCEPTIONS AND TRY/CATCHES?
 

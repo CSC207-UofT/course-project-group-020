@@ -3,15 +3,21 @@ package Entities;
 import java.util.HashMap;
 
 /**
- * TODO: Write Javadoc
+ * An abstract class that is a parent to the following classes:
+ *      - Contact.java
+ *      - ID.java
+ *      - LogIn.java
+ *      - Note.java
+ *
+ * It contains a Hashmap in which the keys are Strings representing instance attributes of the subclass that inherits
+ * the HashMap and maps it to values that are Strings representing
+ *
  */
 public abstract class PrivateInfo {
 
     public HashMap<String, String> info;
 
-    /**
-     * TODO: Write Javadoc
-     */
+
     public PrivateInfo(){
 
         info = new HashMap<>();
