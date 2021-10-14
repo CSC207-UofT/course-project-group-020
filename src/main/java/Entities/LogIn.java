@@ -29,7 +29,6 @@ public class LogIn extends PrivateInfo{
         info.put("password", password);
         info.put("webpage", webpage);
         info.put("url", url);
-
     }}
 
 

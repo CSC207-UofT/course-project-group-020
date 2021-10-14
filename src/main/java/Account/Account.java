@@ -1,6 +1,8 @@
-package Entities;
+package Account;
 
 // TODO: Update README.md
+
+import Entities.PrivateInfoManager;
 
 /**
  *  An entity class that represents a password manager account.
@@ -10,9 +12,9 @@ package Entities;
  */
 public class Account{
 
-    private String username;
-    private String masterPassword;
-    private PrivateInfoManager privateInfoManager;  // TODO: Maybe change the attribute name
+    private final String username;
+    private final String masterPassword;
+    private final PrivateInfoManager vault;  // TODO: Maybe change the attribute name
 
     /**
      *
@@ -22,8 +24,19 @@ public class Account{
     public Account(String username, String masterPassword){
         this.username = username;
         this.masterPassword = masterPassword;
-        this.privateInfoManager = new PrivateInfoManager();
+        this.vault = new PrivateInfoManager();
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getMasterPassword() {
+        return masterPassword;
+    }
+
+    public PrivateInfoManager getVault() {
+        return vault;
+    }
 }
 

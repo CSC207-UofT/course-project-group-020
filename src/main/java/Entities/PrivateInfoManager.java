@@ -1,7 +1,5 @@
 package Entities;
 
-import com.sun.source.tree.NewArrayTree;
-
 import java.util.ArrayList;
 
 /**
@@ -26,10 +24,10 @@ import java.util.ArrayList;
 
 public class PrivateInfoManager {
 
-    private ArrayList<PrivateInfo> info;
+    private final ArrayList<PrivateInfo> vault;
 
     public PrivateInfoManager(){
-        info = new ArrayList<PrivateInfo>();
+        vault = new ArrayList<PrivateInfo>();
     }
 
     /**
@@ -39,7 +37,7 @@ public class PrivateInfoManager {
      */
     public void AddInfo(PrivateInfo newInfo) {
 
-        this.info.add(newInfo);
+        this.vault.add(newInfo);
 
     }
 
@@ -51,7 +49,7 @@ public class PrivateInfoManager {
 
     public void DeleteInfo(PrivateInfo toBeDeleted) {
 
-        this.info.remove(toBeDeleted);
+        this.vault.remove(toBeDeleted);
 
     }
 }
