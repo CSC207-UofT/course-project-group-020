@@ -54,8 +54,11 @@ public abstract class PrivateInfo {
             System.out.println("This datatype does not have the " + attribute + "attribute");
             return false;
         }
+    }
 
-
+    @Override
+    public String toString(){
+        return this.info.toString();
     }
 
 }

@@ -8,16 +8,16 @@ import Entities.PrivateInfoManager;
 
 import java.io.IOException;
 
+// TODO: Update README.md
+
+
 /**
  * This class is responsible for running the program.
  *
- * It creates and holds a single AccountManager instance ... TODO: finish this javadoc.
  */
 public class PasswordManagerProgram {
-//    private static AccountManager accountManager = new AccountManager();
-    private Account activeAccount;
-    
-    public PasswordManagerProgram(){
+
+    public PasswordManagerProgram() {
 
     }
 
@@ -27,26 +27,19 @@ public class PasswordManagerProgram {
 
         uiMain.welcome();  // welcome the user to the program
 
-        // Create new account or log in to existing prompt
-        String userSelection =  uiMain.accountPrompt();
         // This is the account the user has logged in to
-        Account activeAccount = getActiveAccount(accountManager, uiMain, userSelection);
+        Account activeAccount = getActiveAccount(accountManager, uiMain);
+        // This is the vault associated with the active account.
+        PrivateInfoManager vault = activeAccount.getVault();
 
-        PrivateInfoManager vault =  activeAccount.getVault();
-        userSelection = uiMain.mainMenuPrompt();
+        while(true){
+            String requestedAction = getRequestedAction(uiMain);
+            executeAction(uiMain, requestedAction, vault);
+            if (requestedAction.equals("LOGOUT")) {break;}
+            System.out.println();  // print a blank line
+        }
 
-        // TODO: user selects option from main menu
-            // only implement 1. tell user 2-4 is in beta. 5 is logout.
-
-        // TODO: user selects option from submenu
-            // 1 = addLogin, 2 = editLogin, 3 = deleteLogin
-
-        // TODO: execute the appropriate method according to the user's submenu selection
-            // at this point, vault should be updated with the new PrivateInfo object
-            // ensure that the console outputs confirmation of completed action.
-
-        // TODO: return to the main menu
-            // that means the first 3 TODOs are in a while loop
+        System.out.println("Goodbye!");
 
         // TODO: finally, merge code with encryption changes
 
@@ -54,18 +47,66 @@ public class PasswordManagerProgram {
 
     }
 
-    private static Account getActiveAccount(AccountManager accountManager, UIMain uiMain, String userSelection)
+    private static Account getActiveAccount(AccountManager accountManager, UIMain uiMain)
             throws IOException {
+        // Determines whether to create new account or log in to existing prompt
+        String userSelection = uiMain.accountPrompt();
+
         // Creating a new account
-        if (userSelection.equals("1")){
+        if (userSelection.equals("1")) {
             String[] accountCredentials = uiMain.getAccountCredentials();
             return accountManager.createAccount(accountCredentials[0], accountCredentials[1]);
         }
         // Logging in to an existing account
-        else{
+        else {
             assert userSelection.equals("2");
             String[] accountCredentials = uiMain.getAccountCredentials();
             return accountManager.attemptLogIn(accountCredentials[0], accountCredentials[1]);
+        }
+    }
+
+    private static String getRequestedAction(UIMain uiMain) throws IOException {
+        String userMainMenuSelection = uiMain.mainMenuPrompt();
+        if (userMainMenuSelection.equals("1")) {
+            return uiMain.subMenuPrompt(userMainMenuSelection);
+        }
+
+        else if (userMainMenuSelection.equals("5")){
+            return "printVault";
+        }
+
+        else if (userMainMenuSelection.equals("6")){
+            return "LOGOUT";
+        }
+
+
+        // User chooses an 2, 3, 4, or 5
+        else {
+            return "betaVersion";
+        }
+    }
+
+    private static void executeAction(UIMain uiMain, String requestedAction, PrivateInfoManager vault)
+    throws IOException{
+        if (requestedAction.equals("printVault")){
+            System.out.println(vault.toString());
+        }
+        else if (requestedAction.equals("betaVersion")) {
+            System.out.println("Sorry, that feature has not been implemented in the beta.");
+        }
+        else if (requestedAction.equals("1")){
+            // prompt user for login info
+            LogIn logIn = uiMain.createLogIn();
+            // create login
+            vault.addInfo(logIn);
+        }
+        else if (requestedAction.equals("2")){
+            // TODO: implement edit login
+            System.out.println("Sorry, that feature has not been implemented in the beta.");
+        }
+        else {
+            // TODO: implement delete login
+            System.out.println("Sorry, that feature has not been implemented in the beta.");
         }
     }
 

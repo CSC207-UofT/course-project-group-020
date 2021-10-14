@@ -1,7 +1,5 @@
 package Account;
 
-// TODO: Update README.md
-
 import Entities.PrivateInfoManager;
 
 /**
@@ -14,7 +12,7 @@ public class Account{
 
     private final String username;
     private final String masterPassword;
-    private final PrivateInfoManager vault;  // TODO: Maybe change the attribute name
+    private final PrivateInfoManager vault;
 
     /**
      *
@@ -28,15 +26,15 @@ public class Account{
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getMasterPassword() {
-        return masterPassword;
+        return this.masterPassword;
     }
 
     public PrivateInfoManager getVault() {
-        return vault;
+        return this.vault;
     }
 }
 

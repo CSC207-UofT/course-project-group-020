@@ -35,7 +35,7 @@ public class PrivateInfoManager {
      *
      * @param newInfo The new info that is to be added to the ArrayList info
      */
-    public void AddInfo(PrivateInfo newInfo) {
+    public void addInfo(PrivateInfo newInfo) {
 
         this.vault.add(newInfo);
 
@@ -47,9 +47,14 @@ public class PrivateInfoManager {
      * @param toBeDeleted This is the parameter that is to be deleted from the Arraylist and thus from our system.
      */
 
-    public void DeleteInfo(PrivateInfo toBeDeleted) {
+    public void deleteInfo(PrivateInfo toBeDeleted) {
 
         this.vault.remove(toBeDeleted);
 
+    }
+
+    @Override
+    public String toString(){
+        return this.vault.toString();
     }
 }
