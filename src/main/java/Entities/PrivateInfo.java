@@ -20,9 +20,9 @@ public abstract class PrivateInfo {
      * the appropriate thing
      */
 
-    public abstract String GetInfo();
+    public abstract String GetInfo(String attribute);
 
-    public abstract void ChangeInfo();
+    public abstract void ChangeInfo(String attribute, String newValue);
 
 }
 

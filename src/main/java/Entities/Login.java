@@ -37,6 +37,7 @@ public class Login extends PrivateInfo{
      */
     // TODO: should this be a private or public method
 
+    @Override
     public String GetInfo(String attribute) {
         return switch (attribute) {
             case "username" -> this.username;
@@ -51,6 +52,7 @@ public class Login extends PrivateInfo{
      * @param attribute The instance attribute that will be changed
      * @param newValue  The new value to overwrite the instance attribute with
      */
+    @Override
     public void ChangeInfo(String attribute, String newValue) {
         if (attribute.equals("username")){
             this.username = newValue;
