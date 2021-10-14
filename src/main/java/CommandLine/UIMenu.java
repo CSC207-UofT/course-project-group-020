@@ -35,21 +35,19 @@ public class UIMenu {
             System.out.println(this.loginsSubmenu);
             System.out.println("Please enter a number 1 - 3: ");
 
-            int storedUserInputSub = this.userInputSub.nextInt();
+            String storedUserInputSub = this.userInputSub.nextLine();
 
-
-            if (storedUserInputSub == 1){
+            if (storedUserInputSub.equals("1")){
                 //TODO: Add Method
-
 
                 System.out.println("LogIn Added!");
             }
-            else if (storedUserInputSub == 2){
+            else if (storedUserInputSub.equals("2")){
                 //TODO: Add Method
 
                 System.out.println("LogIn Changed!");
             }
-            else if (storedUserInputSub == 3){
+            else if (storedUserInputSub.equals("3")){
                 //TODO: Add Method
                 System.out.println("LogIn Deleted!");
             }
