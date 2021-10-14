@@ -8,7 +8,7 @@ public class UIMenu {
 
     String mainMenu = " (1.) Logins \n (2.) Notes \n (3.) Contacts \n (4.) Address \n (5.) I.D.s ";
 
-    String loginsSubmenu = " (1.) Add Login \n (2.) Change Login \n (3.) Delete Login";
+    String loginsSubmenu = " (1.) Add LogIn \n (2.) Change LogIn \n (3.) Delete LogIn";
 
 
     public UIMenu(Scanner userInput, Scanner userInputSub){
@@ -41,16 +41,16 @@ public class UIMenu {
             if (storedUserInputSub == 1){
                 //TODO: Add Method
 
-                System.out.println("Login Added!");
+                System.out.println("LogIn Added!");
             }
             else if (storedUserInputSub == 2){
                 //TODO: Add Method
 
-                System.out.println("Login Changed!");
+                System.out.println("LogIn Changed!");
             }
             else if (storedUserInputSub == 3){
                 //TODO: Add Method
-                System.out.println("Login Deleted!");
+                System.out.println("LogIn Deleted!");
             }
             else{
                 System.out.println("INVALID INPUT");
