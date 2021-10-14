@@ -28,12 +28,9 @@ public class PrivateInfoManager {
     // TODO: everything below this
     // Delete Private Info Here
 
-    public void DeleteInfo(PrivateInfo newInfo) {
+    public void DeleteInfo(PrivateInfo toBeDeleted) {
 
-        for (PrivateInfo p: this.info){
-
-
-        }
+        this.info.remove(toBeDeleted);
 
     }
 }
