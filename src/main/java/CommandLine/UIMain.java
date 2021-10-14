@@ -64,7 +64,7 @@ public class UIMain {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("What would you like to manage in your vault?");
-        System.out.println("Please select a number from 1 to 5");
+        System.out.println("Please select a number from 1 to 6");
         System.out.println("1) LogIns \n 2) Notes \n 3) Contacts \n 4) IDs \n 5) Display vault \n 6) No thanks, I would like to logout");
 
         // Read and return the user's selected option
