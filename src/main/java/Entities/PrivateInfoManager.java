@@ -61,7 +61,8 @@ public class PrivateInfoManager {
      * @return Returns a copy of the vault
      */
     public ArrayList<PrivateInfo> getCopy() {
-        return new ArrayList<>(this.vault);
+
+        return new ArrayList<PrivateInfo>(this.vault);
     }
 
     /**

@@ -115,6 +115,7 @@ public class PasswordManagerProgram {
 
                 ArrayList<PrivateInfo> vaultCopy = vault.getCopy();
 
+                // Decrypt for print
                 for (PrivateInfo privateInfo : vaultCopy) {
 
                     if (privateInfo instanceof LogIn) {
@@ -125,6 +126,13 @@ public class PasswordManagerProgram {
                 }
 
                 System.out.println(vaultCopy);
+
+                // Encrypt back for storage
+                for (PrivateInfo privateInfo : vaultCopy) {
+                    if (privateInfo instanceof LogIn) {
+                        privateInfo.ChangeInfo("password", EncryptPrivInfo.encryptInfo(uiMain.getKey(),
+                                privateInfo.GetInfo("password")));}}
+
                 break;
             case "betaVersion":
                 // Java warns that this is a duplicate of the default branch, but we will be providing a different
