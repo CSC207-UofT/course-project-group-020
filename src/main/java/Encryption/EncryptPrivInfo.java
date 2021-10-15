@@ -3,8 +3,21 @@ package Encryption;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * The class that is in charge of the encryption of the information the user is storing. Works using a key that
+ * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
+ */
+
 public class EncryptPrivInfo {
 
+    /**
+     * This is the encryption method that takes in the key and string to be encrypted.
+     *
+     * It uses the blowfish api to encrypt the string text. The text needs to be converted to a byte arraylist
+     * first.
+     *
+     * Then the encryption is converted back using StringBuilder to display it and store it.
+     */
     public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
         try {
             byte[] KeyData = key.getBytes();
@@ -16,23 +29,32 @@ public class EncryptPrivInfo {
 
             //construct the encrypted char sentence
             StringBuilder string_bytes = new StringBuilder();
-            for (byte b : encrypted) {
-                string_bytes.append((char) b);
+            for (byte b: encrypted) {
+                string_bytes.append((char)b);
             }
 
             //the encrypted String returned
             return string_bytes.toString();
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String decryptInfo(String key, String encrypted_text) {
-        try {
+    /**
+     * This is the decryption method that again takes in a key and the encrypted text to be decrypted.
+     *
+     * The text is converted to an arraylist of bytes to be decrypted using the blowfish api again. Both the key
+     * and the text have to match when they were encrypted for this to work.
+     *
+     * Then the bytes arraylist in converted back to be displayed.
+     */
+    public static String decryptInfo(String key, String encrypted_text){
+        try{
             byte[] bb = new byte[encrypted_text.length()];
 
-            for (int i = 0; i < encrypted_text.length(); i++) {
+            for (int i=0; i<encrypted_text.length(); i++) {
                 bb[i] = (byte) encrypted_text.charAt(i);
             }
 
@@ -43,10 +65,10 @@ public class EncryptPrivInfo {
             cipher.init(Cipher.DECRYPT_MODE, keyspec);
             //actual decryption happens here and we return it straight away
             return new String(cipher.doFinal(bb));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-
 }
