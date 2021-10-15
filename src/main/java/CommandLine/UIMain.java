@@ -1,4 +1,5 @@
 package CommandLine;
+
 import Entities.LogIn;
 import Encryption.EncryptMaster;
 import Encryption.EncryptPrivInfo;
@@ -10,17 +11,17 @@ import java.util.HashMap;
 
 public class UIMain {
 
-    public String userKey;
+    private String userKey;
 
-    public void welcome(){
+    public void welcome() {
         System.out.println("Welcome to the Password Manager Beta!");
     }
 
     /**
      * This method prompts the user to either create a new Account or log in to an existing Account.
      *
-     * @return              A String representing the user's selection
-     * @throws IOException
+     * @return A String representing the user's selection
+     * @throws IOException Required for BufferedReader
      */
     public String accountPrompt() throws IOException {
         // Create a BufferedReader object to read the user's inputs
@@ -28,7 +29,7 @@ public class UIMain {
 
         System.out.println("Would you like to create a new Password Manager account or log in to an existing one?");
         System.out.println(" 1) Create new Password Manager account \n " +
-                           "2) Log in to an existing account");
+                "2) Log in to an existing account");
 
         // Read and return the user's selected option
         return reader.readLine();
@@ -39,9 +40,9 @@ public class UIMain {
      * It is used both when creating a new account or logging in to an existing account.
      *
      * @return An array containing the account username and master password.
-     * @throws IOException
+     * @throws IOException Required for BufferedReader
      */
-    public String[] getAccountCredentials() throws  IOException {
+    public String[] getAccountCredentials() throws IOException {
         String[] accountCredentials = new String[2];
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,7 +53,7 @@ public class UIMain {
         System.out.println("Enter the master password for your account:");
         String masterPassword = reader.readLine();
 
-        System.out.println("Please enter a 3 digit key for encryption (DON'T FORGET)");
+        System.out.println("Please enter a 3 digit key for encryption");
         this.userKey = reader.readLine();
 
         String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
@@ -67,8 +68,8 @@ public class UIMain {
      * This method prompts the user to select what component of their vault they want to manage.
      * Or, the user can choose to log out if they do not want to manage their vault items.
      *
-     * @return              A String representing the user's selection
-     * @throws IOException
+     * @return A String representing the user's selection
+     * @throws IOException Required for BufferedReader
      */
     public String mainMenuPrompt() throws IOException {
         // Create a BufferedReader object to read the user's inputs
@@ -85,15 +86,15 @@ public class UIMain {
     /**
      * This method prompts the user to select what action they would like to perform with the chosen vault component.
      *
-     * @return              A String representing the user's selection
-     * @throws IOException
+     * @return A String representing the user's selection
+     * @throws IOException Required for BufferedReader
      */
     public String subMenuPrompt(String mainMenuSelection) throws IOException {
         // Create a BufferedReader object to read the user's inputs
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         // This HashMap maps each possible mainMenuSelection to its vault component
-        HashMap<String, String> vaultComponents = new HashMap<String, String>();
+        HashMap<String, String> vaultComponents = new HashMap<>();
         vaultComponents.put("1", "LogIn");
         vaultComponents.put("2", "Note");
         vaultComponents.put("3", "Contact");
@@ -113,8 +114,8 @@ public class UIMain {
     /**
      * This method prompts the user to enter the details of the LogIn the want to add.
      *
-     * @return              A LogIn object with the values given by the user
-     * @throws IOException
+     * @return A LogIn object with the values given by the user
+     * @throws IOException Required for BufferedReader
      */
     public LogIn createLogIn() throws IOException {
         // Create a BufferedReader object to read the user's inputs
@@ -138,7 +139,13 @@ public class UIMain {
         return new LogIn(logInInfo[0], encrypted, logInInfo[2], logInInfo[3]);
     }
 
-    public String getKey(){
+    /**
+     * This method is responsible for supplying the key inputted by the user which has to be used in outer classes.
+     * Since this.userKey is private, we need such a getter method.
+     *
+     * @return The this.Userkey attribute of UIMain
+     */
+    public String getKey() {
         return this.userKey;
     }
 }

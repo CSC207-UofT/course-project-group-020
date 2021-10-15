@@ -3,6 +3,7 @@ package PasswordManagerProgram;
 import Account.Account;
 import Account.AccountManager;
 import CommandLine.UIMain;
+import Encryption.EncryptMaster;
 import Encryption.EncryptPrivInfo;
 import Entities.LogIn;
 import Entities.PrivateInfo;
@@ -10,14 +11,12 @@ import Entities.PrivateInfoManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // TODO: Update README.md
 
 
 /**
  * This class is responsible for running the program.
- *
  */
 public class PasswordManagerProgram {
 
@@ -36,10 +35,12 @@ public class PasswordManagerProgram {
         // This is the vault associated with the active account.
         PrivateInfoManager vault = activeAccount.getVault();
 
-        while(true){
+        while (true) {
             String requestedAction = getRequestedAction(uiMain);
             executeAction(uiMain, requestedAction, vault);
-            if (requestedAction.equals("LOGOUT")) {break;}
+            if (requestedAction.equals("LOGOUT")) {
+                break;
+            }
             System.out.println();  // print a blank line
         }
 
@@ -71,61 +72,60 @@ public class PasswordManagerProgram {
 
     private static String getRequestedAction(UIMain uiMain) throws IOException {
         String userMainMenuSelection = uiMain.mainMenuPrompt();
-        if (userMainMenuSelection.equals("1")) {
-            return uiMain.subMenuPrompt(userMainMenuSelection);
-        }
-
-        else if (userMainMenuSelection.equals("5")){
-            return "printVault";
-        }
-
-        else if (userMainMenuSelection.equals("6")){
-            return "LOGOUT";
-        }
+        switch (userMainMenuSelection) {
+            case "1":
+                return uiMain.subMenuPrompt(userMainMenuSelection);
+            case "5":
+                return "printVault";
+            case "6":
+                return "LOGOUT";
 
 
-        // User chooses an 2, 3, 4, or 5
-        else {
-            return "betaVersion";
+            // User chooses an 2, 3, 4, or 5
+            default:
+                return "betaVersion";
         }
     }
 
     private static void executeAction(UIMain uiMain, String requestedAction, PrivateInfoManager vault)
-    throws IOException{
-        if (requestedAction.equals("printVault")){
+            throws IOException {
+        switch (requestedAction) {
+            case "printVault":
 
-            ArrayList<PrivateInfo> copy = vault.getCopy();
+                ArrayList<PrivateInfo> vaultCopy = vault.getCopy();
 
-            for (PrivateInfo b: copy){
+                for (PrivateInfo privateInfo : vaultCopy) {
 
-//                    String str = b.GetInfo("password");
-
-                    if (b instanceof LogIn) {
-                        System.out.println(b.GetInfo("password")); // This should be the encrypted password
-                        System.out.println(uiMain.userKey);
-                        b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
+                    if (privateInfo instanceof LogIn) {
+                        privateInfo.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.getKey(),
+                                privateInfo.GetInfo("password")));
                     }
 
-            }
+                }
 
-            System.out.println(copy.toString());
-        }
-        else if (requestedAction.equals("betaVersion")) {
-            System.out.println("Sorry, that feature has not been implemented in the beta.");
-        }
-        else if (requestedAction.equals("1")){
-            // prompt user for login info
-            LogIn logIn = uiMain.createLogIn();
-            // create login
-            vault.addInfo(logIn);
-        }
-        else if (requestedAction.equals("2")){
-            // TODO: implement edit login
-            System.out.println("Sorry, that feature has not been implemented in the beta.");
-        }
-        else {
-            // TODO: implement delete login
-            System.out.println("Sorry, that feature has not been implemented in the beta.");
+                System.out.println(vaultCopy);
+                break;
+            case "betaVersion":
+                // Java warns that this is a duplicate of the default branch, but we will be providing a different
+                // implementation of this for our final program (non-beta).
+                System.out.println("Sorry, that feature has not been implemented in the beta.");
+                break;
+            case "1":
+                // prompt user for login info
+                LogIn logIn = uiMain.createLogIn();
+                // create login
+                vault.addInfo(logIn);
+                break;
+            case "2":
+                // TODO: implement edit login
+                // Java warns that this is a duplicate of the default branch, but we will be providing a different
+                // implementation of this for our final program (non-beta).
+                System.out.println("Sorry, that feature has not been implemented in the beta.");
+                break;
+            default:
+                // TODO: implement delete login
+                System.out.println("Sorry, that feature has not been implemented in the beta.");
+                break;
         }
     }
 

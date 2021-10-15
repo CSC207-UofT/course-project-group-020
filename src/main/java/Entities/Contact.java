@@ -1,21 +1,14 @@
 package Entities;
 
+// Java warns that Class Contact is never used, but we will not solve this style warning for the beta program.
 public class Contact extends PrivateInfo {
 
-    public Contact(String name, String number, String address){
+    // Java warns that Class constructor is never used, but we will not solve this style warning for the beta program.
+    public Contact(String name, String number, String address) {
 
         super();
         info.put("name", name);
         info.put("number", number);
         info.put("address", address);
     }
-
-//    @Override
-//    public String GetInfo(String attribute) {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean ChangeInfo(String attribute, String newValue) {
-//        return true;
-    }
+}

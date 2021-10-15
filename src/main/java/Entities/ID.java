@@ -1,10 +1,9 @@
 package Entities;
 
 /**
-    This class represents an ID of a user.
-
+ * This class represents an ID of a user.
  */
-
+// Java warns that Class ID is never used, but we will not solve this style warning for the beta program.
 public class ID extends PrivateInfo{
 
     /**
@@ -16,6 +15,7 @@ public class ID extends PrivateInfo{
      * @param IDExpirationDate A string that represents the expiry date of the ID, e.g. "25/07/2025"
      */
 
+    // Java warns that Class constructor is never used, but we will not solve this style warning for the beta program.
     public ID(String IDType, String IDNumber, String IDExpirationDate){
         super();
         info.put("IDType", IDType);
