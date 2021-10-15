@@ -3,23 +3,22 @@ package Account;
 import Entities.PrivateInfoManager;
 
 /**
- *  An entity class that represents a password manager account.
- *
- *  Each instance of Account contains a PrivateInfoManager which manages all the private information attached
- *  to this Account.
+ * An entity class that represents a password manager account.
+ * <p>
+ * Each instance of Account contains a PrivateInfoManager which manages all the private information attached
+ * to this Account.
  */
-public class Account{
+public class Account {
 
     private final String username;
     private final String masterPassword;
     private final PrivateInfoManager vault;
 
     /**
-     *
-     * @param username          The username of this password manager account
-     * @param masterPassword    The master password of this password manager account
+     * @param username       The username of this password manager account
+     * @param masterPassword The master password of this password manager account
      */
-    public Account(String username, String masterPassword){
+    public Account(String username, String masterPassword) {
         this.username = username;
         this.masterPassword = masterPassword;
         this.vault = new PrivateInfoManager();

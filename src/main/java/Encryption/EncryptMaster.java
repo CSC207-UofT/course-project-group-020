@@ -1,6 +1,7 @@
 package Encryption;
 
 //obtained inspiration from: https://mkyong.com/java/java-sha-hashing-example/
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -34,9 +35,4 @@ public class EncryptMaster {
     }
 
 
-    public static void main(String[] args) {
-
-        String name = "Haykoooo";
-        System.out.println(encryptMaster(name));
-    }
 }

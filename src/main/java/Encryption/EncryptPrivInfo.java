@@ -16,24 +16,23 @@ public class EncryptPrivInfo {
 
             //construct the encrypted char sentence
             StringBuilder string_bytes = new StringBuilder();
-            for (byte b: encrypted) {
-                string_bytes.append((char)b);
+            for (byte b : encrypted) {
+                string_bytes.append((char) b);
             }
 
             //the encrypted String returned
             return string_bytes.toString();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String decryptInfo(String key, String encrypted_text){
-        try{
+    public static String decryptInfo(String key, String encrypted_text) {
+        try {
             byte[] bb = new byte[encrypted_text.length()];
 
-            for (int i=0; i<encrypted_text.length(); i++) {
+            for (int i = 0; i < encrypted_text.length(); i++) {
                 bb[i] = (byte) encrypted_text.charAt(i);
             }
 
@@ -44,17 +43,10 @@ public class EncryptPrivInfo {
             cipher.init(Cipher.DECRYPT_MODE, keyspec);
             //actual decryption happens here and we return it straight away
             return new String(cipher.doFinal(bb));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static void main(String[] args) {
-        String str = encryptInfo("123", "cxzvbxcv");
-
-        System.out.println(str);
-        System.out.println(decryptInfo("123", str));
-    }
 }

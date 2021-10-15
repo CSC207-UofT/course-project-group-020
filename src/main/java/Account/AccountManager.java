@@ -1,49 +1,47 @@
 package Account;
 
+import Encryption.EncryptMaster;
+
 import java.util.ArrayList;
 
 /**
  * This class keeps track of all the Password Manager Accounts. It does so in the ArrayList called
  * accounts.
- *
+ * <p>
  * It is also responsible for creating new Accounts, deleting Accounts, and logging in to the vault
  * associated with the Account.
- *
+ * <p>
  * It has an instance attribute called accounts that is an ArrayList that
  */
 public class AccountManager {
     private ArrayList<Account> accounts;
 
-    public AccountManager(){
+    public AccountManager() {
         accounts = new ArrayList<Account>();
     }
 
     /**
-     *
-     * @param username          The username associated with this Account
-     * @param masterPassword    The master password associated with this Account
+     * @param username       The username associated with this Account
+     * @param masterPassword The master password associated with this Account
      */
 
-    // TODO: pass in the encryptedMasterPassword instead.
-    public Account createAccount(String username, String masterPassword){
-        // encryptedMasterPassword = ...
-        Account account = new Account(username, masterPassword);
+    public Account createAccount(String username, String masterPassword) {
+        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
+        Account account = new Account(username, encryptedMasterPassword);
         this.accounts.add(account);
         return account;
     }
 
-    public void deleteAccount(){
+    public void deleteAccount() {
         // TODO: delete Account from accounts ArrayList
 
     }
 
-    // TODO: pass in the encryptedMasterPassword instead.
-    public Account attemptLogIn(String username, String masterPassword){
-        // encryptedMasterPassword = ...
-
+    public Account attemptLogIn(String username, String masterPassword) {
+        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
         // Search for an Account with these credentials within accounts.
-        for (Account account : accounts){
-            if (account.getUsername().equals(username) && account.getMasterPassword().equals(masterPassword)){
+        for (Account account : accounts) {
+            if (account.getUsername().equals(username) && account.getMasterPassword().equals(encryptedMasterPassword)) {
                 return account;
             }
         }
@@ -52,5 +50,7 @@ public class AccountManager {
         return null;
     }
 
-
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
 }
