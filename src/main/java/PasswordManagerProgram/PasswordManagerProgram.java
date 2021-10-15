@@ -17,7 +17,6 @@ import java.util.HashMap;
 
 /**
  * This class is responsible for running the program.
- *
  */
 public class PasswordManagerProgram {
 
@@ -36,19 +35,16 @@ public class PasswordManagerProgram {
         // This is the vault associated with the active account.
         PrivateInfoManager vault = activeAccount.getVault();
 
-        while(true){
+        while (true) {
             String requestedAction = getRequestedAction(uiMain);
             executeAction(uiMain, requestedAction, vault);
-            if (requestedAction.equals("LOGOUT")) {break;}
+            if (requestedAction.equals("LOGOUT")) {
+                break;
+            }
             System.out.println();  // print a blank line
         }
 
         System.out.println("Goodbye!");
-
-        // TODO: finally, merge code with encryption changes
-
-        // TODO: Create tests
-
     }
 
     private static Account getActiveAccount(AccountManager accountManager, UIMain uiMain)
@@ -73,13 +69,9 @@ public class PasswordManagerProgram {
         String userMainMenuSelection = uiMain.mainMenuPrompt();
         if (userMainMenuSelection.equals("1")) {
             return uiMain.subMenuPrompt(userMainMenuSelection);
-        }
-
-        else if (userMainMenuSelection.equals("5")){
+        } else if (userMainMenuSelection.equals("5")) {
             return "printVault";
-        }
-
-        else if (userMainMenuSelection.equals("6")){
+        } else if (userMainMenuSelection.equals("6")) {
             return "LOGOUT";
         }
 
@@ -91,39 +83,36 @@ public class PasswordManagerProgram {
     }
 
     private static void executeAction(UIMain uiMain, String requestedAction, PrivateInfoManager vault)
-    throws IOException{
-        if (requestedAction.equals("printVault")){
+            throws IOException {
+        if (requestedAction.equals("printVault")) {
 
             ArrayList<PrivateInfo> copy = vault.getCopy();
 
-            for (PrivateInfo b: copy){
+            for (PrivateInfo b : copy) {
+                // TODO: change variable
 
 //                    String str = b.GetInfo("password");
 
-                    if (b instanceof LogIn) {
-                        System.out.println(b.GetInfo("password")); // This should be the encrypted password
-                        System.out.println(uiMain.userKey);
-                        b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
-                    }
+                if (b instanceof LogIn) {
+                    System.out.println(b.GetInfo("password")); // This should be the encrypted password
+                    System.out.println(uiMain.userKey);
+                    b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
+                }
 
             }
 
             System.out.println(copy.toString());
-        }
-        else if (requestedAction.equals("betaVersion")) {
+        } else if (requestedAction.equals("betaVersion")) {
             System.out.println("Sorry, that feature has not been implemented in the beta.");
-        }
-        else if (requestedAction.equals("1")){
+        } else if (requestedAction.equals("1")) {
             // prompt user for login info
             LogIn logIn = uiMain.createLogIn();
             // create login
             vault.addInfo(logIn);
-        }
-        else if (requestedAction.equals("2")){
+        } else if (requestedAction.equals("2")) {
             // TODO: implement edit login
             System.out.println("Sorry, that feature has not been implemented in the beta.");
-        }
-        else {
+        } else {
             // TODO: implement delete login
             System.out.println("Sorry, that feature has not been implemented in the beta.");
         }
