@@ -21,6 +21,8 @@ public class EncryptMaster {
 
     /**
      * This method is the main encryption method. It unites the other methods.
+     *
+     * @param to_encrypt This is the string that is to be encrypted
      */
     public static String encryptMaster(String to_encrypt) {
         return bytesToHex(EncryptMaster.digest(to_encrypt.getBytes(utf_8), ALGO));
@@ -28,6 +30,9 @@ public class EncryptMaster {
 
     /**
      * This method is in charge of the actual encryption.
+     *
+     * @param input An array of bytes
+     * @param algorithm The string representation of the algorithm used to digest
      */
     public static byte[] digest(byte[] input, String algorithm) {
         MessageDigest md;
@@ -40,8 +45,10 @@ public class EncryptMaster {
     }
 
     /**
-     * This method is to convert from bytes to hexadecimal as to be able to output it as a hex string.
+     * This method is to convert from bytes to hexadecimal and to be able to output it as a hex string.
      * Mainly for visual representation and later storing purposes.
+     *
+     * @param bytes An array of bytes
      */
     public static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();

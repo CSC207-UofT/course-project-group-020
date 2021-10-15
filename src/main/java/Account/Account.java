@@ -24,14 +24,26 @@ public class Account {
         this.vault = new PrivateInfoManager();
     }
 
+    /**
+     * A getter method to get the username of this account
+     * @return Returns the string value of the username of the account
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * A getter method to get the master password of this account
+     * @return Returns the string value of the master password of this account
+     */
     public String getMasterPassword() {
         return this.masterPassword;
     }
 
+    /**
+     * A getter method to get a copy of this account's vault
+     * @return Returns a copy of this account's vault, which is an instance of PrivateInfoManager
+     */
     public PrivateInfoManager getVault() {
         return this.vault;
     }

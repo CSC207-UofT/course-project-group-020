@@ -12,11 +12,10 @@ import Entities.PrivateInfoManager;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// TODO: Update README.md
 
 
 /**
- * This class is responsible for running the program.
+ * This class is responsible for running the entire program.
  */
 public class PasswordManagerProgram {
 
@@ -24,6 +23,11 @@ public class PasswordManagerProgram {
 
     }
 
+    /**
+     * This is our main method to run the program
+     * @param args An array of strings
+     * @throws IOException Throws IO Exception required for BufferedReader
+     */
     public static void main(String[] args) throws IOException {
         AccountManager accountManager = new AccountManager();
         UIMain uiMain = new UIMain();
@@ -46,12 +50,16 @@ public class PasswordManagerProgram {
 
         System.out.println("Goodbye!");
 
-        // TODO: finally, merge code with encryption changes
-
-        // TODO: Create tests
 
     }
 
+    /**
+     * This method is responsible for getting the active account on the program
+     * @param accountManager The class accountManager for this active account
+     * @param uiMain The UI shown in terminal or command prompt
+     * @return Returns the credentials of the user
+     * @throws IOException Throws IO Exception required for BufferedReader
+     */
     private static Account getActiveAccount(AccountManager accountManager, UIMain uiMain)
             throws IOException {
         // Determines whether to create new account or log in to existing prompt
@@ -70,6 +78,12 @@ public class PasswordManagerProgram {
         }
     }
 
+    /**
+     * This method is responsible for getting the requested action, as per chosen on the UI by the user
+     * @param uiMain The UI shown in terminal or command prompt
+     * @return Returns the chosen action of the user
+     * @throws IOException Throws IO Exception required for BufferedReader
+     */
     private static String getRequestedAction(UIMain uiMain) throws IOException {
         String userMainMenuSelection = uiMain.mainMenuPrompt();
         switch (userMainMenuSelection) {
@@ -81,12 +95,19 @@ public class PasswordManagerProgram {
                 return "LOGOUT";
 
 
-            // User chooses an 2, 3, 4, or 5
+            // User chooses a 2, 3, 4, or 5
             default:
                 return "betaVersion";
         }
     }
 
+    /**
+     * This method is responsible for executing the action chosen by the user on the UI
+     * @param uiMain The UI shown in terminal or command prompt
+     * @param requestedAction The string that represents the requested action by the user on the UI
+     * @param vault This is the active accounts, aka the users, vault
+     * @throws IOException Throws IO Exception required for BufferedReader
+     */
     private static void executeAction(UIMain uiMain, String requestedAction, PrivateInfoManager vault)
             throws IOException {
         switch (requestedAction) {
@@ -117,13 +138,11 @@ public class PasswordManagerProgram {
                 vault.addInfo(logIn);
                 break;
             case "2":
-                // TODO: implement edit login
                 // Java warns that this is a duplicate of the default branch, but we will be providing a different
                 // implementation of this for our final program (non-beta).
                 System.out.println("Sorry, that feature has not been implemented in the beta.");
                 break;
             default:
-                // TODO: implement delete login
                 System.out.println("Sorry, that feature has not been implemented in the beta.");
                 break;
         }

@@ -77,7 +77,8 @@ public class UIMain {
 
         System.out.println("What would you like to manage in your vault?");
         System.out.println("Please select a number from 1 to 6");
-        System.out.println(" 1) LogIns \n 2) Notes \n 3) Contacts \n 4) IDs \n 5) Display vault \n 6) No thanks, I would like to logout");
+        System.out.println(" 1) LogIns \n 2) Notes \n 3) Contacts \n 4) IDs \n 5) Display vault \n " +
+                "6) No thanks, I would like to logout");
 
         // Read and return the user's selected option
         return reader.readLine();
@@ -143,7 +144,7 @@ public class UIMain {
      * This method is responsible for supplying the key inputted by the user which has to be used in outer classes.
      * Since this.userKey is private, we need such a getter method.
      *
-     * @return The this.Userkey attribute of UIMain
+     * @return The this.userKey attribute of UIMain
      */
     public String getKey() {
         return this.userKey;

@@ -17,6 +17,10 @@ public class EncryptPrivInfo {
      * first.
      *
      * Then the encryption is converted back using StringBuilder to display it and store it.
+     *
+     * @param key The string representation of the key that will be used to encrypt
+     * @param text_to_encrypt The string which is to be encrypted
+     *
      */
     public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
         try {
@@ -48,7 +52,10 @@ public class EncryptPrivInfo {
      * The text is converted to an arraylist of bytes to be decrypted using the blowfish api again. Both the key
      * and the text have to match when they were encrypted for this to work.
      *
-     * Then the bytes arraylist in converted back to be displayed.
+     * Then the bytes arraylist is converted back to be displayed.
+     *
+     * @param key The string representation of the key that will be used to decrypt the ciphertext back to plaintext
+     * @param encrypted_text The string that represents the ciphertext
      */
     public static String decryptInfo(String key, String encrypted_text){
         try{

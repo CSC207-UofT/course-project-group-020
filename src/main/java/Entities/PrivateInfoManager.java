@@ -64,6 +64,10 @@ public class PrivateInfoManager {
         return new ArrayList<>(this.vault);
     }
 
+    /**
+     * The purpose of this method is to turn the Arraylist vault, stored in this.Vault, into a string
+     * @return Returns the string representation of Arraylist stored in this.Vault
+     */
 
     @Override
     public String toString() {
