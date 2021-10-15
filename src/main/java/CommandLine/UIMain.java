@@ -128,7 +128,7 @@ public class UIMain {
         System.out.println("Please enter the password for this LogIn");
         logInInfo[1] = reader.readLine();
         // Encrypt their password before we store it.
-        String encrypted = EncryptPrivInfo.encryptInfo(logInInfo[1], this.userKey);
+        String encrypted = EncryptPrivInfo.encryptInfo(this.userKey, logInInfo[1]);
 
         System.out.println("Please enter the webpage associated with this LogIn");
         logInInfo[2] = reader.readLine();

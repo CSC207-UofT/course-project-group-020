@@ -98,10 +98,13 @@ public class PasswordManagerProgram {
 
             for (PrivateInfo b: copy){
 
-                if (b instanceof LogIn) {
-                    System.out.println(b.GetInfo("password")); // This should be the encrypted password
-                    b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
-                }
+//                    String str = b.GetInfo("password");
+
+                    if (b instanceof LogIn) {
+                        System.out.println(b.GetInfo("password")); // This should be the encrypted password
+                        System.out.println(uiMain.userKey);
+                        b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
+                    }
 
             }
 

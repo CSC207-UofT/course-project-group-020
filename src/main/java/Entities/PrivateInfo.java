@@ -37,7 +37,7 @@ public abstract class PrivateInfo {
             return info.get(attribute);
         }
         else {
-            return("This datatype does not have " + attribute + " attribute");
+            return("This datatype does not have the " + attribute + " attribute");
 
             // RAISE AN ERROR HERE
         }
@@ -51,7 +51,7 @@ public abstract class PrivateInfo {
 
         } else {
 
-            System.out.println("This datatype does not have the " + attribute + "attribute");
+            System.out.println("This datatype does not have the " + attribute + " attribute");
             return false;
         }
     }

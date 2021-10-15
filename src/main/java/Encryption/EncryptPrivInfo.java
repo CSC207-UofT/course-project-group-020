@@ -50,4 +50,11 @@ public class EncryptPrivInfo {
             return null;
         }
     }
+
+    public static void main(String[] args) {
+        String str = encryptInfo("123", "cxzvbxcv");
+
+        System.out.println(str);
+        System.out.println(decryptInfo("123", str));
+    }
 }

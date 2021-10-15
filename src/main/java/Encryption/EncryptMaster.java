@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptMaster {
 
     private static final Charset utf_8 = StandardCharsets.UTF_8;
-    private static final String OUTPUT_FORMAT = "%-20s:%s";
     private static final String ALGO = "SHA3-256"; //"SHA-256"; --> for SHA-2 etc...
 
     public static String encryptMaster(String to_encrypt) {
