@@ -3,10 +3,14 @@ package PasswordManagerProgram;
 import Account.Account;
 import Account.AccountManager;
 import CommandLine.UIMain;
+import Encryption.EncryptPrivInfo;
 import Entities.LogIn;
+import Entities.PrivateInfo;
 import Entities.PrivateInfoManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 // TODO: Update README.md
 
@@ -89,7 +93,19 @@ public class PasswordManagerProgram {
     private static void executeAction(UIMain uiMain, String requestedAction, PrivateInfoManager vault)
     throws IOException{
         if (requestedAction.equals("printVault")){
-            System.out.println(vault.toString());
+
+            ArrayList<PrivateInfo> copy = vault.getCopy();
+
+            for (PrivateInfo b: copy){
+
+                if (b instanceof LogIn) {
+                    System.out.println(b.GetInfo("password")); // This should be the encrypted password
+                    b.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.userKey, b.GetInfo("password")));
+                }
+
+            }
+
+            System.out.println(copy.toString());
         }
         else if (requestedAction.equals("betaVersion")) {
             System.out.println("Sorry, that feature has not been implemented in the beta.");

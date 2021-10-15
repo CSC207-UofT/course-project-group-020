@@ -5,7 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EncryptPrivInfo {
 
-    public String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
+    public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
         try {
             byte[] KeyData = key.getBytes();
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
@@ -29,7 +29,7 @@ public class EncryptPrivInfo {
         }
     }
 
-    public String decryptInfo(String key, String encrypted_text){
+    public static String decryptInfo(String key, String encrypted_text){
         try{
             byte[] bb = new byte[encrypted_text.length()];
 

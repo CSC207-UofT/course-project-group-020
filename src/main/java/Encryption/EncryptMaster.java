@@ -12,7 +12,7 @@ public class EncryptMaster {
     private static final String OUTPUT_FORMAT = "%-20s:%s";
     private static final String ALGO = "SHA3-256"; //"SHA-256"; --> for SHA-2 etc...
 
-    public static String encryptMaster(String to_encrypt){
+    public static String encryptMaster(String to_encrypt) {
         return bytesToHex(EncryptMaster.digest(to_encrypt.getBytes(utf_8), ALGO));
     }
 
@@ -34,7 +34,10 @@ public class EncryptMaster {
         return sb.toString();
     }
 
+
     public static void main(String[] args) {
 
+        String name = "Haykoooo";
+        System.out.println(encryptMaster(name));
     }
 }

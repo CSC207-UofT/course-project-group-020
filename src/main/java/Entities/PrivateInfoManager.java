@@ -53,6 +53,11 @@ public class PrivateInfoManager {
 
     }
 
+    public ArrayList<PrivateInfo> getCopy(){
+        return new ArrayList<>(this.vault);
+    }
+
+
     @Override
     public String toString(){
         return this.vault.toString();
