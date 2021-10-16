@@ -1,7 +1,7 @@
 # Progress Report
 
 ## Summary of Project
-We are creating a password manager that will allow multiple users to securely store their data in a designated account. Each user is associated with an account that must be authenticated with a password before signing in. Each account allows the user to create, search for, edit, and delete entries of their login information. In addition, the user can create notes, identification, and contacts with the same functionality as the login information entries. 
+We are creating a password manager that will allow multiple users to securely store their data in a designated account. Each user is associated with an account that must be authenticated with a password before signing in. Each account allows the user to create, search for, edit, and delete entries of their login information. In addition, the user can create notes, contacts, and store identification with the same functionality as the login information entries. 
 
 Within the CRC model, there are six entity classes. Account is an entity class which represents an account associated with a user. PrivateInfo is also an abstract entity class, and it is the parent class of the other four entity classes, which include: LogIn, Note, ID, and Contact. These subclasses each represent a type of entry that can be associated with an account. 
 
