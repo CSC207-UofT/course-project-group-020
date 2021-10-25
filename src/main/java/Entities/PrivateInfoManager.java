@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * <p>
  * Then, we add all of these PrivateInfo children objects to infoVault, and it keeps track of them.
  */
-
+// TODO: refactor this
 public class PrivateInfoManager {
 
     private final ArrayList<PrivateInfo> vault;
