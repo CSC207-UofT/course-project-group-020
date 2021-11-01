@@ -2,13 +2,15 @@ package Account;
 
 import Entities.PrivateInfoManager;
 
+import java.io.Serializable;
+
 /**
  * An entity class that represents a password manager account.
  * <p>
  * Each instance of Account contains a PrivateInfoManager which manages all the private information attached
  * to this Account.
  */
-public class Account {
+public class Account implements Serializable {
 
     private final String username;
     private final String masterPassword;

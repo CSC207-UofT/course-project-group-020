@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -12,7 +13,7 @@ import java.util.HashMap;
  * It contains a Hashmap in which the keys are Strings representing instance attributes of the subclass that inherits
  * the HashMap, it then maps the keys to Strings values that are the actual instance attributes of the subclass.
  */
-public abstract class PrivateInfo {
+public abstract class PrivateInfo implements Serializable {
 
     public HashMap<String, String> info;
 

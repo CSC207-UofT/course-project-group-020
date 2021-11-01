@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * Then, we add all of these PrivateInfo children objects to infoVault, and it keeps track of them.
  */
 
-public class PrivateInfoManager {
+public class PrivateInfoManager implements Serializable {
 
     private final ArrayList<PrivateInfo> vault;
 
