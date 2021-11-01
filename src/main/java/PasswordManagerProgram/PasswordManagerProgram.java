@@ -122,7 +122,6 @@ public class PasswordManagerProgram {
                         privateInfo.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.getKey(),
                                 privateInfo.GetInfo("password")));
                     }
-
                 }
 
                 System.out.println(vaultCopy);

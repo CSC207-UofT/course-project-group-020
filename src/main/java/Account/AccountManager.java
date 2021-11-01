@@ -52,5 +52,6 @@ public class AccountManager {
 
     public ArrayList<Account> getAccounts() {
         return accounts;
-    }
+    } // Change this because we cannot have getters and setters
+    // within use cases.
 }

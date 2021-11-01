@@ -1,5 +1,7 @@
 package Entities;
 
+import Encryption.EncryptPrivInfo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -23,13 +25,9 @@ import java.util.ArrayList;
  * <p>
  * Then, we add all of these PrivateInfo children objects to infoVault, and it keeps track of them.
  */
-<<<<<<< HEAD
 
 public class PrivateInfoManager implements Serializable {
-=======
 // TODO: refactor this
-public class PrivateInfoManager {
->>>>>>> f9c69bd01af4121782799ef84d1264705e3eea8d
 
     private final ArrayList<PrivateInfo> vault;
 
@@ -43,9 +41,7 @@ public class PrivateInfoManager {
      * @param newInfo The new info that is to be added to the ArrayList info
      */
     public void addInfo(PrivateInfo newInfo) {
-
         this.vault.add(newInfo);
-
     }
 
     /**
@@ -53,11 +49,48 @@ public class PrivateInfoManager {
      *
      * @param toBeDeleted This is the parameter that is to be deleted from the Arraylist and thus from our system.
      */
-
     // Java warns that this method is never used, we will not fix this style warning because we will be calling this
     // method in our final program (non-beta).
     public void deleteInfo(PrivateInfo toBeDeleted) {
         this.vault.remove(toBeDeleted);
+    }
+
+    /**
+     * This method, for whatever subclass, is responsible for changing the information of
+     * the necessary attribute. Works with any subclass. It inputs the attribute to be changed,
+     * and the new value to be changed to. If the subclass does not have the given attribute,
+     * an error message is returned.
+     *
+     * @param attribute A string input to indicate which attribute to change
+     * @param newValue  A string input that is the new value that is to be changed to
+     */
+    public void FindChangeInfo(String attribute, String newValue) {
+
+        for (PrivateInfo info : this.vault) {
+            if (info instanceof LogIn) {
+                this.ChangeInfo("password", EncryptPrivInfo.encryptInfo(uiMain.getKey(),
+                        info.GetInfo("password")));
+            }
+
+            if (info.containsKey(attribute)) {
+                info.put(attribute, newValue);
+
+            } else {
+                System.out.println("This datatype does not have the " + attribute + " attribute");
+            }
+        }
+    }
+
+    public void changeInfo(String attributeToChange, String newValue, PrivateInfo inputInfo){
+
+        for (PrivateInfo myInfo: this.vault){
+
+            if (myInfo == inputInfo){
+                myInfo.SetInfo(attributeToChange, newValue);
+            }
+
+        }
+
     }
 
 
@@ -73,6 +106,7 @@ public class PrivateInfoManager {
 
     /**
      * The purpose of this method is to turn the Arraylist vault, stored in this.Vault, into a string
+     *
      * @return Returns the string representation of Arraylist stored in this.Vault
      */
 
