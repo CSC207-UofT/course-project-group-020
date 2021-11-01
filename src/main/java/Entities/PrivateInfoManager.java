@@ -23,8 +23,13 @@ import java.util.ArrayList;
  * <p>
  * Then, we add all of these PrivateInfo children objects to infoVault, and it keeps track of them.
  */
+<<<<<<< HEAD
 
 public class PrivateInfoManager implements Serializable {
+=======
+// TODO: refactor this
+public class PrivateInfoManager {
+>>>>>>> f9c69bd01af4121782799ef84d1264705e3eea8d
 
     private final ArrayList<PrivateInfo> vault;
 
