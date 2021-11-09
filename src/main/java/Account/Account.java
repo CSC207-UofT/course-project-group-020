@@ -12,6 +12,8 @@ import java.io.Serializable;
  */
 public class Account implements Serializable {
 
+    private static final long serialVersionUID = 123456789;
+
     private final String username;
     private final String masterPassword;
     private final PrivateInfoManager vault;

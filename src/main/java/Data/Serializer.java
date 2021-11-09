@@ -11,7 +11,6 @@ import java.io.*;
 public class Serializer {
 
     public Serializer(){
-
         // We would iterate over each account in accounts and make a separate .txt file to save them
     }
 
