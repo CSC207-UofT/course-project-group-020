@@ -6,7 +6,7 @@ package Gateways;
      *
      */
 
-    public class UserInput {
+    public class UndecidedName {
         // Assume that the main function already either created or deserialized an instance of AccountManager
 
 
