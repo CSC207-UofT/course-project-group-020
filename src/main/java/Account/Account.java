@@ -13,6 +13,9 @@ import java.io.Serializable;
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 123456789;
+    //Used in the serialization/deserialization process to ensure that a loaded class and
+    //serialized object are compatible. Specifying it is important to ensure functionality
+    //between compilers as it is quite sensitive to change if left default.
 
     private final String username;
     private final String masterPassword;
