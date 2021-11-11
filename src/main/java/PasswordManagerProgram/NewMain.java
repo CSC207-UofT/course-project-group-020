@@ -7,7 +7,9 @@ public class NewMain {
         // 1. Launch the local web server for UI
 
 
-        // 2.
+        // 2. Run the main while loop
+
+        boolean run = true;
 
 
     }

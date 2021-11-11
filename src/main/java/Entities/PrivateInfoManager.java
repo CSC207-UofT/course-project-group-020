@@ -43,6 +43,19 @@ public class PrivateInfoManager implements Serializable {
 
     }
 
+    public PrivateInfo getPrivateInfo(PrivateInfo wantedPrivateInfo){
+
+        int i = 0;
+        for (PrivateInfo privateInfo: this.vault){
+            if(privateInfo == wantedPrivateInfo){
+                break;
+            }
+            i += 1;
+        }
+
+        return this.vault.get(i);
+    }
+
     /**
      * This is a method responsible for deleting a specific info from our system, such as a LogIn, ID, Contact or Note.
      *
@@ -55,6 +68,14 @@ public class PrivateInfoManager implements Serializable {
         this.vault.remove(toBeDeleted);
     }
 
+    public void editInfo(PrivateInfo toBeEdited, String attributeToChange, String newValue){
+
+        PrivateInfo currentPrivateInfo = getPrivateInfo(toBeEdited);
+
+        currentPrivateInfo.SetInfo(attributeToChange, newValue);
+
+    }
+
 
     /**
      * The purpose of this method is to provide with a copy of the vault to be used in outer classes.
@@ -64,6 +85,11 @@ public class PrivateInfoManager implements Serializable {
     public ArrayList<PrivateInfo> getCopy() {
 
         return new ArrayList<PrivateInfo>(this.vault);
+    }
+
+    public ArrayList<PrivateInfo> getVault(){
+        return this.vault;
+
     }
 
     /**

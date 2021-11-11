@@ -1,6 +1,8 @@
 package Account;
 
 import Encryption.EncryptMaster;
+import Entities.PrivateInfo;
+import Entities.PrivateInfoManager;
 
 import java.util.ArrayList;
 
@@ -32,8 +34,13 @@ public class AccountManager {
         return account;
     }
 
-    public void deleteAccount() {
-        // TODO: delete Account from accounts ArrayList
+
+    /**
+     * Removes the account from the system.
+     * @param accountToBeDeleted The account that is to be deleted from the system.
+     */
+    public void deleteAccount(Account accountToBeDeleted) {
+        this.accounts.remove(accountToBeDeleted);
 
     }
 
@@ -54,4 +61,58 @@ public class AccountManager {
         return accounts;
     } // Change this because we cannot have getters and setters
     // within use cases.
+
+    public Account getAccount(Account wantedAccount){
+
+        int i = 0;
+        for (Account account: this.accounts){
+            if (account == wantedAccount){
+                break;
+            }
+            i += 1;
+        }
+        return this.accounts.get(i);
+
+
+    }
+
+    public Account getAccountByUsername(String usernameOfWantedAccount){
+        int i = 0;
+        for (Account account: this.accounts){
+
+            if (account.getUsername().equals(usernameOfWantedAccount)){
+                break;
+            }
+            i += 1;
+        }
+
+        return this.accounts.get(i);
+
+    }
+
+
+    public PrivateInfoManager getPrivateInfoManager(Account wantedAccount){
+
+        Account currentAccount = getAccount(wantedAccount);
+        return currentAccount.getVault();
+
+    }
+
+    public void addInfo(PrivateInfo newInfo, Account accountToBeAddedTo){
+
+        Account currentAccount = getAccount(accountToBeAddedTo);
+
+        currentAccount.getVault().addInfo(newInfo);
+
+
+    }
+
+    public void editInfo(PrivateInfo infoToBeChanged, Account accountToBeChangedIn,
+                         String attributeToChange, String newValue){
+
+        PrivateInfoManager currentPrivateInfoManager = getPrivateInfoManager(accountToBeChangedIn);
+
+        currentPrivateInfoManager.editInfo(infoToBeChanged, attributeToChange, newValue);
+
+    }
 }
