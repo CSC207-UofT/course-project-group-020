@@ -28,8 +28,10 @@ public class AccountManager {
      */
 
     public Account createAccount(String username, String masterPassword) {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
-        Account account = new Account(username, encryptedMasterPassword);
+        //TODO: Change back
+
+        //String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
+        Account account = new Account(username, masterPassword);
         this.accounts.add(account);
         return account;
     }
@@ -45,6 +47,7 @@ public class AccountManager {
     }
 
     public Account attemptLogIn(String username, String masterPassword) {
+        //TODO: Change to be just reading change
         String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
         // Search for an Account with these credentials within accounts.
         for (Account account : accounts) {
@@ -113,6 +116,12 @@ public class AccountManager {
         PrivateInfoManager currentPrivateInfoManager = getPrivateInfoManager(accountToBeChangedIn);
 
         currentPrivateInfoManager.editInfo(infoToBeChanged, attributeToChange, newValue);
+
+    }
+
+    public static void main(String[] args) {
+        AccountManager acc = new AccountManager();
+        acc.createAccount("Ryan", "Zhao");
 
     }
 }
