@@ -119,10 +119,9 @@ public class PasswordManagerProgram {
                 for (PrivateInfo privateInfo : vaultCopy) {
 
                     if (privateInfo instanceof LogIn) {
-                        privateInfo.ChangeInfo("password", EncryptPrivInfo.decryptInfo(uiMain.getKey(),
+                        privateInfo.SetInfo("password", EncryptPrivInfo.decryptInfo(uiMain.getKey(),
                                 privateInfo.GetInfo("password")));
                     }
-
                 }
 
                 System.out.println(vaultCopy);
@@ -130,7 +129,7 @@ public class PasswordManagerProgram {
                 // Encrypt back for storage
                 for (PrivateInfo privateInfo : vaultCopy) {
                     if (privateInfo instanceof LogIn) {
-                        privateInfo.ChangeInfo("password", EncryptPrivInfo.encryptInfo(uiMain.getKey(),
+                        privateInfo.SetInfo("password", EncryptPrivInfo.encryptInfo(uiMain.getKey(),
                                 privateInfo.GetInfo("password")));}}
 
                 break;

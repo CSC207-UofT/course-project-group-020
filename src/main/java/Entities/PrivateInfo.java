@@ -26,7 +26,8 @@ public abstract class PrivateInfo implements Serializable {
     }
 
     /**
-     * This method, whatever subclass, it returns its appropriate information;
+     * This method returns the value of the attribute.
+     *
      * For example, for child class LogIn, it would return either username, password, webpage, or url.
      * Input, could be a string, 'username', 'password', etc. and based on that, using .get(), it will
      * return the appropriate value. Furthermore, if that child class does not have that attribute,
@@ -36,32 +37,26 @@ public abstract class PrivateInfo implements Serializable {
      */
 
     public String GetInfo(String attribute) {
-
         if (info.containsKey(attribute)) {
             return info.get(attribute);
-        } else {
+        }
+        // TODO: Instead of returning these strings, raise a custom exception.
+        // Do this for every place in the code that can raise an exception.
+        else {
             return ("This datatype does not have the " + attribute + " attribute");
 
         }
     }
-
-    /**
-     * This method, for whatever subclass, is responsible for changing the information of
-     * the necessary attribute. Works with any subclass. It inputs the attribute to be changed,
-     * and the new value to be changed to. If the subclass does not have the given attribute,
-     * an error message is returned.
-     *
-     * @param attribute A string input to indicate which attribute to change
-     * @param newValue A string input that is the new value that is to be changed to
-     */
-    public void ChangeInfo(String attribute, String newValue) {
-
-        if (info.containsKey(attribute)) {
-            info.put(attribute, newValue);
-
-        } else {
-            System.out.println("This datatype does not have the " + attribute + " attribute");
+    
+    public String SetInfo(String attributeToChange, String newValue) {
+        if (info.containsKey(attributeToChange)){
+            info.put(attributeToChange, newValue);
         }
+        // TODO: Same as above TODO.
+        else{
+            return "Error";
+        }
+        return null; // remove this once we fix the code
     }
 
     /**
