@@ -40,6 +40,8 @@ We can take advantage of the Factory Method design pattern by having the parent 
 
 
 ### Open Questions
+Some open questions we had were:
+- What things should we keep in mind if we want to ensure our program is scalable? More specifically, if we wanted to grow the types of PrivateInfo our program has, how should we structure/restructure our current entity classes?
 
 ### What Has Worked
 
