@@ -39,6 +39,8 @@ Furthermore, there are not big jumps from outer layers to inner layers. Interfac
 
 ### What Has Worked
 
+What has worked so far is having an inheritance relationship between PrivateInfo and LogIn, ID, Contact, and Note. In Phase 0, we only implemented LogIn, so we could not reap the benefits of the inheritance relationships, but now that every subclass has been implemented, we are able to use polymorphism with respect to PrivateInfo. For example, all the methods to add private info, delete private info, and so on in PrivateInfoManager take a PrivateInfo object as a parameter. This way, we don’t need to differentiate between LogIn, ID, and so on, as long as we know it is a PrivateInfo object. 
+
 ### Individual Contributions
 
 Hayk and Yousef worked to add new logins, and also implemented the subclasses of PrivateInfo that had not been implemented in Phase 0. They also implemented the functionality to add, edit, and delete entries in a vault. For several features of this project, Hayk (hayk-bvb) and Yousuf (yousufhassan) coded together using the IntelliJ CodeWithMe feature. As a result, several of Hayk's commits include Yousuf's contributions and several of Yousuf's commits include Hayk's contributions. Cliff and Ryan are working on the springTest branch to create the endpoints that connect the front end and the back end of the program. Kelian and Patricia worked together on data serialization. All the group members plan on refactoring the code to get rid of code smells and dependency issues. We also want to add more documentation and tests. 
