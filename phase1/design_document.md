@@ -30,8 +30,15 @@ Furthermore, there are not big jumps from outer layers to inner layers. Interfac
 
 ### SOLID Principles
 
+Our program follows the Single Responsbility Principle because each class only has one responsibility, and it is laid out in the name of the classes. For example, our original design only had one Encryption class to encrypt the private info, but we decided to split the class into two classes, EncryptMasterPasword and EncryptPrivInfo because they perform different function in that they encrypt different objects, and these objects require different encryption systems so it made sense to put them in two different classes. 
+
+For the Open/Closed Principle, since our program generally follows Clean Architecture, this has made the program easy for extension, but closed for modification. At the outer layers, the client only has access to the controller and other interface adapters, but they are unable to reach the use cases and the entities by bypassing these interface adapter classes. The core of the program: the entities, are protected by all the layers of Clean Architecutre.
+
+For Liskov’s Substitution Principle, the only inheritance relationship we have is for PrivateInfo and its subclasses. This inheritance relationship makes sense because the subclasses share a “is a” relationship to PrivateInfo. In the PrivateInfoManager, we define methods that provide functionality such as adding info and deleting info, and no matter which subclass we use, such as LogIn or Note, they will not affect the performance of the program differently. 
+
 ### Packaging Strategies
 
+We decided to Package by Component. The Encryption classes encapsulates a set of related functions, which are encryption. Similarly, the classes related to the Accounts, namely Account and AccountManager, are also in the same package. We found that this organization structure made the most intuitive sense for organizing the program, as the classes that performed related functions were grouped together. 
 
 ### Design Patterns
 The Factory Method design pattern is a good solution for when a framework needs to standardize the architectural model for a range of applications. Using this design pattern, we will create an interface that provides the outline for creating an object. However, the class that implements the interface will not be instantiated, one of the subclasses will be!
