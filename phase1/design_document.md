@@ -34,6 +34,10 @@ Furthermore, there are not big jumps from outer layers to inner layers. Interfac
 
 
 ### Design Patterns
+The Factory Method design pattern is a good solution for when a framework needs to standardize the architectural model for a range of applications. Using this design pattern, we will create an interface that provides the outline for creating an object. However, the class that implements the interface will not be instantiated, one of the subclasses will be!
+So, why is this relevant to our program? Well, our program has one main entity, PrivateInformation, but there are many different types (such as a LogIn, Contact, Notes, etc). These subclass entities share some similarities, but also have unique attributes and methods associated with them. For example, a LogIn has only a username and password (so, its methods are based around those two attributes), but Notes have an id, title, and content (so, its methods are based around those). At the same time, they both objects need to be able to represent themselves as strings, they need to be able to be encrypted and decrypted, and they share some other common functionalities as well.
+We can take advantage of the Factory Method design pattern by having the parent class entity PrivateInformation implement an interface that will have methods that are common to each subclass of PrivateInformation. However, we will be instantiating one of the subclasses (LogIn, Contact, Notes) depending on what object we want to create.
+
 
 ### Open Questions
 
