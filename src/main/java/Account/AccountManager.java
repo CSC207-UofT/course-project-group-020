@@ -1,6 +1,6 @@
 package Account;
 
-import Encryption.EncryptMaster;
+import Encryption.MasterEncryption;
 import Entities.PrivateInfo;
 import Entities.PrivateInfoManager;
 
@@ -29,7 +29,7 @@ public class AccountManager {
      */
 
     public void createAccount(String username, String masterPassword) {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
+        String encryptedMasterPassword = MasterEncryption.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
         PrivateInfoManager privInfoAccount = new PrivateInfoManager(account);
         this.accounts.add(privInfoAccount);

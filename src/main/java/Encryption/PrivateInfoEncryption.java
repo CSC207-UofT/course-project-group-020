@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
  */
 
-public class EncryptPrivInfo {
+public class PrivateInfoEncryption {
 
     /**
      * This is the encryption method that takes in the key and string to be encrypted.
