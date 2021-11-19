@@ -2,9 +2,8 @@
  * This file contains JUnit test cases for EncryptMaster.java/
  */
 
-import Account.Account;
 import Account.AccountManager;
-import Encryption.EncryptMaster;
+import Encryption.MasterEncryption;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class EncryptMasterTest {
      */
     @Test
     public void testIfEncryptedAndStoredMasterPasswordsMatch() {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(myMasterPassword);
+        String encryptedMasterPassword = MasterEncryption.encryptMaster(myMasterPassword);
         String storedMasterPassword = accountManager.getAccounts().get(0).getAccount().getMasterPassword();
 
         assertEquals(encryptedMasterPassword, storedMasterPassword);
@@ -40,7 +39,7 @@ public class EncryptMasterTest {
      */
     @Test
     public void testEncryption() {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(myMasterPassword);
+        String encryptedMasterPassword = MasterEncryption.encryptMaster(myMasterPassword);
 
         assert (!myMasterPassword.equals(encryptedMasterPassword));
 
