@@ -45,7 +45,7 @@ public class AccountManager {
 
     }
 
-<<<<<<< HEAD
+
 //    public Account attemptLogIn(String username, String masterPassword) {
 //        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
 //        // Search for an Account with these credentials within accounts.
@@ -61,24 +61,9 @@ public class AccountManager {
 
     public ArrayList<PrivateInfoManager> getAccounts() {
         return this.accounts;
-=======
-    public Account attemptLogIn(String username, String masterPassword) {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
-        // Search for an Account with these credentials within accounts.
-        for (Account account : accounts) {
-            if (account.getUsername().equals(username) && account.getMasterPassword().equals(encryptedMasterPassword)) {
-                return account;
-            }
-        }
-        // If no account was found
-        System.out.println("The username or password is incorrect.");
-        return null;
     }
 
-    public ArrayList<Account> getAccounts() {
-        return accounts;
->>>>>>> 101e3f4a73a14e413c0f7f13c855114fe4cfd609
-    } // Change this because we cannot have getters and setters
+    // Change this because we cannot have getters and setters
     // within use cases.
 
     public Account getAccount(PrivateInfoManager wantedAccount){
@@ -152,16 +137,11 @@ public class AccountManager {
                          String attributeToChange, String newValue){
 
         int i = 0;
-
         for (PrivateInfoManager account: this.accounts){
             if (account.getAccount() == accountToBeChangedIn){
-                break;
+                this.accounts.get(i).editInfo(infoToBeChanged, attributeToChange, newValue);
             }
-
             i += 1;
-
-            this.accounts.get(i).editInfo(infoToBeChanged, attributeToChange, newValue);
         }
-
     }
 }
