@@ -4,6 +4,7 @@ import Account.Account;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * This class is responsible for storing and managing all child instances of PrivateInfo;
@@ -47,7 +48,6 @@ public class PrivateInfoManager implements Serializable {
      */
     public void addInfo(PrivateInfo newInfo) {
         this.vault.add(newInfo);
-
     }
 
     public Account getAccount(){

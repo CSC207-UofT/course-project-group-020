@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * An abstract class that is a parent to the following classes:
@@ -16,12 +17,13 @@ import java.util.HashMap;
 public abstract class PrivateInfo implements Serializable {
 
     public HashMap<String, String> info;
+    public String id;
 
     /**
      * This is the basic constructor for PrivateInfo. It is solely responsible for instantiating an empty Hashmap.
      */
     public PrivateInfo() {
-
+        this.id = UUID.randomUUID().toString();
         info = new HashMap<>();
     }
 
