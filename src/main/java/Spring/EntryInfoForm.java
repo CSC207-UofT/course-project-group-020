@@ -1,8 +1,8 @@
 package Spring;
 
-public class CreateEntryForm {
+public class EntryInfoForm {
     public String username;
-    public String poi;
+    public String password;
     public String key;
     public String type;
     public String[] data;

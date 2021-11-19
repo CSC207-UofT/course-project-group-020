@@ -1,6 +1,6 @@
 package Spring;
 
-public class CreateUserForm {
+public class UserInfoForm {
     public String username;
     public String password;
 }

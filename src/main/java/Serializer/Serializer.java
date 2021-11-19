@@ -47,7 +47,16 @@ public class Serializer {
 
         } catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
+            return null;
         }
-        return null;
+    }
+
+    public static void main(String[] args) {
+//        Account newAcc = new Account("Ryan", "Zhao");
+//
+//        Serializer.serialize(newAcc);
+        Account dAcc = Serializer.deserialize("Ryan");
+
+        System.out.println(dAcc.getUsername());
     }
 }
