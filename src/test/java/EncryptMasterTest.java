@@ -30,7 +30,7 @@ public class EncryptMasterTest {
     @Test
     public void testIfEncryptedAndStoredMasterPasswordsMatch() {
         String encryptedMasterPassword = EncryptMaster.encryptMaster(myMasterPassword);
-        String storedMasterPassword = accountManager.getAccounts().get(0).getMasterPassword();
+        String storedMasterPassword = accountManager.getAccounts().get(0).getAccount().getMasterPassword();
 
         assertEquals(encryptedMasterPassword, storedMasterPassword);
     }

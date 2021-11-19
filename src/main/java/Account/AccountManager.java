@@ -16,10 +16,11 @@ import java.util.ArrayList;
  * It has an instance attribute called accounts that is an ArrayList that
  */
 public class AccountManager {
-    private ArrayList<Account> accounts;
+    public ArrayList<PrivateInfoManager> accounts;
+    private Throwable NullPointerException;
 
     public AccountManager() {
-        accounts = new ArrayList<Account>();
+        accounts = new ArrayList<PrivateInfoManager>();
     }
 
     /**
@@ -27,11 +28,11 @@ public class AccountManager {
      * @param masterPassword The master password associated with this Account
      */
 
-    public Account createAccount(String username, String masterPassword) {
+    public void createAccount(String username, String masterPassword) {
         String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
-        this.accounts.add(account);
-        return account;
+        PrivateInfoManager privInfoAccount = new PrivateInfoManager(account);
+        this.accounts.add(privInfoAccount);
     }
 
 
@@ -39,70 +40,92 @@ public class AccountManager {
      * Removes the account from the system.
      * @param accountToBeDeleted The account that is to be deleted from the system.
      */
-    public void deleteAccount(Account accountToBeDeleted) {
+    public void deleteAccount(PrivateInfoManager accountToBeDeleted) {
         this.accounts.remove(accountToBeDeleted);
 
     }
 
-    public Account attemptLogIn(String username, String masterPassword) {
-        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
-        // Search for an Account with these credentials within accounts.
-        for (Account account : accounts) {
-            if (account.getUsername().equals(username) && account.getMasterPassword().equals(encryptedMasterPassword)) {
-                return account;
-            }
-        }
-        // If no account was found
-        System.out.println("Sorry, we could not find an account with those credentials.");
-        return null;
-    }
+//    public Account attemptLogIn(String username, String masterPassword) {
+//        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
+//        // Search for an Account with these credentials within accounts.
+//        for (Account account : accounts) {
+//            if (account.getUsername().equals(username) && account.getMasterPassword().equals(encryptedMasterPassword)) {
+//                return account;
+//            }
+//        }
+//        // If no account was found
+//        System.out.println("Sorry, we could not find an account with those credentials.");
+//        return null;
+//    }
 
-    public ArrayList<Account> getAccounts() {
-        return accounts;
+    public ArrayList<PrivateInfoManager> getAccounts() {
+        return this.accounts;
     } // Change this because we cannot have getters and setters
     // within use cases.
 
-    public Account getAccount(Account wantedAccount){
+    public Account getAccount(PrivateInfoManager wantedAccount){
 
         int i = 0;
-        for (Account account: this.accounts){
+        for (PrivateInfoManager account: this.accounts){
             if (account == wantedAccount){
                 break;
             }
             i += 1;
         }
-        return this.accounts.get(i);
+        return this.accounts.get(i).getAccount();
 
 
     }
 
-    public Account getAccountByUsername(String usernameOfWantedAccount){
+    public Account getAccountByUsername(String usernameOfWantedAccount) throws Throwable{
         int i = 0;
-        for (Account account: this.accounts){
+        for (PrivateInfoManager account: this.accounts){
 
-            if (account.getUsername().equals(usernameOfWantedAccount)){
+            if (account.getAccount().getUsername().equals(usernameOfWantedAccount)){
+                return this.accounts.get(i).getAccount();
+            }
+            i += 1;
+        }
+        throw NullPointerException; // TODO: Replace with an exception (also do this everywhere else)
+    }
+
+    public PrivateInfoManager getPrivateInfoManagerByUsername (String usernameOfWantedAccount) throws Throwable
+    {
+        int i = 0;
+        for (PrivateInfoManager account: this.accounts){
+
+            if (account.getAccount().getUsername().equals(usernameOfWantedAccount)){
+                return this.accounts.get(i);
+            }
+            i += 1;
+        }
+        throw NullPointerException; // TODO: Replace with an exception (also do this everywhere else)
+    }
+
+
+    public PrivateInfoManager getPrivateInfoManager(PrivateInfoManager wantedPrivateInfoManager){
+
+        int i = 0;
+        for (PrivateInfoManager account: this.accounts){
+            if (account == wantedPrivateInfoManager){
                 break;
             }
             i += 1;
         }
-
         return this.accounts.get(i);
 
     }
 
-
-    public PrivateInfoManager getPrivateInfoManager(Account wantedAccount){
-
-        Account currentAccount = getAccount(wantedAccount);
-        return currentAccount.getVault();
-
-    }
-
     public void addInfo(PrivateInfo newInfo, Account accountToBeAddedTo){
+        int i = 0;
 
-        Account currentAccount = getAccount(accountToBeAddedTo);
+        for (PrivateInfoManager account: this.accounts){
+            if (account.getAccount() == accountToBeAddedTo){
+                this.accounts.get(i).addInfo(newInfo);
+            }
+            i += 1;
 
-        currentAccount.getVault().addInfo(newInfo);
+        }
 
 
     }
@@ -110,9 +133,17 @@ public class AccountManager {
     public void editInfo(PrivateInfo infoToBeChanged, Account accountToBeChangedIn,
                          String attributeToChange, String newValue){
 
-        PrivateInfoManager currentPrivateInfoManager = getPrivateInfoManager(accountToBeChangedIn);
+        int i = 0;
 
-        currentPrivateInfoManager.editInfo(infoToBeChanged, attributeToChange, newValue);
+        for (PrivateInfoManager account: this.accounts){
+            if (account.getAccount() == accountToBeChangedIn){
+                break;
+            }
+
+            i += 1;
+
+            this.accounts.get(i).editInfo(infoToBeChanged, attributeToChange, newValue);
+        }
 
     }
 }

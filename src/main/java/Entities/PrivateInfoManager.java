@@ -1,5 +1,7 @@
 package Entities;
 
+import Account.Account;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -27,9 +29,15 @@ import java.util.ArrayList;
 public class PrivateInfoManager implements Serializable {
 
     private final ArrayList<PrivateInfo> vault;
+    public Account account;
+    private static final long serialVersionUID = 123456789;
+    //Used in the serialization/deserialization process to ensure that a loaded class and
+    //serialized object are compatible. Specifying it is important to ensure functionality
+    //between compilers as it is quite sensitive to change if left default.
 
-    public PrivateInfoManager() {
+    public PrivateInfoManager(Account account) {
         vault = new ArrayList<>();
+        this.account = account;
     }
 
     /**
@@ -38,8 +46,14 @@ public class PrivateInfoManager implements Serializable {
      * @param newInfo The new info that is to be added to the ArrayList info
      */
     public void addInfo(PrivateInfo newInfo) {
-
         this.vault.add(newInfo);
+
+    }
+
+    public Account getAccount(){
+
+        return this.account;
+
 
     }
 
