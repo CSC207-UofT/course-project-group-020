@@ -53,7 +53,7 @@ public class AccountManager {
             }
         }
         // If no account was found
-        System.out.println("Sorry, we could not find an account with those credentials.");
+        System.out.println("The username or password is incorrect.");
         return null;
     }
 
