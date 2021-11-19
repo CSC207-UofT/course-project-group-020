@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * choose the type of encryption and character use.
  */
 
-public class EncryptMaster {
+public class MasterEncryption {
 
     private static final Charset utf_8 = StandardCharsets.UTF_8;
     private static final String ALGO = "SHA3-256"; //"SHA-256"; --> for SHA-2 etc...
@@ -25,7 +25,7 @@ public class EncryptMaster {
      * @param to_encrypt This is the string that is to be encrypted
      */
     public static String encryptMaster(String to_encrypt) {
-        return bytesToHex(EncryptMaster.digest(to_encrypt.getBytes(utf_8), ALGO));
+        return bytesToHex(MasterEncryption.digest(to_encrypt.getBytes(utf_8), ALGO));
     }
 
     /**
