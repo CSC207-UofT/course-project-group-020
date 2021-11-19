@@ -68,6 +68,8 @@ public abstract class PrivateInfo implements Serializable {
         return this.info.toString();
     }
 
+    public abstract PrivateInfo decrypt(String key);
+
 }
 
 
