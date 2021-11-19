@@ -1,6 +1,7 @@
 import Account.Account;
 import Account.AccountManager;
 import Entities.LogIn;
+import Entities.PrivateInfoManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,29 +11,27 @@ import org.junit.Test;
  */
 
 public class PrivateInfoTest {
-
-
         String myMasterPassword = "Ilikedogsalot";
         AccountManager accountManager = new AccountManager();
 
         @Before
         public void setUp(){this.accountManager.createAccount("hayknazaryan", myMasterPassword);}
 
-    @Test
-    public void TestAddInfo(){
+        @Test
+        public void TestAddInfo() throws Throwable {
+                LogIn NewLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
+                PrivateInfoManager currentPrivateInfoManager = accountManager.getPrivateInfoManagerByUsername("hayknazaryan");
 
-            LogIn NewLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
+                Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
 
-            Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
-
-            accountManager.addInfo(NewLogIn, currentAccount);
+                accountManager.addInfo(NewLogIn, currentAccount);
 
 
-            assert (currentAccount.getVault().getVault().size() > 0);
-            assert (currentAccount.getVault().getPrivateInfo(NewLogIn).GetInfo("username").equals("hayknazaryan"));
-            assert (currentAccount.getVault().getPrivateInfo(NewLogIn).GetInfo("password").equals("Idontlikecats"));
-            assert (currentAccount.getVault().getPrivateInfo(NewLogIn).GetInfo("webpage").equals("instagram"));
-            assert (currentAccount.getVault().getPrivateInfo(NewLogIn).GetInfo("url").equals("insta"));
+                assert (currentPrivateInfoManager.getVault().size() > 0);
+                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("username").equals("hayknazaryan"));
+                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("password").equals("Idontlikecats"));
+                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("webpage").equals("instagram"));
+                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("url").equals("insta"));
 
 
 

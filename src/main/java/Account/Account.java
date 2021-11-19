@@ -12,14 +12,8 @@ import java.io.Serializable;
  */
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 123456789;
-    //Used in the serialization/deserialization process to ensure that a loaded class and
-    //serialized object are compatible. Specifying it is important to ensure functionality
-    //between compilers as it is quite sensitive to change if left default.
-
     private final String username;
     private final String masterPassword;
-    private final PrivateInfoManager vault;
 
     /**
      * @param username       The username of this password manager account
@@ -28,7 +22,6 @@ public class Account implements Serializable {
     public Account(String username, String masterPassword) {
         this.username = username;
         this.masterPassword = masterPassword;
-        this.vault = new PrivateInfoManager();
     }
 
     /**
@@ -51,8 +44,8 @@ public class Account implements Serializable {
      * A getter method to get a copy of this account's vault
      * @return Returns a copy of this account's vault, which is an instance of PrivateInfoManager
      */
-    public PrivateInfoManager getVault() {
-        return this.vault;
-    }
+//    public PrivateInfoManager getVault() {
+//        return this.vault;
+//    }
 }
 

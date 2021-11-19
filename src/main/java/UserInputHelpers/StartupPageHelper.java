@@ -1,6 +1,7 @@
 package UserInputHelpers;
 import Account.Account;
 import Account.AccountManager;
+import Entities.PrivateInfoManager;
 
 import java.io.IOException;
 
@@ -18,9 +19,9 @@ public class StartupPageHelper {
      */
     public Object LoginHelper(String username, String masterPassword, AccountManager accounts) {
 
-        for (Account account: accounts.getAccounts()){
+        for (PrivateInfoManager account: accounts.getAccounts()){
 
-            if (username.equals(account.getUsername()) && masterPassword.equals(account.getMasterPassword())){
+            if (username.equals(account.getAccount().getUsername()) && masterPassword.equals(account.getAccount().getMasterPassword())){
                 return account;
             }
         }
