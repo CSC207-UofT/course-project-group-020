@@ -19,6 +19,9 @@ public class Account implements Serializable {
     private final String masterPassword;
     // This defaults to an empty ArrayList.
     public ArrayList<PrivateInfo> vault;
+
+
+
     private Throwable IndexOutOfBoundsException;
 
     /**
