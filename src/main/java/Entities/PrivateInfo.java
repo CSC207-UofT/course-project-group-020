@@ -49,6 +49,8 @@ public abstract class PrivateInfo implements Serializable {
 
         }
     }
+
+    public String getId(){return this.id;}
     
     public String SetInfo(String attributeToChange, String newValue) {
         if (info.containsKey(attributeToChange)){
