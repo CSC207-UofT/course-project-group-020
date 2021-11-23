@@ -54,7 +54,6 @@ public class PrivateInfoManager implements Serializable {
 
         return this.account;
 
-
     }
 
     public PrivateInfo getPrivateInfo(PrivateInfo wantedPrivateInfo){

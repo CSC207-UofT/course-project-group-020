@@ -23,8 +23,8 @@ public class PrivateInfoEncryption {
      *
      */
     public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
-        try {
             byte[] KeyData = key.getBytes();
+        try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(Cipher.ENCRYPT_MODE, keyspec);
