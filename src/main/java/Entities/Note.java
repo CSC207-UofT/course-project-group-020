@@ -1,5 +1,7 @@
 package Entities;
 
+import Encryption.PrivateInfoEncryption;
+
 /**
  * This is a class that represents a Note of the user
  */
@@ -17,8 +19,15 @@ public class Note extends PrivateInfo {
         super();
         info.put("title", title);
         info.put("content", content);
+    }
 
+    @Override
+    public Note decrypt(String key) {
+        String dTitle = PrivateInfoEncryption.decryptInfo(key, info.get("username"));
+        String dContent = PrivateInfoEncryption.decryptInfo(key, info.get("passowrd"));
+        Note decryptedNote = new Note(dTitle, dContent);
 
+        return decryptedNote;
     }
 
 }

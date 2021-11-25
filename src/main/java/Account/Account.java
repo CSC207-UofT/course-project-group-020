@@ -31,6 +31,7 @@ public class Account implements Serializable {
     public Account(String username, String masterPassword) {
         this.username = username;
         this.masterPassword = masterPassword;
+        this.vault = new ArrayList<PrivateInfo>();
     }
 
     /**
@@ -64,17 +65,17 @@ public class Account implements Serializable {
     }
 
 
-    public void addInfo(PrivateInfo newInfo) {
+    public void addInfo(PrivateInfo newInfo) throws NullPointerException{
 
         this.vault.add(newInfo);
 
     }
 
-    public void editInfo(UUID infoId, String attributeToChange, String newValue) throws Throwable {
+    public void editInfo(String infoId, String attributeToChange, String newValue) throws Throwable {
 
         for (PrivateInfo info : this.vault) {
 
-            if (info.getId().equals(infoId.toString())) {
+            if (info.getId().equals(infoId)) {
                 info.SetInfo(attributeToChange, newValue);
 
             } else {
@@ -85,12 +86,12 @@ public class Account implements Serializable {
 
     }
 
-    public void deleteInfo(UUID infoId) {
+    public void deleteInfo(String infoId) throws NullPointerException{
 
         int i = 0;
 
         for (PrivateInfo info : this.vault) {
-            if (info.getId().equals(infoId.toString())) {
+            if (info.getId().equals(infoId)) {
                 break;
 
             }
@@ -112,9 +113,7 @@ public class Account implements Serializable {
 
             i += 1;
         }
-
         throw IndexOutOfBoundsException;
-
     }
 
 

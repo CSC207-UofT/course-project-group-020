@@ -18,5 +18,20 @@ public class PrivateInfoFactory {
         return new Note(data[0], data[1]);
     }
 
+    public static PrivateInfo createEntryByType(String type, String[] data) {
+        switch (type) {
+            case "Login":
+                return createLogin(data);
+            case "Contact":
+                return createContact(data);
+            case "ID":
+                return createID(data);
+            case "Note":
+                return createNote(data);
+            default:
+                return createNote(data); //TODO fix this to raise error
+
+        }
+    }
 
 }

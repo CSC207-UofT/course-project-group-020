@@ -1,5 +1,7 @@
 package Entities;
 
+import Encryption.PrivateInfoEncryption;
+
 /**
  * This class represents an ID of a user.
  */
@@ -23,6 +25,17 @@ public class ID extends PrivateInfo{
         info.put("IDExpirationDate", IDExpirationDate);
 
 
+    }
+
+
+    @Override
+    public ID decrypt(String key) {
+        String dType = PrivateInfoEncryption.decryptInfo(key, info.get("username"));
+        String dNum = PrivateInfoEncryption.decryptInfo(key, info.get("passowrd"));
+        String dExpir = PrivateInfoEncryption.decryptInfo(key, info.get("webpage"));
+        ID decryptedID = new ID(dType, dNum, dExpir);
+
+        return decryptedID;
     }
 
 
