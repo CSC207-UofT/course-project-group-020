@@ -1,6 +1,5 @@
 package Serializer;
 import Account.Account;
-import Account.AccountManager;
 
 import java.io.*;
 
@@ -24,10 +23,9 @@ public class Serializer {
             FileOutputStream fout = new FileOutputStream(PATH + filename);
             ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(account);
-            out.flush();
 
+            out.flush();
             out.close();
-            System.out.println("Done serializing...");
         }
         catch(Exception e){e.printStackTrace();}
     }
@@ -39,10 +37,10 @@ public class Serializer {
             String PATH = "src/main/java/Serializer/Data/";
             FileInputStream fin = new FileInputStream(PATH + Username + ".bin");
             ObjectInputStream in = new ObjectInputStream(fin);
-            Account account = (Account)in.readObject();
+            Account account = (Account) in.readObject();
+
             in.close();
 
-            System.out.println("Done Deserializing...");
             return account;
 
         } catch(IOException | ClassNotFoundException e){

@@ -38,7 +38,7 @@ public abstract class PrivateInfo implements Serializable {
      * @param attribute A string input which indicates which attribute to get
      */
 
-    public String GetInfo(String attribute) {
+    public String getInfo(String attribute) {
         if (info.containsKey(attribute)) {
             return info.get(attribute);
         }
@@ -52,7 +52,7 @@ public abstract class PrivateInfo implements Serializable {
 
     public String getId(){return this.id;}
     
-    public String SetInfo(String attributeToChange, String newValue) {
+    public String setInfo(String attributeToChange, String newValue) {
         if (info.containsKey(attributeToChange)){
             info.put(attributeToChange, newValue);
         }

@@ -1,7 +1,6 @@
 package Account;
 
 import Entities.PrivateInfo;
-import Entities.PrivateInfoManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +19,10 @@ public class Account implements Serializable {
     // This defaults to an empty ArrayList.
     public ArrayList<PrivateInfo> vault;
 
-
+    private static final long serialVersionUID = 123456789;
+    //Used in the serialization/deserialization process to ensure that a loaded class and
+    //serialized object are compatible. Specifying it is important to ensure functionality
+    //between compilers as it is quite sensitive to change if left default.
 
     private Throwable IndexOutOfBoundsException;
 
@@ -76,8 +78,7 @@ public class Account implements Serializable {
         for (PrivateInfo info : this.vault) {
 
             if (info.getId().equals(infoId)) {
-                info.SetInfo(attributeToChange, newValue);
-
+                info.setInfo(attributeToChange, newValue);
             } else {
                 throw IndexOutOfBoundsException;
             }
