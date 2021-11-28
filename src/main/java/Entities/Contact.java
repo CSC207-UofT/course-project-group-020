@@ -23,5 +23,6 @@ public class Contact extends PrivateInfo {
         info.put("name", name);
         info.put("number", number);
         info.put("address", address);
+        this.type = "Contact";
     }
 }

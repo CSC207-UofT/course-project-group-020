@@ -21,6 +21,7 @@ public class ID extends PrivateInfo{
         info.put("IDType", IDType);
         info.put("IDNumber", IDNumber);
         info.put("IDExpirationDate", IDExpirationDate);
+        this.type = "ID";
 
 
     }

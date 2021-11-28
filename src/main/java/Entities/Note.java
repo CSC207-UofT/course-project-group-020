@@ -6,6 +6,7 @@ package Entities;
 // Java warns that Class Note is never used, but we will not solve this style warning for the beta program.
 public class Note extends PrivateInfo {
 
+
     /**
      * This is the constructor for this class. Two parameters are necessary to construct an instance of Note.
      * @param title The title of the Note, e.g. ("Dogs?")
@@ -17,6 +18,7 @@ public class Note extends PrivateInfo {
         super();
         info.put("title", title);
         info.put("content", content);
+        this.type = "Note";
 
 
     }
