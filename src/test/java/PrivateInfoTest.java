@@ -1,6 +1,8 @@
 import Account.Account;
 import Account.AccountManager;
+import Entities.Contact;
 import Entities.LogIn;
+import Entities.Note;
 import Entities.PrivateInfoManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,21 +20,48 @@ public class PrivateInfoTest {
         public void setUp(){this.accountManager.createAccount("hayknazaryan", myMasterPassword);}
 
         @Test
-        public void TestAddInfo() throws Throwable {
-                LogIn NewLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
-                PrivateInfoManager currentPrivateInfoManager = accountManager.getPrivateInfoManagerByUsername("hayknazaryan");
+        public void testAddInfo() throws Throwable {
+                LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
 
                 Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
 
-                accountManager.addInfo(NewLogIn, currentAccount);
+                currentAccount.addInfo(newLogIn);
 
 
-                assert (currentPrivateInfoManager.getVault().size() > 0);
-                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("username").equals("hayknazaryan"));
-                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("password").equals("Idontlikecats"));
-                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("webpage").equals("instagram"));
-                assert (currentPrivateInfoManager.getPrivateInfo(NewLogIn).GetInfo("url").equals("insta"));
+                assert (currentAccount.getVault().size() > 0);
+                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan"));
+                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("Idontlikecats"));
+                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("webpage").equals("instagram"));
+                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("url").equals("insta"));
 
+
+
+
+    }
+
+    @Test
+    public void testEditInfo() throws Throwable{
+            Note newNote = new Note("Shopping List", "Apples");
+
+            Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
+
+            currentAccount.addInfo(newNote);
+
+            currentAccount.editInfo(newNote.getId(), "content", "carrots");
+
+            assert(currentAccount.getPrivateInfo(newNote.getId())).GetInfo("content").equals("carrots");
+
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testDeleteInfo() throws Throwable{
+            Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
+
+            Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
+
+            currentAccount.addInfo(newContact);
+
+            currentAccount.deleteInfo(newContact.getId());
 
 
 

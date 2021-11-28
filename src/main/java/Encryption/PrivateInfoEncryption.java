@@ -13,7 +13,7 @@ public class PrivateInfoEncryption {
     /**
      * This is the encryption method that takes in the key and string to be encrypted.
      *
-     * It uses the blowfish api to encrypt the string text. The text needs to be converted to a byte arraylist
+     * It uses the blowfish API to encrypt the string text. The text needs to be converted to a byte arraylist
      * first.
      *
      * Then the encryption is converted back using StringBuilder to display it and store it.
@@ -23,8 +23,8 @@ public class PrivateInfoEncryption {
      *
      */
     public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
-        try {
             byte[] KeyData = key.getBytes();
+        try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(Cipher.ENCRYPT_MODE, keyspec);
