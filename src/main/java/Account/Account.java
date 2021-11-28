@@ -74,12 +74,13 @@ public class Account implements Serializable {
     /**
      * This method is responsible for editing the wanted instance of PrivateInfo from the vault.
      *
-     * @param infoId The unique UUID of the instance of PrivateInfo.
-     * @param attributeToChange The string representation of the wanted attribute to change, such as "username" or "password".
+     * @param infoId The string representation of the unique UUID of the instance of PrivateInfo.
+     * @param attributeToChange The string representation of the wanted attribute to change,
+     *                          such as "username" or "password".
      * @param newValue The new string value that is to be changed to.
      * @throws Throwable Throws Exception.
      */
-    public void editInfo(UUID infoId, String attributeToChange, String newValue) throws Throwable {
+    public void editInfo(String infoId, String attributeToChange, String newValue) throws Throwable {
 
         for (PrivateInfo info : this.vault) {
 
@@ -97,9 +98,10 @@ public class Account implements Serializable {
     /**
      * This method is responsible for deleting the wanted instance of PrivateInfo from the vault.
      *
-     * @param infoId The unique UUID for the instance of PrivateInfo that is wanted to be deleted.
+     * @param infoId The string representation of the unique UUID for the instance of
+     *               PrivateInfo that is wanted to be deleted.
      */
-    public void deleteInfo(UUID infoId) {
+    public void deleteInfo(String infoId) {
 
         int i = 0;
 
@@ -118,11 +120,11 @@ public class Account implements Serializable {
     /**
      * This is a getter method responsible for getting the wanted PrivateInfo from the vault.
      *
-     * @param infoId The unique UUID of the wanted PrivateInfo instance.
+     * @param infoId The string representation of the unique UUID of the wanted PrivateInfo instance.
      * @return Returns the wanted PrivateInfo instance.
      * @throws Throwable Throws Exception.
      */
-    public PrivateInfo getPrivateInfo(UUID infoId) throws Throwable{
+    public PrivateInfo getPrivateInfo(String infoId) throws Throwable{
 
         int i = 0;
 

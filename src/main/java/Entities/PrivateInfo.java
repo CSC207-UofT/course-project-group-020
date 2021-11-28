@@ -51,6 +51,11 @@ public abstract class PrivateInfo implements Serializable {
         }
     }
 
+    /**
+     * A getter method that is responsible for getting and returning the string representation of this PrivateInfo's
+     * unique UUID.
+     * @return A string representation of this PrivateInfo's unique UUID.
+     */
     public String getId(){return this.id;}
     
     public String SetInfo(String attributeToChange, String newValue) {
