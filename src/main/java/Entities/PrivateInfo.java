@@ -20,7 +20,8 @@ public abstract class PrivateInfo implements Serializable {
     public String id;
 
     /**
-     * This is the basic constructor for PrivateInfo. It is solely responsible for instantiating an empty Hashmap.
+     * This is the basic constructor for PrivateInfo. It is responsible for instantiating an empty Hashmap as well as
+     * giving this instance of PrivateInfo a unique UUID..
      */
     public PrivateInfo() {
         this.id = UUID.randomUUID().toString();
