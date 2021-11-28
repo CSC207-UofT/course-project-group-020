@@ -30,9 +30,9 @@ public class ID extends PrivateInfo{
 
     @Override
     public ID decrypt(String key) {
-        String dType = PrivateInfoEncryption.decryptInfo(key, info.get("username"));
-        String dNum = PrivateInfoEncryption.decryptInfo(key, info.get("passowrd"));
-        String dExpir = PrivateInfoEncryption.decryptInfo(key, info.get("webpage"));
+        String dType = PrivateInfoEncryption.decryptInfo(key, info.get("IDType"));
+        String dNum = PrivateInfoEncryption.decryptInfo(key, info.get("IDNumber"));
+        String dExpir = PrivateInfoEncryption.decryptInfo(key, info.get("IDExperiationData"));
         ID decryptedID = new ID(dType, dNum, dExpir);
 
         return decryptedID;

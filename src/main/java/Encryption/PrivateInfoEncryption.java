@@ -78,4 +78,13 @@ public class PrivateInfoEncryption {
             return null;
         }
     }
+
+    public static String[] encryptList(String[] data, String key){
+        String[] eData = new String[data.length];
+        for(int i = 0; i < eData.length; i++){
+            eData[i] = PrivateInfoEncryption.encryptInfo(key, data[i]);
+        }
+        return eData;
+    }
+
 }
