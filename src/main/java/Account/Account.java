@@ -63,9 +63,11 @@ public class Account implements Serializable {
      * This method is responsible for adding new instances of PrivateInfo into the vault of this account.
      *
      * @param newInfo The new PrivateInfo that is to be added to the vault.
+     * @return Returns true if the PrivateInfo object was added to the vault
      */
-    public void addInfo(PrivateInfo newInfo) {
+    public boolean addInfo(PrivateInfo newInfo) {
         this.vault.add(newInfo);
+        return true;
     }
 
     /**
@@ -75,21 +77,17 @@ public class Account implements Serializable {
      * @param attributeToChange The string representation of the wanted attribute to change,
      *                          such as "username" or "password".
      * @param newValue          The new string value that is to be changed to.
-     * @throws Throwable Throws Exception.
+     * @return Returns true if the PrivateInfo object was edited; false, otherwise.
      */
-    public void editInfo(String infoId, String attributeToChange, String newValue) throws Throwable {
+    public boolean editInfo(String infoId, String attributeToChange, String newValue) {
 
         for (PrivateInfo info : this.vault) {
-
             if (info.getId().equals(infoId)) {
                 info.SetInfo(attributeToChange, newValue);
-
-            } else {
-                throw IndexOutOfBoundsException;
+                return true;
             }
         }
-
-
+        return false;
     }
 
     /**
@@ -110,7 +108,6 @@ public class Account implements Serializable {
                 return true;
             }
         }
-
         return false;
     }
 

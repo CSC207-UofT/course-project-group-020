@@ -25,8 +25,8 @@ public class PrivateInfoTest {
     public void testAddInfoWithLogin() throws Throwable {
         LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
-        currentAccount.addInfo(newLogIn);
 
+        assert (currentAccount.addInfo(newLogIn));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan"));
         assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("Idontlikecats"));
@@ -38,8 +38,8 @@ public class PrivateInfoTest {
     public void testAddInfoWithContact() throws Throwable {
         Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
-        currentAccount.addInfo(newContact);
 
+        assert (currentAccount.addInfo(newContact));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("name").equals("Hayk"));
         assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("number").equals("123-4567890"));
@@ -50,8 +50,8 @@ public class PrivateInfoTest {
     public void testAddInfoWithID() throws Throwable {
         ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
-        currentAccount.addInfo(newID);
 
+        assert (currentAccount.addInfo(newID));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDType").equals("Driver's License"));
         assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDNumber").equals("12345"));
@@ -62,8 +62,8 @@ public class PrivateInfoTest {
     public void testAddInfoWithNote() throws Throwable {
         Note newNote = new Note("Shopping List", "Apples");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
-        currentAccount.addInfo(newNote);
 
+        assert (currentAccount.addInfo(newNote));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newNote.getId()).GetInfo("title").equals("Shopping List"));
         assert (currentAccount.getPrivateInfo(newNote.getId()).GetInfo("content").equals("Apples"));
@@ -77,9 +77,9 @@ public class PrivateInfoTest {
         LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
         currentAccount.addInfo(newLogIn);
-        currentAccount.editInfo(newLogIn.getId(), "username", "hayknazaryan1");
-        currentAccount.editInfo(newLogIn.getId(), "password", "ilovecats");
 
+        assert (currentAccount.editInfo(newLogIn.getId(), "username", "hayknazaryan1"));
+        assert (currentAccount.editInfo(newLogIn.getId(), "password", "ilovecats"));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan1"));
         assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("ilovecats"));
@@ -92,8 +92,8 @@ public class PrivateInfoTest {
         Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
         currentAccount.addInfo(newContact);
-        currentAccount.editInfo(newContact.getId(), "address", "123 John Lane");
 
+        assert (currentAccount.editInfo(newContact.getId(), "address", "123 John Lane"));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("name").equals("Hayk"));
         assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("number").equals("123-4567890"));
@@ -105,8 +105,8 @@ public class PrivateInfoTest {
         ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
         Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
         currentAccount.addInfo(newID);
-        currentAccount.editInfo(newID.getId(), "IDExpirationDate", "Dec 31, 2035");
 
+        assert (currentAccount.editInfo(newID.getId(), "IDExpirationDate", "Dec 31, 2035"));
         assert (currentAccount.getVault().size() == 1);
         assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDType").equals("Driver's License"));
         assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDNumber").equals("12345"));
@@ -118,8 +118,8 @@ public class PrivateInfoTest {
         Note newNote = new Note("Shopping List", "Apples");
         Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
         currentAccount.addInfo(newNote);
-        currentAccount.editInfo(newNote.getId(), "content", "carrots");
 
+        assert (currentAccount.editInfo(newNote.getId(), "content", "carrots"));
         assert (currentAccount.getPrivateInfo(newNote.getId())).GetInfo("content").equals("carrots");
 
     }
