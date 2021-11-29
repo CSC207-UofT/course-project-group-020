@@ -1,7 +1,10 @@
 package Entities;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -77,6 +80,40 @@ public abstract class PrivateInfo implements Serializable {
     public String toString() {
         return this.info.toString();
     }
+
+    /**
+     * This is the decryption method that again takes in a key and the encrypted text to be decrypted.
+     * <p>
+     * The text is converted to an arraylist of bytes to be decrypted using the blowfish api again. Both the key
+     * and the text have to match when they were encrypted for this to work.
+     * <p>
+     * Then the bytes arraylist is converted back to be displayed.
+     *
+     * @param key The string representation of the key that will be used to decrypt the ciphertext back to plaintext
+     * @param label The label is the attribute of the PrivateInfo that we are trying to decrypt
+     */
+    public String decryptInfo(String key, String label){
+        try{
+            byte[] bb = new byte[this.info.get(label).length()];
+
+            for (int i=0; i<this.info.get(label).length(); i++) {
+                bb[i] = (byte) this.info.get(label).charAt(i);
+            }
+
+            byte[] KeyData = key.getBytes();
+            SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
+            Cipher cipher = Cipher.getInstance("Blowfish");
+            cipher.init(Cipher.DECRYPT_MODE, keyspec);
+            //actual decryption happens here and we return it straight away
+            return new String(cipher.doFinal(bb));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public abstract PrivateInfo decryptInfoType(String key);
 
 }
 
