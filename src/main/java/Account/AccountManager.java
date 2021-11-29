@@ -17,10 +17,10 @@ import java.util.ArrayList;
  */
 public class AccountManager {
     public ArrayList<Account> accounts;
-    private Throwable NullPointerException;
+    public Throwable NullPointerException;
 
     public AccountManager() {
-        accounts = new ArrayList<Account>();
+        accounts = new ArrayList<>();
     }
 
     /**
@@ -45,26 +45,9 @@ public class AccountManager {
 
     }
 
-
-//    public Account attemptLogIn(String username, String masterPassword) {
-//        String encryptedMasterPassword = EncryptMaster.encryptMaster(masterPassword);
-//        // Search for an Account with these credentials within accounts.
-//        for (Account account : accounts) {
-//            if (account.getUsername().equals(username) && account.getMasterPassword().equals(encryptedMasterPassword)) {
-//                return account;
-//            }
-//        }
-//        // If no account was found
-//        System.out.println("Sorry, we could not find an account with those credentials.");
-//        return null;
-//    }
-
     public ArrayList<Account> getAccounts() {
         return this.accounts;
     }
-
-    // Change this because we cannot have getters and setters
-    // within use cases.
 
     public Account getAccount(Account wantedAccount) {
 
@@ -80,7 +63,7 @@ public class AccountManager {
 
     }
 
-    public Account getAccountByUsername(String usernameOfWantedAccount) throws Throwable {
+    public Account getAccountByUsername(String usernameOfWantedAccount) throws Throwable{
         int i = 0;
         for (Account account : this.accounts) {
 
@@ -89,60 +72,6 @@ public class AccountManager {
             }
             i += 1;
         }
-        throw NullPointerException; // TODO: Replace with an exception (also do this everywhere else)
+        throw NullPointerException;
     }
 }
-
-//    public PrivateInfoManager getPrivateInfoManagerByUsername (String usernameOfWantedAccount) throws Throwable
-//    {
-//        int i = 0;
-//        for (PrivateInfoManager account: this.accounts){
-//
-//            if (account.getAccount().getUsername().equals(usernameOfWantedAccount)){
-//                return this.accounts.get(i);
-//            }
-//            i += 1;
-//        }
-//        throw NullPointerException; // TODO: Replace with an exception (also do this everywhere else)
-//    }
-
-//
-//    public PrivateInfoManager getPrivateInfoManager(PrivateInfoManager wantedPrivateInfoManager){
-//
-//        int i = 0;
-//        for (PrivateInfoManager account: this.accounts){
-//            if (account == wantedPrivateInfoManager){
-//                break;
-//            }
-//            i += 1;
-//        }
-//        return this.accounts.get(i);
-//
-//    }
-
-//    public void addInfo(PrivateInfo newInfo, Account accountToBeAddedTo){
-//        int i = 0;
-//
-//        for (PrivateInfoManager account: this.accounts){
-//            if (account.getAccount() == accountToBeAddedTo){
-//                this.accounts.get(i).addInfo(newInfo);
-//            }
-//            i += 1;
-//
-//        }
-//
-//
-//    }
-//
-//    public void editInfo(PrivateInfo infoToBeChanged, Account accountToBeChangedIn,
-//                         String attributeToChange, String newValue){
-//
-//        int i = 0;
-//        for (PrivateInfoManager account: this.accounts){
-//            if (account.getAccount() == accountToBeChangedIn){
-//                this.accounts.get(i).editInfo(infoToBeChanged, attributeToChange, newValue);
-//            }
-//            i += 1;
-//        }
-//    }
-//}

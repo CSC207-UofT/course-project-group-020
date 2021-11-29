@@ -13,60 +13,50 @@ import org.junit.Test;
  */
 
 public class PrivateInfoTest {
-        String myMasterPassword = "Ilikedogsalot";
-        AccountManager accountManager = new AccountManager();
+    String myMasterPassword = "Ilikedogsalot";
+    AccountManager accountManager = new AccountManager();
 
-        @Before
-        public void setUp(){this.accountManager.createAccount("hayknazaryan", myMasterPassword);}
+    @Before
+    public void setUp() {
+        this.accountManager.createAccount("hayknazaryan", myMasterPassword);
+    }
 
-        @Test
-        public void testAddInfo() throws Throwable {
-                LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
+    @Test
+    public void testAddInfo() throws Throwable {
+        LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
+        Account currentAccount = this.accountManager.getAccountByUsername("hayknazaryan");
+        currentAccount.addInfo(newLogIn);
 
-                Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
+        assert (currentAccount.getVault().size() > 0);
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("Idontlikecats"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("webpage").equals("instagram"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("url").equals("insta"));
+    }
 
-                currentAccount.addInfo(newLogIn);
+    @Test
+    public void testEditInfo() throws Throwable {
+        Note newNote = new Note("Shopping List", "Apples");
 
+        Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
+        currentAccount.addInfo(newNote);
+        currentAccount.editInfo(newNote.getId(), "content", "carrots");
 
-                assert (currentAccount.getVault().size() > 0);
-                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan"));
-                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("Idontlikecats"));
-                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("webpage").equals("instagram"));
-                assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("url").equals("insta"));
-
-
-
+        assert (currentAccount.getPrivateInfo(newNote.getId())).GetInfo("content").equals("carrots");
 
     }
 
     @Test
-    public void testEditInfo() throws Throwable{
-            Note newNote = new Note("Shopping List", "Apples");
+    public void testDeleteInfo() throws Throwable {
+        Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
+        Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
+        currentAccount.addInfo(newContact);
+        int initialSize = currentAccount.vault.size();
 
-            Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
-
-            currentAccount.addInfo(newNote);
-
-            currentAccount.editInfo(newNote.getId(), "content", "carrots");
-
-            assert(currentAccount.getPrivateInfo(newNote.getId())).GetInfo("content").equals("carrots");
+        assert (currentAccount.deleteInfo(newContact.getId()));
+        assert (currentAccount.vault.size() == initialSize - 1);
 
     }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void testDeleteInfo() throws Throwable{
-            Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
-
-            Account currentAccount = accountManager.getAccountByUsername("hayknazaryan");
-
-            currentAccount.addInfo(newContact);
-
-            currentAccount.deleteInfo(newContact.getId());
-
-
-
-    }
-
 
 
 }
