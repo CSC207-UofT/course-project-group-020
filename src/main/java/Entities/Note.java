@@ -1,6 +1,10 @@
 package Entities;
 
-import Encryption.PrivateInfoEncryption;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is a class that represents a Note of the user
@@ -21,13 +25,11 @@ public class Note extends PrivateInfo {
         info.put("content", content);
     }
 
-    @Override
-    public Note decrypt(String key) {
-        String dTitle = PrivateInfoEncryption.decryptInfo(key, info.get("username"));
-        String dContent = PrivateInfoEncryption.decryptInfo(key, info.get("passowrd"));
-        Note decryptedNote = new Note(dTitle, dContent);
-
-        return decryptedNote;
+    public Note decryptInfoType(String key){
+        List<String> decrypted = new ArrayList<>();
+        decrypted.add(decryptInfo(key, "title"));
+        decrypted.add(decryptInfo(key, "content"));
+        return new Note(decrypted.get(0), decrypted.get(1));
     }
 
 }

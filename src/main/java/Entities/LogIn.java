@@ -1,12 +1,14 @@
 package Entities;
 
-import Encryption.PrivateInfoEncryption;
-import org.apache.juli.logging.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO: Write Javadoc
  */
 public class LogIn extends PrivateInfo {
+
 
     /**
      * @param username The username associated with the LogIn, e.g. ("hayknaz")
@@ -16,20 +18,20 @@ public class LogIn extends PrivateInfo {
      */
     public LogIn(String username, String password, String webpage, String url) {
         super();
+        this.type = "LogIn";
         info.put("username", username);
         info.put("password", password);
         info.put("webpage", webpage);
         info.put("url", url);
     }
 
-    @Override
-    public LogIn decrypt(String key) {
-        String dUsername = PrivateInfoEncryption.decryptInfo(key, info.get("username"));
-        String dPass = PrivateInfoEncryption.decryptInfo(key, info.get("password"));
-        String dWeb = PrivateInfoEncryption.decryptInfo(key, info.get("webpage"));
-        String dUrl = PrivateInfoEncryption.decryptInfo(key, info.get("url"));
-        LogIn decryptedLogin = new LogIn(dUsername, dPass, dWeb, dUrl);
 
-        return decryptedLogin;
+    public LogIn decryptInfoType(String key){
+        List<String> decrypted = new ArrayList<>();
+        decrypted.add(decryptInfo(key, "username"));
+        decrypted.add(decryptInfo(key, "password"));
+        decrypted.add(decryptInfo(key, "webpage"));
+        decrypted.add(decryptInfo(key, "url"));
+        return new LogIn(decrypted.get(0), decrypted.get(1), decrypted.get(2), decrypted.get(3));
     }
 }

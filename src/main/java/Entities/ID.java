@@ -1,6 +1,7 @@
 package Entities;
 
-import Encryption.PrivateInfoEncryption;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents an ID of a user.
@@ -23,20 +24,15 @@ public class ID extends PrivateInfo{
         info.put("IDType", IDType);
         info.put("IDNumber", IDNumber);
         info.put("IDExpirationDate", IDExpirationDate);
-
-
+        this.type = "ID";
     }
 
 
-    @Override
-    public ID decrypt(String key) {
-        String dType = PrivateInfoEncryption.decryptInfo(key, info.get("IDType"));
-        String dNum = PrivateInfoEncryption.decryptInfo(key, info.get("IDNumber"));
-        String dExpir = PrivateInfoEncryption.decryptInfo(key, info.get("IDExperiationData"));
-        ID decryptedID = new ID(dType, dNum, dExpir);
-
-        return decryptedID;
+    public ID decryptInfoType(String key){
+        List<String> decrypted = new ArrayList<>();
+        decrypted.add(decryptInfo(key, "IDType"));
+        decrypted.add(decryptInfo(key, "IDNumber"));
+        decrypted.add(decryptInfo(key, "IDExpirationDate"));
+        return new ID(decrypted.get(0), decrypted.get(1), decrypted.get(2));
     }
-
-
 }

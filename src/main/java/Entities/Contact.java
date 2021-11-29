@@ -1,6 +1,7 @@
 package Entities;
 
-import Encryption.PrivateInfoEncryption;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is responsible for representing a contact of the user.
@@ -25,15 +26,14 @@ public class Contact extends PrivateInfo {
         info.put("name", name);
         info.put("number", number);
         info.put("address", address);
+        this.type = "Contact";
     }
 
-    @Override
-    public Contact decrypt(String key) {
-        String dName = PrivateInfoEncryption.decryptInfo(key, info.get("name"));
-        String dNum = PrivateInfoEncryption.decryptInfo(key, info.get("number"));
-        String dAdd = PrivateInfoEncryption.decryptInfo(key, info.get("address"));
-        Contact decryptedContact = new Contact(dName, dNum, dAdd);
-
-        return decryptedContact;
+    public Contact decryptInfoType(String key){
+        List<String> decrypted = new ArrayList<>();
+        decrypted.add(decryptInfo(key, "name"));
+        decrypted.add(decryptInfo(key, "number"));
+        decrypted.add(decryptInfo(key, "address"));
+        return new Contact(decrypted.get(0), decrypted.get(1), decrypted.get(2));
     }
 }
