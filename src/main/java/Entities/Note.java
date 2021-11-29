@@ -23,6 +23,7 @@ public class Note extends PrivateInfo {
         info.put("title", title);
         info.put("content", content);
     }
+        this.type = "Note";
 
     public Note decryptInfoType(String key){
         List<String> decrypted = new ArrayList<>();
