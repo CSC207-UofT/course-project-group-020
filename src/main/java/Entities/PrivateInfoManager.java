@@ -1,10 +1,8 @@
 package Entities;
 
 import Account.Account;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * This class is responsible for storing and managing all child instances of PrivateInfo;
@@ -31,10 +29,6 @@ public class PrivateInfoManager implements Serializable {
 
     private final ArrayList<PrivateInfo> vault;
     public Account account;
-    private static final long serialVersionUID = 123456789;
-    //Used in the serialization/deserialization process to ensure that a loaded class and
-    //serialized object are compatible. Specifying it is important to ensure functionality
-    //between compilers as it is quite sensitive to change if left default.
 
     public PrivateInfoManager(Account account) {
         vault = new ArrayList<>();
@@ -65,7 +59,6 @@ public class PrivateInfoManager implements Serializable {
             }
             i += 1;
         }
-
         return this.vault.get(i);
     }
 
@@ -85,7 +78,7 @@ public class PrivateInfoManager implements Serializable {
 
         PrivateInfo currentPrivateInfo = getPrivateInfo(toBeEdited);
 
-        currentPrivateInfo.SetInfo(attributeToChange, newValue);
+        currentPrivateInfo.setInfo(attributeToChange, newValue);
 
     }
 

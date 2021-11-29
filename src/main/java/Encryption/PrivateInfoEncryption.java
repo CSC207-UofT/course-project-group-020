@@ -2,6 +2,8 @@ package Encryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import Account.Account;
+import Entities.PrivateInfo;
 
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
@@ -47,35 +49,18 @@ public class PrivateInfoEncryption {
     }
 
     /**
-     * This is the decryption method that again takes in a key and the encrypted text to be decrypted.
+     * This is the Account decryption method that again takes in an account with encrypted vault and the key.
      *
-     * The text is converted to an arraylist of bytes to be decrypted using the blowfish api again. Both the key
-     * and the text have to match when they were encrypted for this to work.
-     *
-     * Then the bytes arraylist is converted back to be displayed.
-     *
-     * @param key The string representation of the key that will be used to decrypt the ciphertext back to plaintext
-     * @param encrypted_text The string that represents the ciphertext
+     * @param account The Account to have its info decrypted
+     * @param key The string representation of the key corresponding to the Account
      */
-    public static String decryptInfo(String key, String encrypted_text){
-        try{
-            byte[] bb = new byte[encrypted_text.length()];
+    public static Account decryptAccount(Account account, String key){
 
-            for (int i=0; i<encrypted_text.length(); i++) {
-                bb[i] = (byte) encrypted_text.charAt(i);
-            }
+        Account decrypted_account = new Account(account.getUsername(), account.getMasterPassword());
 
-
-            byte[] KeyData = key.getBytes();
-            SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
-            Cipher cipher = Cipher.getInstance("Blowfish");
-            cipher.init(Cipher.DECRYPT_MODE, keyspec);
-            //actual decryption happens here and we return it straight away
-            return new String(cipher.doFinal(bb));
+        for(PrivateInfo private_info: account.vault){
+            account.addInfo(private_info.decryptInfoType(key));
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return decrypted_account;
     }
 }

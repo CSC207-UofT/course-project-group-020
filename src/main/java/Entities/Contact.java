@@ -1,5 +1,8 @@
 package Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is responsible for representing a contact of the user.
  *
@@ -24,5 +27,13 @@ public class Contact extends PrivateInfo {
         info.put("number", number);
         info.put("address", address);
         this.type = "Contact";
+    }
+
+    public Contact decryptInfoType(String key){
+        List<String> decrypted = new ArrayList<>();
+        decrypted.add(decryptInfo(key, "name"));
+        decrypted.add(decryptInfo(key, "number"));
+        decrypted.add(decryptInfo(key, "address"));
+        return new Contact(decrypted.get(0), decrypted.get(1), decrypted.get(2));
     }
 }
