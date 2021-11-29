@@ -28,10 +28,10 @@ public class PrivateInfoTest {
 
         assert (currentAccount.addInfo(newLogIn));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("Idontlikecats"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("webpage").equals("instagram"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("url").equals("insta"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("username").equals("hayknazaryan"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("password").equals("Idontlikecats"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("webpage").equals("instagram"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("url").equals("insta"));
     }
 
     @Test
@@ -41,9 +41,9 @@ public class PrivateInfoTest {
 
         assert (currentAccount.addInfo(newContact));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("name").equals("Hayk"));
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("number").equals("123-4567890"));
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("address").equals("55 Joe Street"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("name").equals("Hayk"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("number").equals("123-4567890"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("address").equals("55 Joe Street"));
     }
 
     @Test
@@ -53,9 +53,9 @@ public class PrivateInfoTest {
 
         assert (currentAccount.addInfo(newID));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDExpirationDate").equals("Dec 31, 2030"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDExpirationDate").equals("Dec 31, 2030"));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class PrivateInfoTest {
 
         assert (currentAccount.addInfo(newNote));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newNote.getId()).GetInfo("title").equals("Shopping List"));
-        assert (currentAccount.getPrivateInfo(newNote.getId()).GetInfo("content").equals("Apples"));
+        assert (currentAccount.getPrivateInfo(newNote.getId()).getInfo("title").equals("Shopping List"));
+        assert (currentAccount.getPrivateInfo(newNote.getId()).getInfo("content").equals("Apples"));
     }
 
     /**
@@ -81,10 +81,10 @@ public class PrivateInfoTest {
         assert (currentAccount.editInfo(newLogIn.getId(), "username", "hayknazaryan1"));
         assert (currentAccount.editInfo(newLogIn.getId(), "password", "ilovecats"));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("username").equals("hayknazaryan1"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("password").equals("ilovecats"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("webpage").equals("instagram"));
-        assert (currentAccount.getPrivateInfo(newLogIn.getId()).GetInfo("url").equals("insta"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("username").equals("hayknazaryan1"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("password").equals("ilovecats"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("webpage").equals("instagram"));
+        assert (currentAccount.getPrivateInfo(newLogIn.getId()).getInfo("url").equals("insta"));
     }
 
     @Test
@@ -95,9 +95,9 @@ public class PrivateInfoTest {
 
         assert (currentAccount.editInfo(newContact.getId(), "address", "123 John Lane"));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("name").equals("Hayk"));
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("number").equals("123-4567890"));
-        assert (currentAccount.getPrivateInfo(newContact.getId()).GetInfo("address").equals("123 John Lane"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("name").equals("Hayk"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("number").equals("123-4567890"));
+        assert (currentAccount.getPrivateInfo(newContact.getId()).getInfo("address").equals("123 John Lane"));
     }
 
     @Test
@@ -108,9 +108,9 @@ public class PrivateInfoTest {
 
         assert (currentAccount.editInfo(newID.getId(), "IDExpirationDate", "Dec 31, 2035"));
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).GetInfo("IDExpirationDate").equals("Dec 31, 2035"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDExpirationDate").equals("Dec 31, 2035"));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class PrivateInfoTest {
         currentAccount.addInfo(newNote);
 
         assert (currentAccount.editInfo(newNote.getId(), "content", "carrots"));
-        assert (currentAccount.getPrivateInfo(newNote.getId())).GetInfo("content").equals("carrots");
+        assert (currentAccount.getPrivateInfo(newNote.getId())).getInfo("content").equals("carrots");
 
     }
 

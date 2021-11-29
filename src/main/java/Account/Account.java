@@ -18,16 +18,6 @@ public class Account implements Serializable {
 
     private final String username;
     private final String masterPassword;
-    // This defaults to an empty ArrayList.
-    public ArrayList<PrivateInfo> vault;
-
-    private static final long serialVersionUID = 123456789;
-    //Used in the serialization/deserialization process to ensure that a loaded class and
-    //serialized object are compatible. Specifying it is important to ensure functionality
-    //between compilers as it is quite sensitive to change if left default.
-
-    private Throwable IndexOutOfBoundsException;
-  
     public ArrayList<PrivateInfo> vault = new ArrayList<>();
     public Throwable IndexOutOfBoundsException;
 
@@ -92,14 +82,8 @@ public class Account implements Serializable {
     public boolean editInfo(String infoId, String attributeToChange, String newValue) {
 
         for (PrivateInfo info : this.vault) {
-
-            if (info.getId().equals(infoId.toString())) {
-                info.setInfo(attributeToChange, newValue);
-
-            } else {
-                throw IndexOutOfBoundsException;
             if (info.getId().equals(infoId)) {
-                info.SetInfo(attributeToChange, newValue);
+                info.setInfo(attributeToChange, newValue);
                 return true;
             }
         }
