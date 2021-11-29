@@ -99,16 +99,8 @@ public class Account implements Serializable {
      *               PrivateInfo that is wanted to be deleted.
      * @return Returns true if the PrivateInfo object was deleted from the vault; false, otherwise.
      */
-    public boolean deleteInfo(String infoId) throws Throwable{
+    public boolean deleteInfo(String infoId) {
 
-//        int i = 0;
-//
-//        for (PrivateInfo info : this.vault) {
-//            if (info.getId().equals(infoId)) {
-//                this.vault.remove(i);
-//            }
-//            i += 1;
-//        }
         Iterator<PrivateInfo> iter = this.vault.iterator();
 
         while (iter.hasNext()) {
