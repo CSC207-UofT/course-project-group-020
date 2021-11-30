@@ -2,7 +2,6 @@ package Account;
 
 import Entities.PrivateInfo;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
