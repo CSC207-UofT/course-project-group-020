@@ -1,5 +1,6 @@
 package Entities;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class LogIn extends PrivateInfo {
         info.put("webpage", webpage);
         info.put("url", url);
     }
+
 
     public LogIn decryptInfoType(String key){
         List<String> decrypted = new ArrayList<>();

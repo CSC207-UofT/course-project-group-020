@@ -31,6 +31,7 @@ public class AccountManager {
     public void createAccount(String username, String masterPassword) {
         String encryptedMasterPassword = MasterEncryption.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
+
         this.accounts.add(account);
     }
 
@@ -75,3 +76,4 @@ public class AccountManager {
         throw NullPointerException;
     }
 }
+
