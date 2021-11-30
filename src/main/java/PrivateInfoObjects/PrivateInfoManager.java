@@ -1,4 +1,4 @@
-package Entities;
+package PrivateInfoObjects;
 
 import Account.Account;
 import java.io.Serializable;

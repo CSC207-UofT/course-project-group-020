@@ -1,9 +1,6 @@
 package UserInputHelpers;
 import Account.Account;
 import Account.AccountManager;
-import Entities.PrivateInfoManager;
-
-import java.io.IOException;
 
 public class StartupPageHelper {
 

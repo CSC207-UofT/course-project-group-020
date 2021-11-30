@@ -1,6 +1,6 @@
 import Account.Account;
 import Account.AccountManager;
-import Entities.*;
+import PrivateInfoObjects.*;
 import org.junit.Before;
 import org.junit.Test;
 

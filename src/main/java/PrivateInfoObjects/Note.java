@@ -1,8 +1,6 @@
-package Entities;
+package PrivateInfoObjects;
 
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 

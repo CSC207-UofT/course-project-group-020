@@ -1,9 +1,6 @@
-package Entities;
+package PrivateInfoObjects;
 
 import Encryption.PrivateInfoEncryption;
-
-import javax.crypto.EncryptedPrivateKeyInfo;
-import java.util.List;
 
 public class PrivateInfoFactory {
 
