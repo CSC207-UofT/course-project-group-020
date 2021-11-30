@@ -4,6 +4,8 @@ import Account.Account;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import java.util.List;
+
 /**
  * This class is responsible for storing and managing all child instances of PrivateInfo;
  * This includes:
@@ -106,5 +108,16 @@ public class PrivateInfoManager implements Serializable {
     @Override
     public String toString() {
         return this.vault.toString();
+    }
+
+
+    public List<PrivateInfo> decryptVault(String key){
+        ArrayList<PrivateInfo> result = new ArrayList<>();
+
+        for(PrivateInfo info: this.vault){
+            result.add(info.decrypt(key));
+        }
+
+        return result;
     }
 }

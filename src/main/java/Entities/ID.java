@@ -27,6 +27,7 @@ public class ID extends PrivateInfo{
         this.type = "ID";
     }
 
+
     public ID decryptInfoType(String key){
         List<String> decrypted = new ArrayList<>();
         decrypted.add(decryptInfo(key, "IDType"));

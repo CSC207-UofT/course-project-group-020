@@ -1,5 +1,6 @@
 package Entities;
 
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class Note extends PrivateInfo {
         info.put("title", title);
         info.put("content", content);
     }
-        this.type = "Note";
 
     public Note decryptInfoType(String key){
         List<String> decrypted = new ArrayList<>();

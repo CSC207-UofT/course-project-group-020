@@ -27,6 +27,7 @@ public class Account implements Serializable {
     public Account(String username, String masterPassword) {
         this.username = username;
         this.masterPassword = masterPassword;
+        this.vault = new ArrayList<PrivateInfo>();
     }
 
     /**
@@ -58,6 +59,7 @@ public class Account implements Serializable {
     }
 
 
+
     /**
      * This method is responsible for adding new instances of PrivateInfo into the vault of this account.
      *
@@ -68,6 +70,7 @@ public class Account implements Serializable {
         this.vault.add(newInfo);
         return true;
     }
+
 
     /**
      * This method is responsible for editing the wanted instance of PrivateInfo from the vault.
@@ -88,6 +91,7 @@ public class Account implements Serializable {
         }
         return false;
     }
+
 
     /**
      * This method is responsible for deleting the wanted instance of PrivateInfo from the vault.
@@ -129,8 +133,6 @@ public class Account implements Serializable {
 
             i += 1;
         }
-
         throw IndexOutOfBoundsException;
-
     }
 }

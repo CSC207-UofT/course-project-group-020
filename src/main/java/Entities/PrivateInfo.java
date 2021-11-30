@@ -82,6 +82,7 @@ public abstract class PrivateInfo implements Serializable {
         return this.info.toString();
     }
 
+
     /**
      * This is the decryption method that again takes in a key and the encrypted text to be decrypted.
      * <p>
