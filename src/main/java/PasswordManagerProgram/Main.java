@@ -2,7 +2,7 @@ package PasswordManagerProgram;
 
 import java.util.UUID;
 
-public class NewMain {
+public class Main {
 
     public static void main(String[] args) {
 
