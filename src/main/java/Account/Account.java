@@ -1,6 +1,6 @@
 package Account;
 
-import Entities.PrivateInfo;
+import PrivateInfoObjects.PrivateInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;

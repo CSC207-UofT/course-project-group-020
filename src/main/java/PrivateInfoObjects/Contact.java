@@ -1,4 +1,4 @@
-package Entities;
+package PrivateInfoObjects;
 
 import java.util.ArrayList;
 import java.util.List;

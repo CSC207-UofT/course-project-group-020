@@ -1,8 +1,7 @@
 package Account;
 
 import Encryption.MasterEncryption;
-import Entities.PrivateInfo;
-import Entities.PrivateInfoManager;
+import PrivateInfoObjects.PrivateInfoManager;
 
 import java.util.ArrayList;
 

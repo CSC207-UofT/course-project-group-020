@@ -1,12 +1,8 @@
 package Spring;
 import Account.Account;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import Encryption.MasterEncryption;
-import Entities.*;
+import PrivateInfoObjects.*;
 import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

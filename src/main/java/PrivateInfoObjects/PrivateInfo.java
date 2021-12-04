@@ -1,10 +1,9 @@
-package Entities;
+package PrivateInfoObjects;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 /**

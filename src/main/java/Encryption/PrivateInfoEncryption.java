@@ -3,7 +3,7 @@ package Encryption;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import Account.Account;
-import Entities.PrivateInfo;
+import PrivateInfoObjects.PrivateInfo;
 
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
