@@ -1,7 +1,6 @@
 package Account;
 
 import Encryption.MasterEncryption;
-import PrivateInfoObjects.PrivateInfoManager;
 
 import java.util.ArrayList;
 
@@ -35,15 +34,15 @@ public class AccountManager {
     }
 
 
-    /**
-     * Removes the account from the system.
-     *
-     * @param accountToBeDeleted The account that is to be deleted from the system.
-     */
-    public void deleteAccount(PrivateInfoManager accountToBeDeleted) {
-        this.accounts.remove(accountToBeDeleted);
-
-    }
+ //   /** \\TODO: Implement back without PrivateInfoManager
+   //  * Removes the account from the system.
+     //*
+     //* @param accountToBeDeleted The account that is to be deleted from the system.
+     //*/
+    //public void deleteAccount( accountToBeDeleted) {
+      //  this.accounts.remove(accountToBeDeleted);
+//
+  //  }
 
     public ArrayList<Account> getAccounts() {
         return this.accounts;
