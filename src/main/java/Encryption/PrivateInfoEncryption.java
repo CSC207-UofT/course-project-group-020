@@ -58,8 +58,10 @@ public class PrivateInfoEncryption {
 
         Account decrypted_account = new Account(account.getUsername(), account.getMasterPassword());
 
-        for(PrivateInfo private_info: account.vault){
-            account.addInfo(private_info.decryptInfoType(key));
+        for(PrivateInfo private_info: account.getVault()){
+            PrivateInfo decryptedInfo = private_info.decryptInfoType(key);
+            decryptedInfo.setId(private_info.id);
+            decrypted_account.getVault().add(decryptedInfo);
         }
         return decrypted_account;
     }
