@@ -21,6 +21,7 @@ public class Note extends PrivateInfo {
         super();
         info.put("title", title);
         info.put("content", content);
+        this.type = "Note";
     }
 
     public Note decryptInfoType(String key){
