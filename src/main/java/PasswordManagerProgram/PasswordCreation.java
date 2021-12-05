@@ -1,10 +1,6 @@
 package PasswordManagerProgram;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class responsible for facilitating the creation of strong passwords. A strong password consists of
@@ -20,33 +16,42 @@ import java.util.Map;
  */
 
 public class PasswordCreation {
-    private final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-    private final String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private final String numbers = "0123456789";
-    private final String symbols = "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
+    private final String[] allowedChars;
 
+
+    public PasswordCreation(){
+        final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+        final String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final String numbers = "0123456789";
+        final String symbols = "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
+
+        allowedChars = new String[]{lowercaseLetters, uppercaseLetters, numbers, symbols};
+    }
     /**
-     * This method generates and returns a strong password
+     * This method generates and returns a strong password using the SecureRandom class, which is a cryptographically
+     * strong random number generator.
+     *
+     * Documentation: https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html
      *
      * @param length The length of the password that is generated. Must be >= 12.
+     * @return string that is a strong password of the specified length
      */
     public String generatePassword(int length) {
         if (length < 12){
             throw new IllegalArgumentException("Randomly generated passwords must have length of at least 12.");
         }
 
-        List<String> allowedChars = new ArrayList<>();
-        allowedChars.add(lowercaseLetters);
-        allowedChars.add(uppercaseLetters);
-        allowedChars.add(numbers);
-        allowedChars.add(symbols);
-
-        StringBuilder password = new StringBuilder(capacity = length);
+        StringBuilder password = new StringBuilder(length);
         SecureRandom random = new SecureRandom();
+
+        // generates password randomly and then checks to see if it fulfills the strong password requirements
         do {
             for(int i=0; i<length; i++){
+                // randomly choose a type of character
                 int chooseType = random.nextInt(4);
-                String charType = allowedChars.get(chooseType);
+                String charType = allowedChars[chooseType];
+
+                // randomly choose a character from the chosen character type
                 int random_index = random.nextInt(charType.length());
                 password.append(charType.charAt(random_index));
             }
@@ -56,67 +61,69 @@ public class PasswordCreation {
 
     /**
      * This method rates the strength of a password on a scale of Weak, Medium, and Strong. Passwords that are weak
-     * contain 6 or less characters or contain only one type of character, while strong passwords satisfy all the
+     * contain 6 or fewer characters or contain only one type of character, while strong passwords satisfy all the
      * requirements listed in the class description. Medium passwords are passwords that are not Weak or Strong.
-     * requirements.
      *
      * @param password The password that is to be checked.
-     * @return
+     * @return array of strings where the first element is the strength of the password and the second element is a
+     *         recommendation on how to increase the rating of the password. If the password is considered strong, then
+     *         the second element is an empty string.
      */
     public String[] checkPasswordStrength(String password){
+        String message = "Missing: lowercase letters, uppercase letters, symbols, numbers";
+        int charTypeCounter = 0;
 
-        Map<String, Boolean> charTypeCount = new HashMap<>();
-        charTypeCount.put(lowercaseLetters, false);
-        charTypeCount.put(uppercaseLetters, false);
-        charTypeCount.put(numbers, false);
-        charTypeCount.put(symbols, false);
-
-        // count how many of each symbol is in the password
         for(int i = 0;i<password.length(); i++){
             char c = password.charAt(i);
-
-            for (String key: charTypeCount.keySet()) {
+            for (String key: allowedChars) {
                 if (key.indexOf(c) != -1){
-                    charTypeCount.replace(key, true);
+                    charTypeCounter++;
+                    message = editMessage(message, key);
                 }
             }
         }
+        return determineRatingAndMessage(password, message, charTypeCounter);
+    }
 
-        int frequency = 0;
-
-
-        String message = "Missing: lowercase letters, uppercase letters, symbols, numbers";
-        if (!charTypeCount.get(lowercaseLetters)){
-            message = message.replace("lowercase letters, ", "");
-            frequency++;
-        }
-        if (!charTypeCount.get(uppercaseLetters)){
-            message = message.replace("uppercase letters, ", "");
-            frequency++;
-        }
-        if (!charTypeCount.get(symbols)){
-            message = message.replace("symbols, ", "");
-            frequency++;
-        }
-        if (!charTypeCount.get(numbers)){
-            message = message.replace(", numbers", "");
-            frequency++;
-        }
-        // determine if the password is considered strong
-        if(password.length() >= 12 && frequency == 4){
+    /**
+     * Helper method for checkPasswordStrength. Checks the criteria laid out in the class description and customizes
+     * the message if needed.
+     */
+    private String[] determineRatingAndMessage(String password, String message, int charTypeCounter) {
+        if(password.length() >= 12 && charTypeCounter == 4){
             return new String[]{PasswordStrength.STRONG.toString(), ""};
         }
-        else if(password.length() >= 12 && frequency == 3){
+        else if(password.length() >= 12 && charTypeCounter == 3){
             return new String[]{PasswordStrength.STRONG.toString(), message};
         }
         else if (password.length() < 6){
             return new String[]{PasswordStrength.WEAK.toString(), "Needs more characters"};
         }
-        else if(frequency == 1){
+        else if(charTypeCounter == 1){
             return new String[]{PasswordStrength.WEAK.toString(), message};
         }
         else{
             return new String[]{PasswordStrength.MEDIUM.toString(), message};
         }
+    }
+
+    /**
+     * Helper method for checkPasswordStrength. Edits the message based on what needs to be changed in the password to
+     * make it stronger.
+     */
+    private String editMessage(String message, String key) {
+        if (key.equals(allowedChars[0])) {
+            message = message.replace("lowercase letters, ", "");
+        }
+        else if (key.equals(allowedChars[1])) {
+            message = message.replace("uppercase letters, ", "");
+        }
+        else if (key.equals(allowedChars[2])) {
+            message = message.replace("symbols, ", "");
+        }
+        else{
+            message = message.replace(", numbers", "");
+        }
+        return message;
     }
 }
