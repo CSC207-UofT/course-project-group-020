@@ -30,12 +30,12 @@ public class Serializer {
         catch(Exception e){e.printStackTrace();}
     }
 
-    public static Account deserialize(String Username){
+    public static Account deserialize(String username){
         // We would call this method when we first open the program to check if there are any
         // previously created accounts
         try {
             String PATH = "src/main/java/Serializer/Data/";
-            FileInputStream fin = new FileInputStream(PATH + Username + ".bin");
+            FileInputStream fin = new FileInputStream(PATH + username + ".bin");
             ObjectInputStream in = new ObjectInputStream(fin);
             Account account = (Account) in.readObject();
 
@@ -47,14 +47,5 @@ public class Serializer {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-//        Account newAcc = new Account("Ryan", "Zhao");
-//
-//        Serializer.serialize(newAcc);
-        Account dAcc = Serializer.deserialize("Ryan");
-
-        System.out.println(dAcc.getUsername());
     }
 }

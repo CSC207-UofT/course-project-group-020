@@ -17,7 +17,7 @@ public class Account implements Serializable {
 
     private final String username;
     private final String masterPassword;
-    public ArrayList<PrivateInfo> vault = new ArrayList<>();
+    private ArrayList<PrivateInfo> vault = new ArrayList<>();
     public Throwable IndexOutOfBoundsException;
 
     /**
@@ -56,62 +56,6 @@ public class Account implements Serializable {
      */
     public ArrayList<PrivateInfo> getVault() {
         return this.vault;
-    }
-
-
-
-    /**
-     * This method is responsible for adding new instances of PrivateInfo into the vault of this account.
-     *
-     * @param newInfo The new PrivateInfo that is to be added to the vault.
-     * @return Returns true if the PrivateInfo object was added to the vault
-     */
-    public boolean addInfo(PrivateInfo newInfo) {
-        this.vault.add(newInfo);
-        return true;
-    }
-
-
-    /**
-     * This method is responsible for editing the wanted instance of PrivateInfo from the vault.
-     *
-     * @param infoId            The string representation of the unique UUID of the instance of PrivateInfo.
-     * @param attributeToChange The string representation of the wanted attribute to change,
-     *                          such as "username" or "password".
-     * @param newValue          The new string value that is to be changed to.
-     * @return Returns true if the PrivateInfo object was edited; false, otherwise.
-     */
-    public boolean editInfo(String infoId, String attributeToChange, String newValue) {
-
-        for (PrivateInfo info : this.vault) {
-            if (info.getId().equals(infoId)) {
-                info.setInfo(attributeToChange, newValue);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * This method is responsible for deleting the wanted instance of PrivateInfo from the vault.
-     *
-     * @param infoId The string representation of the unique UUID for the instance of
-     *               PrivateInfo that is wanted to be deleted.
-     * @return Returns true if the PrivateInfo object was deleted from the vault; false, otherwise.
-     */
-    public boolean deleteInfo(String infoId) {
-
-        Iterator<PrivateInfo> iter = this.vault.iterator();
-
-        while (iter.hasNext()) {
-            PrivateInfo info = iter.next();
-            if (info.getId().equals(infoId)) {
-                iter.remove();
-                return true;
-            }
-        }
-        return false;
     }
 
 
