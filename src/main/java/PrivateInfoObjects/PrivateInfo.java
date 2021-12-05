@@ -60,7 +60,7 @@ public abstract class PrivateInfo implements Serializable {
      * @return A string representation of this PrivateInfo's unique UUID.
      */
     public String getId(){return this.id;}
-    
+
     public String setInfo(String attributeToChange, String newValue) {
         if (info.containsKey(attributeToChange)){
             info.put(attributeToChange, newValue);
@@ -117,7 +117,6 @@ public abstract class PrivateInfo implements Serializable {
     public abstract PrivateInfo decryptInfoType(String key);
 
 }
-
 
 
 
