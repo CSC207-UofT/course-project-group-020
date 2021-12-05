@@ -4,6 +4,7 @@ import Account.AccountManager;
 
 import Encryption.MasterEncryption;
 import Encryption.PrivateInfoEncryption;
+import PasswordManagerProgram.PasswordCreation;
 import PrivateInfoObjects.*;
 import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
@@ -72,7 +73,7 @@ public class AccountController { ;
      *         response if the password is incorrect
      */
     @PostMapping("/get-user-data")
-    ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
+    public ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
         ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
         if(verifyResult.getStatusCodeValue() == 200){
             Account userAcc = accountManager.getAccount(userInfoForm.username);
@@ -92,7 +93,7 @@ public class AccountController { ;
      *         response if the password is incorrect
      */
     @PostMapping("/verify-user")
-    ResponseEntity<?> verifyUser(@RequestBody UserInfoForm userInfoForm){
+    public ResponseEntity<?> verifyUser(@RequestBody UserInfoForm userInfoForm){
         return accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
     }
 
@@ -107,7 +108,7 @@ public class AccountController { ;
      * Otherwise, returns an HTTP 409 response if the user already exists.
      */
     @PostMapping("/create-user")
-    ResponseEntity<?>  createUser(@RequestBody UserInfoForm userInfoForm){
+    public ResponseEntity<?>  createUser(@RequestBody UserInfoForm userInfoForm){
         ResponseEntity<?> verifyResults = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
 
         if(verifyResults.getStatusCodeValue()==200 || verifyResults.getStatusCodeValue()==401){
@@ -129,7 +130,7 @@ public class AccountController { ;
      *         response if the password is incorrect
      */
     @PostMapping("/create-entry")
-    ResponseEntity<?> createEntry(@RequestBody EntryInfoForm createEntryForm) {
+    public ResponseEntity<?> createEntry(@RequestBody EntryInfoForm createEntryForm) {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.username, createEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
@@ -153,7 +154,7 @@ public class AccountController { ;
      *         response if the password is incorrect
      */
     @PostMapping("/delete-entry")
-    ResponseEntity<?> deleteEntry(@RequestBody DeleteEntryForm deleteEntryForm) {
+    public ResponseEntity<?> deleteEntry(@RequestBody DeleteEntryForm deleteEntryForm) {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(deleteEntryForm.username, deleteEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
@@ -182,7 +183,7 @@ public class AccountController { ;
      *         if the user does not exist or an HTTP 401 response if the password is incorrect.
      */
     @PostMapping("/update-entry")
-    ResponseEntity<?> updateEntry(@RequestBody UpdateEntryForm updateEntryForm) {
+    public ResponseEntity<?> updateEntry(@RequestBody UpdateEntryForm updateEntryForm) {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.username, updateEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
@@ -204,11 +205,27 @@ public class AccountController { ;
      *         404(Not Found) if user does not exist, or 401(Unauthorized) if password does not match username.
      */
     @PostMapping("/delete-user")
-    ResponseEntity<?> deleteUser(@RequestBody UserInfoForm userInfoForm) {
+    public ResponseEntity<?> deleteUser(@RequestBody UserInfoForm userInfoForm) {
         ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
         if (verifyResult.getStatusCodeValue() == 200) {
             accountManager.deleteAccount(userInfoForm.username);
         }
         return verifyResult;
     }
+
+
+    /**
+     * A function to generate a random password of a certain length
+     *
+     * @param generatePassForm which contains an int value for length of password desired
+     * @return A HTTP response entity with status code 200(OK). Body of the response contains generated password as
+     *         String
+     */
+    @PostMapping("/generate-password")
+    public ResponseEntity<?> generatePassword(@RequestBody GeneratePassForm generatePassForm) {
+        String newPass = PasswordCreation.generatePassword(generatePassForm.length);
+
+        return new ResponseEntity<>(newPass, HttpStatus.OK);
+    }
+
 }
