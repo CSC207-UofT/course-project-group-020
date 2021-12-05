@@ -16,7 +16,7 @@ import java.security.SecureRandom;
  */
 
 public class PasswordCreation {
-    private final String[] allowedChars;
+    private static String[] allowedChars = new String[0];
 
 
     public PasswordCreation(){
@@ -36,7 +36,7 @@ public class PasswordCreation {
      * @param length The length of the password that is generated. Must be >= 12.
      * @return string that is a strong password of the specified length
      */
-    public String generatePassword(int length) {
+    public static String generatePassword(int length) {
         if (length < 12){
             throw new IllegalArgumentException("Randomly generated passwords must have length of at least 12.");
         }
@@ -69,7 +69,7 @@ public class PasswordCreation {
      *         recommendation on how to increase the rating of the password. If the password is considered strong, then
      *         the second element is an empty string.
      */
-    public String[] checkPasswordStrength(String password){
+    public static String[] checkPasswordStrength(String password){
         String message = "Missing: lowercase letters, uppercase letters, symbols, numbers";
         int charTypeCounter = 0;
 
@@ -89,7 +89,7 @@ public class PasswordCreation {
      * Helper method for checkPasswordStrength. Checks the criteria laid out in the class description and customizes
      * the message if needed.
      */
-    private String[] determineRatingAndMessage(String password, String message, int charTypeCounter) {
+    private static String[] determineRatingAndMessage(String password, String message, int charTypeCounter) {
         if(password.length() >= 12 && charTypeCounter == 4){
             return new String[]{PasswordStrength.STRONG.toString(), ""};
         }
@@ -111,7 +111,7 @@ public class PasswordCreation {
      * Helper method for checkPasswordStrength. Edits the message based on what needs to be changed in the password to
      * make it stronger.
      */
-    private String editMessage(String message, String key) {
+    private static String editMessage(String message, String key) {
         if (key.equals(allowedChars[0])) {
             message = message.replace("lowercase letters, ", "");
         }
