@@ -29,7 +29,7 @@ public class EncryptMasterTest {
     @Test
     public void testIfEncryptedAndStoredMasterPasswordsMatch() throws Throwable {
         String encryptedMasterPassword = MasterEncryption.encryptMaster(myMasterPassword);
-        String storedMasterPassword = this.accountManager.getAccount("hayknazaryan").getMasterPassword();
+        String storedMasterPassword = accountManager.getAccountByUsername("hayknazaryan").getMasterPassword();
 
         assertEquals(encryptedMasterPassword, storedMasterPassword);
     }
