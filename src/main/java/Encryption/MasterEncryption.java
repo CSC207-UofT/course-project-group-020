@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 public class MasterEncryption {
 
     private static final Charset utf_8 = StandardCharsets.UTF_8;
-    private static final String ALGO = "SHA3-256"; //"SHA-256"; --> for SHA-2 etc...
+    private static final String ALGO = "SHA-256"; //"SHA-256"; --> for SHA-2 etc...
 
     /**
      * This method is the main encryption method. It unites the other methods.
