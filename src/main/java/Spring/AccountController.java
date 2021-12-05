@@ -110,7 +110,7 @@ public class AccountController { ;
     ResponseEntity<?>  createUser(@RequestBody UserInfoForm userInfoForm){
         ResponseEntity<?> verifyResults = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
 
-        if(verifyResults.getStatusCodeValue()==200){
+        if(verifyResults.getStatusCodeValue()==200 || verifyResults.getStatusCodeValue()==401){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else{
             accountManager.createAccount(userInfoForm.username, userInfoForm.password);
