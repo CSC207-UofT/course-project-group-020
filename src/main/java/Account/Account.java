@@ -17,7 +17,7 @@ public class Account implements Serializable {
 
     private final String username;
     private final String masterPassword;
-    public ArrayList<PrivateInfo> vault = new ArrayList<>();
+    private ArrayList<PrivateInfo> vault = new ArrayList<>();
     public Throwable IndexOutOfBoundsException;
 
     /**
@@ -57,15 +57,6 @@ public class Account implements Serializable {
     public ArrayList<PrivateInfo> getVault() {
         return this.vault;
     }
-
-
-
-
-
-
-
-
-
 
 
     /**

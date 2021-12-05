@@ -3,6 +3,8 @@ package Account;
 import Encryption.MasterEncryption;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,21 +36,49 @@ public class AccountManager {
      * @param username       The username associated with this new Account.
      * @param masterPassword The master password associated with this new Account.
      */
-
     public boolean createAccount(String username, String masterPassword) {
+//        if (Serializer.deserialize(username) == null) {
+//            Account newUser = new Account(username, MasterEncryption.encryptMaster(masterPassword));
+//            Serializer.serialize(newUser);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } else{
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        }
         String encryptedMasterPassword = MasterEncryption.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
 
         // Stores this new account in our data folder with the other accounts.
         Serializer.serialize(account);
         return true;
-
     }
 
     public Account getAccount(String username){
 
         return Serializer.deserialize(username);
 
+    }
+
+    /**
+     * Helper method for verifyUser.
+     *
+     * @param username String of user's username
+     * @param password String of user's password
+     * @return returns an HTTP 200 response with the user as response body if the specified user exists and the password
+     *         is correct. Otherwise, returns an HTTP 404 response if the user does not exist or an HTTP 401
+     *         response if the password is incorrect
+     */
+    public ResponseEntity<?> verifyUser(String username, String password){
+        Account user = Serializer.deserialize(username);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            String userAttempt = MasterEncryption.encryptMaster(password);
+            if (userAttempt.equals(user.getMasterPassword())){
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        }
     }
 
     /**
@@ -112,6 +142,7 @@ public class AccountManager {
 
         while (iter.hasNext()) {
             PrivateInfo info = iter.next();
+            System.out.println(info.getId());
             if (info.getId().equals(infoId)) {
                 iter.remove();
                 Serializer.serialize(currentAccount);

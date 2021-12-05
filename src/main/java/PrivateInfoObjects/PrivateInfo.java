@@ -114,6 +114,15 @@ public abstract class PrivateInfo implements Serializable {
         }
     }
 
+    /**
+     * A setter method that sets the id attribute of this object
+     *
+     * @param id String
+     */
+    public void setId(String id){
+        this.id = id;
+    }
+
     public abstract PrivateInfo decryptInfoType(String key);
 
 }

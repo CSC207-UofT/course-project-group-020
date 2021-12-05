@@ -1,7 +1,9 @@
 package Spring;
 import Account.Account;
+import Account.AccountManager;
 
 import Encryption.MasterEncryption;
+import Encryption.PrivateInfoEncryption;
 import PrivateInfoObjects.*;
 import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,7 @@ RES: 401 || 200 || 500
 
 @RestController
 public class AccountController { ;
+    AccountManager accountManager = new AccountManager();
 
     public AccountController(){
     }
@@ -70,24 +73,14 @@ public class AccountController { ;
      */
     @PostMapping("/get-user-data")
     ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
-
-        Account user = Serializer.deserialize(userInfoForm.username);
-
-//        if (user == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }else {
-//            String userAttempt = MasterEncryption.encryptMaster(userInfoForm.password);
-//
-//            if (userAttempt.equals(user.getMasterPassword())){
-//                return new ResponseEntity<>(user, HttpStatus.OK);
-//            } else {
-//                return new ResponseEntity<>(HttpStatus.CONFLICT);
-//            }
-//        }
-
-        // TODO: Possible error when deserializing user
-        // TODO: decrypt user after Kelian finished decryption method
-        return verifyUserHelper(userInfoForm.username, userInfoForm.password, user);
+        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        if(verifyResult.getStatusCodeValue() == 200){
+            Account userAcc = accountManager.getAccount(userInfoForm.username);
+            Account decryptedAcc = PrivateInfoEncryption.decryptAccount(userAcc, userInfoForm.password);
+            return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
+        } else {
+            return verifyResult;
+        }
     }
 
     /**
@@ -100,35 +93,10 @@ public class AccountController { ;
      */
     @PostMapping("/verify-user")
     ResponseEntity<?> verifyUser(@RequestBody UserInfoForm userInfoForm){
-
-        return verifyUserHelper(userInfoForm.username, userInfoForm.password, null);
+        return accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
     }
 
-    /**
-     * Helper method for verifyUser.
-     *
-     * @param username String of user's username
-     * @param password String of user's password
-     * @param responseBody Object that is returned as part of response body if username and password is valid
-     * @return returns an HTTP 200 response with the given responseBody if the specified user exists and the password
-     *         is correct. Otherwise, returns an HTTP 404 response if the user does not exist or an HTTP 401
-     *         response if the password is incorrect
-     */
-    public ResponseEntity<?> verifyUserHelper(String username, String password, Object responseBody){
-        Account user = Serializer.deserialize(username);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        }else {
-            String userAttempt = MasterEncryption.encryptMaster(password);
-
-            if (userAttempt.equals(user.getMasterPassword())){
-                return new ResponseEntity<>(responseBody, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-        }
-    }
 
     /**
      * Creates a user with the given username and password in the database. Returns an HTTP response
@@ -140,12 +108,13 @@ public class AccountController { ;
      */
     @PostMapping("/create-user")
     ResponseEntity<?>  createUser(@RequestBody UserInfoForm userInfoForm){
-        Account newUser = new Account(userInfoForm.username, MasterEncryption.encryptMaster(userInfoForm.password));
-        if (Serializer.deserialize(userInfoForm.username) == null) {
-            Serializer.serialize(newUser);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else{
+        ResponseEntity<?> verifyResults = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+
+        if(verifyResults.getStatusCodeValue()==200){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else{
+            accountManager.createAccount(userInfoForm.username, userInfoForm.password);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
@@ -162,11 +131,10 @@ public class AccountController { ;
     @PostMapping("/create-entry")
     ResponseEntity<?> createEntry(@RequestBody EntryInfoForm createEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = verifyUserHelper(createEntryForm.username, createEntryForm.password, null);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.username, createEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
-                Account user = Serializer.deserialize(createEntryForm.username);
-                user.addInfo(PrivateInfoFactory.createEntryByType(createEntryForm.type, createEntryForm.data, createEntryForm.password));
-                Serializer.serialize(user);
+                PrivateInfo newEntry = PrivateInfoFactory.createEntryByType(createEntryForm.type, createEntryForm.data, createEntryForm.password);
+                accountManager.addInfo(newEntry, createEntryForm.username);
             }
             return verifyResult;
         } catch (NullPointerException e){
@@ -187,12 +155,15 @@ public class AccountController { ;
     @PostMapping("/delete-entry")
     ResponseEntity<?> deleteEntry(@RequestBody DeleteEntryForm deleteEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = verifyUserHelper(deleteEntryForm.username, deleteEntryForm.password, null);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(deleteEntryForm.username, deleteEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
-                Account user = Serializer.deserialize(deleteEntryForm.username);
-                user.deleteInfo(deleteEntryForm.id);
-                Serializer.serialize(user);
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                boolean result = accountManager.deleteInfo(deleteEntryForm.id, deleteEntryForm.username);
+
+                if(result){
+                    return verifyResult;
+                } else{
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
             }
             return verifyResult;
         } catch (NullPointerException e){
@@ -213,17 +184,31 @@ public class AccountController { ;
     @PostMapping("/update-entry")
     ResponseEntity<?> updateEntry(@RequestBody UpdateEntryForm updateEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = verifyUserHelper(updateEntryForm.username, updateEntryForm.password, null);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.username, updateEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
-                Account user = Serializer.deserialize(updateEntryForm.username);
-                user.deleteInfo(updateEntryForm.id);
-                user.addInfo(PrivateInfoFactory.createEntryByType(updateEntryForm.type, updateEntryForm.data, updateEntryForm.password));
-                Serializer.serialize(user);
-                return new ResponseEntity<>(user, HttpStatus.OK);
+                PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.type, updateEntryForm.data, updateEntryForm.password);
+                accountManager.editInfo(newInfo, updateEntryForm.username, updateEntryForm.id);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
             return verifyResult;
         } catch (NullPointerException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    /**
+     * A function that deletes a user from the database
+     *
+     * @param userInfoForm which contains the username and password of the user you want to delete.
+     * @return Returns a ResponseEntity with HTTP status code 200(OK) if the operation was successful,
+     *         404(Not Found) if user does not exist, or 401(Unauthorized) if password does not match username.
+     */
+    @PostMapping("/delete-user")
+    ResponseEntity<?> deleteUser(@RequestBody UserInfoForm userInfoForm) {
+        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        if (verifyResult.getStatusCodeValue() == 200) {
+            accountManager.deleteAccount(userInfoForm.username);
+        }
+        return verifyResult;
     }
 }
