@@ -1,6 +1,7 @@
 package Account;
 
-import Encryption.MasterEncryption;
+import Encryption.MasterEncryptor;
+import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,8 @@ public class AccountManager {
      * @param masterPassword The master password associated with this new Account.
      */
     public boolean createAccount(String username, String masterPassword) {
-        String encryptedMasterPassword = MasterEncryption.encryptMaster(masterPassword);
+        MasterEncryptor encryptor = new SecureHashEncryption();
+        String encryptedMasterPassword = encryptor.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
 
         // Stores this new account in our data folder with the other accounts.
@@ -62,7 +64,8 @@ public class AccountManager {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            String userAttempt = MasterEncryption.encryptMaster(password);
+            MasterEncryptor encryptor = new SecureHashEncryption();
+            String userAttempt = encryptor.encryptMaster(password);
             if (userAttempt.equals(user.getMasterPassword())) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {

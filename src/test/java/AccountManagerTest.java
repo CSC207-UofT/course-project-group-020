@@ -1,14 +1,11 @@
 import Account.Account;
 import Account.AccountManager;
-import Encryption.MasterEncryption;
+import Encryption.MasterEncryptor;
+import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.*;
-import org.apache.tomcat.util.net.openssl.ciphers.Encryption;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * This class tests the functionality of adding, deleting and editing PrivateInfo such as LogIns, Notes, IDs, and
@@ -225,7 +222,8 @@ public class AccountManagerTest {
     public void testCreateAccount(){
         // Create a second account.
         assert this.accountManager.createAccount("ryanzhao", "Ilikeanime");
-        String encryptedMasterPassword = MasterEncryption.encryptMaster("Ilikeanime");
+        MasterEncryptor encryptor = new SecureHashEncryption();
+        String encryptedMasterPassword = encryptor.encryptMaster("Ilikeanime");
 
         // Test if the newly created account matches our records.
         Account newAccount = accountManager.getAccount("ryanzhao");

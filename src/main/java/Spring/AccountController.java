@@ -2,11 +2,10 @@ package Spring;
 import Account.Account;
 import Account.AccountManager;
 
-import Encryption.MasterEncryption;
-import Encryption.PrivateInfoEncryption;
-import PasswordManagerProgram.PasswordCreation;
+import Encryption.BlowfishEncryption;
+import Encryption.PrivateInfoEncryptor;
+import Password.PasswordCreation;
 import PrivateInfoObjects.*;
-import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,8 @@ public class AccountController {
         ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
         if(verifyResult.getStatusCodeValue() == 200){
             Account userAcc = accountManager.getAccount(userInfoForm.username);
-            ArrayList<PrivateInfo> decryptedAcc = PrivateInfoEncryption.decryptVault(userAcc, userInfoForm.password);
+            PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+            ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.password);
             return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
         } else {
             return verifyResult;

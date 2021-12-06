@@ -16,29 +16,29 @@ Previously, we required the user to enter a 3 digit key as well as a master pass
 
 ### Clean Architecture
 
-In the innermost layer, the classes LogIn, Note, ID, and Contact are subclasses of PrivateInfo, an abstract entity class.  These classes are independent to the rest of the program, as they do not depend on any other classes. They should only have getter and setter methods. 
+In the innermost layer, the classes LogIn, Note, ID, and Contact are subclasses of PrivateInfo, an abstract entity class.  These classes are independent to the rest of the program, as they do not depend on any other classes. They should only have getter and setter methods.
 
-Currently, the Account entity class is dependent on the PrivateInfoManager class, and this is a violation of Clean Architecture because an Entity Class is dependent on a Use Case. The plan to fix this dependency issue is to store PrivateInfo objects directly in an Account, and keep the Accounts stored in AccountManager. Then, a PrivateInfoManager will take an Account in its constructor, and that is how PrivateInfoManager stores PrivateInfo objects. 
+Currently, the Account entity class is dependent on the PrivateInfoManager class, and this is a violation of Clean Architecture because an Entity Class is dependent on a Use Case. The plan to fix this dependency issue is to store PrivateInfo objects directly in an Account, and keep the Accounts stored in AccountManager. Then, a PrivateInfoManager will take an Account in its constructor, and that is how PrivateInfoManager stores PrivateInfo objects.
 
-PrivateInfoManager, AccountManager, Serializer, EncryptMaster, and EncryptPrivInfo are all examples of Use Cases. Some use cases interact with the entities directly such as AccountManager, while others such as the encryption classes, tend to interact with other use cases. The use cases all interact with other use cases or depend on other entities. 
+PrivateInfoManager, AccountManager, Serializer, EncryptMaster, and EncryptPrivInfo are all examples of Use Cases. Some use cases interact with the entities directly such as AccountManager, while others such as the encryption classes, tend to interact with other use cases. The use cases all interact with other use cases or depend on other entities.
 
-At the Interface Adapter Level, there should be controller classes that process and validate user input and that assign it to the appropriate use case of AccountManager or PrivateInfoManager. We have one driver class called PasswordManagerProgram where the main method is located. 
+At the Interface Adapter Level, there should be controller classes that process and validate user input and that assign it to the appropriate use case of AccountManager or PrivateInfoManager. We have one driver class called PasswordManagerProgram where the main method is located.
 
-The UIMain used to be the command line interface for the program, but it is not in use anymore, as we are moving to a gui. The classes for this are in a separate branch called springTest, and they do not appear in the main branch as they are still in development, so they do not appear on the class diagram. 
+The UIMain used to be the command line interface for the program, but it is not in use anymore, as we are moving to a gui. The classes for this are in a separate branch called springTest, and they do not appear in the main branch as they are still in development, so they do not appear on the class diagram.
 
-Furthermore, there are not big jumps from outer layers to inner layers. Interface Adapters only depend on Use Cases, and use cases only depend on other use cases or entities. 
+Furthermore, there are not big jumps from outer layers to inner layers. Interface Adapters only depend on Use Cases, and use cases only depend on other use cases or entities.
 
 ### SOLID Principles
 
-Our program follows the Single Responsbility Principle because each class only has one responsibility, and it is laid out in the name of the classes. For example, our original design only had one Encryption class to encrypt the private info, but we decided to split the class into two classes, EncryptMasterPasword and EncryptPrivInfo because they perform different function in that they encrypt different objects, and these objects require different encryption systems so it made sense to put them in two different classes. 
+Our program follows the Single Responsbility Principle because each class only has one responsibility, and it is laid out in the name of the classes. For example, our original design only had one Encryption class to encrypt the private info, but we decided to split the class into two classes, EncryptMasterPasword and EncryptPrivInfo because they perform different function in that they encrypt different objects, and these objects require different encryption systems so it made sense to put them in two different classes.
 
 For the Open/Closed Principle, since our program generally follows Clean Architecture, this has made the program easy for extension, but closed for modification. At the outer layers, the client only has access to the controller and other interface adapters, but they are unable to reach the use cases and the entities by bypassing these interface adapter classes. The core of the program: the entities, are protected by all the layers of Clean Architecutre.
 
-For Liskov’s Substitution Principle, the only inheritance relationship we have is for PrivateInfo and its subclasses. This inheritance relationship makes sense because the subclasses share a “is a” relationship to PrivateInfo. In the PrivateInfoManager, we define methods that provide functionality such as adding info and deleting info, and no matter which subclass we use, such as LogIn or Note, they will not affect the performance of the program differently. 
+For Liskov’s Substitution Principle, the only inheritance relationship we have is for PrivateInfo and its subclasses. This inheritance relationship makes sense because the subclasses share a “is a” relationship to PrivateInfo. In the PrivateInfoManager, we define methods that provide functionality such as adding info and deleting info, and no matter which subclass we use, such as LogIn or Note, they will not affect the performance of the program differently.
 
 ### Packaging Strategies
 
-We decided to Package by Component. The Encryption classes encapsulates a set of related functions, which are encryption. Similarly, the classes related to the Accounts, namely Account and AccountManager, are also in the same package. We found that this organization structure made the most intuitive sense for organizing the program, as the classes that performed related functions were grouped together. 
+We decided to Package by Component. The Encryption classes encapsulates a set of related functions, which are encryption. Similarly, the classes related to the Accounts, namely Account and AccountManager, are also in the same package. We found that this organization structure made the most intuitive sense for organizing the program, as the classes that performed related functions were grouped together.
 
 ### Design Patterns
 The Factory Method design pattern is a good solution for when a framework needs to standardize the architectural model for a range of applications. Using this design pattern, we will create an interface that provides the outline for creating an object. However, the class that implements the interface will not be instantiated, one of the subclasses will be!
@@ -53,10 +53,9 @@ Some open questions we had were:
 
 ### What Has Worked
 
-What has worked so far is having an inheritance relationship between PrivateInfo and LogIn, ID, Contact, and Note. In Phase 0, we only implemented LogIn, so we could not reap the benefits of the inheritance relationships, but now that every subclass has been implemented, we are able to use polymorphism with respect to PrivateInfo. For example, all the methods to add private info, delete private info, and so on in PrivateInfoManager take a PrivateInfo object as a parameter. This way, we don’t need to differentiate between LogIn, ID, and so on, as long as we know it is a PrivateInfo object. 
+What has worked so far is having an inheritance relationship between PrivateInfo and LogIn, ID, Contact, and Note. In Phase 0, we only implemented LogIn, so we could not reap the benefits of the inheritance relationships, but now that every subclass has been implemented, we are able to use polymorphism with respect to PrivateInfo. For example, all the methods to add private info, delete private info, and so on in PrivateInfoManager take a PrivateInfo object as a parameter. This way, we don’t need to differentiate between LogIn, ID, and so on, as long as we know it is a PrivateInfo object.
 
 ### Individual Contributions
 
 Hayk and Yousef worked to add new logins, and also implemented the subclasses of PrivateInfo that had not been implemented in Phase 0. They also implemented the functionality to add, edit, and delete entries in a vault. For several features of this project, Hayk (hayk-bvb) and Yousuf (yousufhassan) coded together using the IntelliJ CodeWithMe feature. As a result, several of Hayk's commits include Yousuf's contributions and several of Yousuf's commits include Hayk's contributions. Cliff and Ryan are working on the springTest branch to create the endpoints that connect the front end and the back end of the program. Kelian and Patricia worked together on data serialization. All the group members plan on refactoring the code to get rid of code smells and dependency issues. We also want to add more documentation and tests. 
-
 

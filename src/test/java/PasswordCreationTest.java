@@ -2,8 +2,8 @@
  * This file contains JUnit test cases for EncryptMaster.java/
  */
 
-import PasswordManagerProgram.PasswordCreation;
-import PasswordManagerProgram.PasswordStrength;
+import Password.PasswordCreation;
+import Password.PasswordStrength;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

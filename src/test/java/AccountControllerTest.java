@@ -1,5 +1,6 @@
-import Account.Account;
-import Encryption.PrivateInfoEncryption;
+import Encryption.BlowfishEncryption;
+import Encryption.PrivateInfoEncryptor;
+import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import Spring.*;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
+    PrivateInfoEncryptor encryptor = new BlowfishEncryption();
 
     @Before
     public void setUp() {
@@ -152,7 +154,7 @@ public class AccountControllerTest {
         entry1.data = new String[]{"DeleteTest", "Content"};
         accountController.createEntry(entry1);
 
-        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
+        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
                 Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
 
         PrivateInfo note = acc.get(0);
@@ -185,6 +187,11 @@ public class AccountControllerTest {
         entry1.password = "WrongPassword";
         entry1.type = "Note";
         entry1.data = new String[]{"DeleteTest", "Content"};
+
+        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
+        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
+                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
+        String id = "randomId";
         accountController.createEntry(entry1);
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
@@ -224,7 +231,8 @@ public class AccountControllerTest {
         entry1.data = new String[]{"Title", "Content"};
         accountController.createEntry(entry1);
 
-        ArrayList<PrivateInfo> vault = PrivateInfoEncryption.decryptVault(Serializer.deserialize("Cliff"), "CorrectPassword");
+        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+        ArrayList<PrivateInfo> vault = encryptor.decryptVault(Serializer.deserialize("Cliff"), "CorrectPassword");
 
         PrivateInfo note = vault.get(0);
         String id = note.id;

@@ -11,12 +11,12 @@ import java.util.ArrayList;
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
  */
 
-public class PrivateInfoEncryption {
+public class BlowfishEncryption implements PrivateInfoEncryptor{
 
-    public static String[] encryptList(String[] data, String key){
+    public String[] encryptList(String[] data, String key){
         String[] eData = new String[data.length];
         for(int i = 0; i < eData.length; i++){
-            eData[i] = PrivateInfoEncryption.encryptInfo(key, data[i]);
+            eData[i] = encryptInfo(key, data[i]);
         }
         return eData;
     }
@@ -33,7 +33,7 @@ public class PrivateInfoEncryption {
      * @param text_to_encrypt The string which is to be encrypted.
      *
      */
-    public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
+    public String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
         byte[] KeyData = key.getBytes();
         try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
@@ -64,7 +64,7 @@ public class PrivateInfoEncryption {
      * @param account The Account to have its info decrypted.
      * @param key The string representation of the key corresponding to the Account.
      */
-    public static ArrayList<PrivateInfo> decryptVault(Account account, String key){
+    public ArrayList<PrivateInfo> decryptVault(Account account, String key){
 
         ArrayList<PrivateInfo> decryptedVault = new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class PrivateInfoEncryption {
         return decryptedVault;
     }
 
-    public static PrivateInfo decryptPrivateInfo(PrivateInfo privateInfo, String type, String key){
+    public PrivateInfo decryptPrivateInfo(PrivateInfo privateInfo, String type, String key){
         switch (type){
             case "Login":
                 return decryptLogin(privateInfo, key);
@@ -91,29 +91,27 @@ public class PrivateInfoEncryption {
         }
     }
 
-    public static PrivateInfo decryptLogin(PrivateInfo privateLogin, String key){
-
+    private PrivateInfo decryptLogin(PrivateInfo privateLogin, String key){
         return new LogIn(decryptInfo(privateLogin.getInfo("username"), key),
                 decryptInfo(privateLogin.getInfo("password"), key),
                 decryptInfo(privateLogin.getInfo("webpage"), key),
                 decryptInfo(privateLogin.getInfo("url"), key));
     }
 
-    public static PrivateInfo decryptContact(PrivateInfo privateContact, String key){
-
+    private PrivateInfo decryptContact(PrivateInfo privateContact, String key){
         return new Contact(decryptInfo(privateContact.getInfo("name"), key),
                 decryptInfo(privateContact.getInfo("number"), key),
                 decryptInfo(privateContact.getInfo("address"), key));
     }
 
-    public static PrivateInfo decryptId(PrivateInfo privateId, String key){
+
+    private PrivateInfo decryptId(PrivateInfo privateId, String key){
         return new Identification(decryptInfo(privateId.getInfo("IDType"), key),
                 decryptInfo(privateId.getInfo("IDNumber"), key),
                 decryptInfo(privateId.getInfo("IDExpirationDate"), key));
     }
 
-    public static PrivateInfo decryptNote(PrivateInfo privateNote, String key){
-
+    private PrivateInfo decryptNote(PrivateInfo privateNote, String key){
         return new Note(decryptInfo(privateNote.getInfo("title"), key),
                 decryptInfo(privateNote.getInfo("content"), key));
     }
@@ -130,7 +128,7 @@ public class PrivateInfoEncryption {
      *            to plaintext.
      * @param text The label is the attribute of the PrivateInfo that we are trying to decrypt.
      */
-    public static String decryptInfo(String text, String key){
+    public String decryptInfo(String text, String key){
         try{
             byte[] bb = new byte[text.length()];
 
@@ -150,5 +148,4 @@ public class PrivateInfoEncryption {
             return null;
         }
     }
-
 }

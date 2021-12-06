@@ -1,9 +1,9 @@
 package PrivateInfoObjects;
 
-import Encryption.PrivateInfoEncryption;
+import Encryption.BlowfishEncryption;
+import Encryption.PrivateInfoEncryptor;
 
 public class PrivateInfoFactory {
-
     /**
      * Creates a Login object with the given data and encrypted with the given key. The order of
      * the values in data correspond to the values in the created Login object.
@@ -18,7 +18,8 @@ public class PrivateInfoFactory {
      * @return Login object
      */
     public static LogIn createLogin(String[] data, String key){
-        String[] eData = PrivateInfoEncryption.encryptList(data, key);
+        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+        String[] eData = encryptor.encryptList(data, key);
         return new LogIn(eData[0], eData[1], eData[2], eData[3]);
     }
 
@@ -35,7 +36,8 @@ public class PrivateInfoFactory {
      * @return Contact object
      */
     public static Contact createContact(String[] data, String key){
-        String[] eData = PrivateInfoEncryption.encryptList(data, key);
+        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+        String[] eData = encryptor.encryptList(data, key);
         return new Contact(eData[0], eData[1], eData[2]);
     }
 
@@ -52,7 +54,8 @@ public class PrivateInfoFactory {
      * @return Identification object
      */
     public static Identification createIdentification(String[] data, String key){
-        String[] eData = PrivateInfoEncryption.encryptList(data, key);
+        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+        String[] eData = encryptor.encryptList(data, key);
         return new Identification(eData[0], eData[1], eData[2]);
     }
 
@@ -68,7 +71,8 @@ public class PrivateInfoFactory {
      * @return Identification object
      */
     public static Note createNote(String[] data, String key){
-        String[] eData = PrivateInfoEncryption.encryptList(data, key);
+        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+        String[] eData = encryptor.encryptList(data, key);
         return new Note(eData[0], eData[1]);
     }
 
