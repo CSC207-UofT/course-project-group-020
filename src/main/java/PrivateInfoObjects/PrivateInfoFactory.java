@@ -87,7 +87,7 @@ public class PrivateInfoFactory {
                 return createLogin(data, key);
             case "Contact":
                 return createContact(data, key);
-            case "Identification":
+            case "ID":
                 return createIdentification(data, key);
             case "Note":
                 return createNote(data, key);
