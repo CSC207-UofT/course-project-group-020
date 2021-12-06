@@ -1,9 +1,9 @@
 import Account.Account;
 import Account.AccountManager;
 import PrivateInfoObjects.*;
+
 import java.util.ArrayList;
 
-import org.apache.juli.logging.Log;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,16 +18,16 @@ public class AccountTest {
     PrivateInfo logIn = createLogin();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         createAccount();
         populateVault(logIn);
     }
 
-    public void createAccount(){
+    public void createAccount() {
         accountManager.createAccount("username", "masterPassword");
     }
 
-    public PrivateInfo createLogin(){
+    public PrivateInfo createLogin() {
         return new LogIn("yousuf", "password123", "google", "google.com");
     }
 
@@ -38,25 +38,24 @@ public class AccountTest {
 
 
     @Test
-    public void testGetUsername(){
+    public void testGetUsername() {
         Account account = accountManager.getAccount("username");
         assert (account.getUsername().equals("username"));
     }
 
     @Test
-    public void testGetMasterPassword(){
+    public void testGetMasterPassword() {
         assert (loneAccount.getMasterPassword().equals("masterPassword123"));
     }
 
     @Test
-    public void testGetVaultEmptyVault(){
+    public void testGetVaultEmptyVault() {
         ArrayList<PrivateInfo> expectedVault = new ArrayList<>();
-
         assert (expectedVault.equals(loneAccount.getVault()));
     }
 
     @Test
-    public void testGetVaultWithItem(){
+    public void testGetVaultWithItem() {
         Account account = accountManager.getAccount("username");
         ArrayList<PrivateInfo> expectedVault = new ArrayList<>();
         expectedVault.add(logIn);
@@ -65,7 +64,7 @@ public class AccountTest {
     }
 
     @Test
-    public void testGetPrivateInfo() throws Throwable{
+    public void testGetPrivateInfo() throws Throwable {
         Account account = accountManager.getAccount("username");
         PrivateInfo expectedLogIn = logIn;
         String logInID = account.getVault().get(0).id;

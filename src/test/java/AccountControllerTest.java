@@ -1,8 +1,5 @@
 import Account.Account;
-import Account.AccountManager;
-import Encryption.MasterEncryption;
 import Encryption.PrivateInfoEncryption;
-import PrivateInfoObjects.Note;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import Spring.AccountController;
@@ -12,6 +9,7 @@ import Spring.UserInfoForm;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+
 import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
@@ -26,7 +24,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateUserSuccess(){
+    public void testCreateUserSuccess() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Ryan";
         user.password = "Password";
@@ -36,7 +34,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateUserFailure(){
+    public void testCreateUserFailure() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Cliff";
         user.password = "Password1";
@@ -46,7 +44,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testGetUserDataOK(){
+    public void testGetUserDataOK() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Cliff";
         user.password = "CorrectPassword";
@@ -56,7 +54,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testGetUserDataUnauthorized(){
+    public void testGetUserDataUnauthorized() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Cliff";
         user.password = "WrongPassword";
@@ -66,7 +64,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testGetUserDataNotFound(){
+    public void testGetUserDataNotFound() {
         UserInfoForm user = new UserInfoForm();
         user.username = "ImaginaryPerson";
         user.password = "WrongPassword";
@@ -76,7 +74,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testVerifyUserOK(){
+    public void testVerifyUserOK() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Cliff";
         user.password = "CorrectPassword";
@@ -86,7 +84,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testVerifyUserUnauthorized(){
+    public void testVerifyUserUnauthorized() {
         UserInfoForm user = new UserInfoForm();
         user.username = "Cliff";
         user.password = "WrongPassword";
@@ -96,7 +94,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testVerifyUserNotFound(){
+    public void testVerifyUserNotFound() {
         UserInfoForm user = new UserInfoForm();
         user.username = "ImaginaryPerson";
         user.password = "WrongPassword";
@@ -106,7 +104,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateEntrySuccess(){
+    public void testCreateEntrySuccess() {
         EntryInfoForm form = new EntryInfoForm();
         form.username = "Cliff";
         form.password = "CorrectPassword";
@@ -120,7 +118,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateEntryUnauthorized(){
+    public void testCreateEntryUnauthorized() {
         EntryInfoForm form = new EntryInfoForm();
         form.username = "Cliff";
         form.password = "WrongPassword";
@@ -134,7 +132,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateEntryNotFound(){
+    public void testCreateEntryNotFound() {
         EntryInfoForm form = new EntryInfoForm();
         form.username = "ImaginaryPerson";
         form.password = "WrongPassword";
@@ -148,7 +146,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryOK(){
+    public void testDeleteEntryOK() {
         EntryInfoForm entry1 = new EntryInfoForm();
         entry1.username = "Cliff";
         entry1.password = "CorrectPassword";
@@ -172,7 +170,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryUnauthorized(){
+    public void testDeleteEntryUnauthorized() {
         EntryInfoForm entry1 = new EntryInfoForm();
         entry1.username = "Cliff";
         entry1.password = "WrongPassword";
@@ -196,7 +194,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryUserNotFound(){
+    public void testDeleteEntryUserNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
@@ -220,7 +218,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryEntryNotFound(){
+    public void testDeleteEntryEntryNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
@@ -237,10 +235,6 @@ public class AccountControllerTest {
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 404);
     }
-
-
-
-
 
 
 }
