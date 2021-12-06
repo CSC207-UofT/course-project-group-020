@@ -5,6 +5,9 @@ import javax.crypto.spec.SecretKeySpec;
 import Account.Account;
 import PrivateInfoObjects.PrivateInfo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
@@ -25,7 +28,7 @@ public class PrivateInfoEncryption {
      *
      */
     public static String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
-            byte[] KeyData = key.getBytes();
+        byte[] KeyData = key.getBytes();
         try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
             Cipher cipher = Cipher.getInstance("Blowfish");
@@ -58,8 +61,10 @@ public class PrivateInfoEncryption {
 
         Account decrypted_account = new Account(account.getUsername(), account.getMasterPassword());
 
-        for(PrivateInfo private_info: account.vault){
-            account.addInfo(private_info.decryptInfoType(key));
+        for(PrivateInfo private_info: account.getVault()){
+            PrivateInfo decryptedInfo = private_info.decryptInfoType(key);
+            decryptedInfo.setId(private_info.id);
+            decrypted_account.getVault().add(decryptedInfo);
         }
         return decrypted_account;
     }
@@ -71,5 +76,4 @@ public class PrivateInfoEncryption {
         }
         return eData;
     }
-
 }
