@@ -29,6 +29,7 @@ gradle-app.setting
 
 # Generated files
 .idea/**/contentModel.xml
+src/main/java/Serializer/Data/*.bin
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
