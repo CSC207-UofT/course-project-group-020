@@ -36,6 +36,7 @@ public class RestServiceApplication {
                 registry.addMapping("/delete-entry").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/update-entry").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/delete-user").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/generate-password").allowedOrigins("http://localhost:3000");
             }
         };
     }
