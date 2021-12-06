@@ -9,6 +9,7 @@ import java.util.List;
  */
 // Java warns that Class Note is never used, but we will not solve this style warning for the beta program.
 public class Note extends PrivateInfo {
+    private static final long serialVersionUID = 1L;
 
     /**
      * This is the constructor for this class. Two parameters are necessary to construct an instance of Note.
@@ -22,13 +23,6 @@ public class Note extends PrivateInfo {
         info.put("title", title);
         info.put("content", content);
         this.type = "Note";
-    }
-
-    public Note decryptInfoType(String key){
-        List<String> decrypted = new ArrayList<>();
-        decrypted.add(decryptInfo(key, "title"));
-        decrypted.add(decryptInfo(key, "content"));
-        return new Note(decrypted.get(0), decrypted.get(1));
     }
 
 }

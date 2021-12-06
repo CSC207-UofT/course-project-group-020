@@ -8,6 +8,7 @@ import java.util.List;
  * TODO: Write Javadoc
  */
 public class LogIn extends PrivateInfo {
+    private static final long serialVersionUID = 1L;
 
 
     /**
@@ -18,20 +19,11 @@ public class LogIn extends PrivateInfo {
      */
     public LogIn(String username, String password, String webpage, String url) {
         super();
-        this.type = "LogIn";
+        this.type = "Login";
         info.put("username", username);
         info.put("password", password);
         info.put("webpage", webpage);
         info.put("url", url);
     }
 
-
-    public LogIn decryptInfoType(String key){
-        List<String> decrypted = new ArrayList<>();
-        decrypted.add(decryptInfo(key, "username"));
-        decrypted.add(decryptInfo(key, "password"));
-        decrypted.add(decryptInfo(key, "webpage"));
-        decrypted.add(decryptInfo(key, "url"));
-        return new LogIn(decrypted.get(0), decrypted.get(1), decrypted.get(2), decrypted.get(3));
-    }
 }

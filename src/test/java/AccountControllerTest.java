@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
@@ -110,8 +113,7 @@ public class AccountControllerTest {
         form.username = "Cliff";
         form.password = "CorrectPassword";
         form.type = "Login";
-        String[] formdata = {"username", "password", "web", "url"};
-        form.data = formdata;
+        form.data = new String[]{"username", "password", "web", "url"};
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -124,8 +126,7 @@ public class AccountControllerTest {
         form.username = "Cliff";
         form.password = "WrongPassword";
         form.type = "Login";
-        String[] formdata = {"username", "password", "web", "url"};
-        form.data = formdata;
+        form.data = new String[]{"username", "password", "web", "url"};
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -138,8 +139,7 @@ public class AccountControllerTest {
         form.username = "ImaginaryPerson";
         form.password = "WrongPassword";
         form.type = "Login";
-        String[] formdata = {"username", "password", "web", "url"};
-        form.data = formdata;
+        form.data = new String[]{"username", "password", "web", "url"};
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -152,13 +152,13 @@ public class AccountControllerTest {
         entry1.username = "Cliff";
         entry1.password = "CorrectPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
-        Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
+        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
+                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
 
-        PrivateInfo note = acc.getVault().get(0);
+        PrivateInfo note = acc.get(0);
         String id = note.id;
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
@@ -171,11 +171,11 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryUnauthorized(){
+    public void testDeleteEntryUnauthorized() {
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
         deleteForm.password = "WrongPassword";
-        deleteForm.id = "Some Random ID";
+        deleteForm.id = "Some Random Identification";
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 401);
@@ -187,11 +187,11 @@ public class AccountControllerTest {
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
-        Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
+        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
+                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
 
         String id = "randomId";
 
@@ -210,8 +210,7 @@ public class AccountControllerTest {
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();

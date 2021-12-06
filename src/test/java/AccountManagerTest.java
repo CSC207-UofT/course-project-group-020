@@ -1,8 +1,14 @@
 import Account.Account;
 import Account.AccountManager;
+import Encryption.MasterEncryption;
 import PrivateInfoObjects.*;
+import org.apache.tomcat.util.net.openssl.ciphers.Encryption;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * This class tests the functionality of adding, deleting and editing PrivateInfo such as LogIns, Notes, IDs, and
@@ -52,17 +58,17 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testAddInfoWithID() throws Throwable {
-        ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
+    public void testAddInfoWithIdentification() throws Throwable {
+        Identification newIdentification = new Identification("Driver's License", "12345", "Dec 31, 2030");
 
 
-        assert (this.accountManager.addInfo(newID, "hayknazaryan"));
+        assert (this.accountManager.addInfo(newIdentification, "hayknazaryan"));
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
 
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDExpirationDate").equals("Dec 31, 2030"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdExpirationDate").equals("Dec 31, 2030"));
     }
 
     @Test
@@ -123,22 +129,22 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testEditInfoWithID() throws Throwable {
-        ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
-        ID oldID = new ID("Driver's License", "12345", "March 25, 2015");
+    public void testEditInfoWithIdentification() throws Throwable {
+        Identification newIdentification = new Identification("Driver's License", "12345", "Dec 31, 2030");
+        Identification oldIdentification = new Identification("Driver's License", "12345", "March 25, 2015");
 
 
-        // Add old ID for then after to test changes.
-        this.accountManager.addInfo(oldID, "hayknazaryan");
+        // Add old Identification for then after to test changes.
+        this.accountManager.addInfo(oldIdentification, "hayknazaryan");
 
-        assert (this.accountManager.editInfo(newID, "hayknazaryan", oldID.getId()));
+        assert (this.accountManager.editInfo(newIdentification, "hayknazaryan", oldIdentification.getId()));
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
 
 
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newID.getId()).getInfo("IDExpirationDate").
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdExpirationDate").
                 equals("Dec 31, 2030"));
     }
 
@@ -188,15 +194,15 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void testDeleteInfoWithID() {
-        ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
+    public void testDeleteInfoWithIdentification() {
+        Identification newIdentification = new Identification("Driver's License", "12345", "Dec 31, 2030");
 
 
-        this.accountManager.addInfo(newID, "hayknazaryan");
+        this.accountManager.addInfo(newIdentification, "hayknazaryan");
         Account currentAccount = accountManager.getAccount("hayknazaryan");
         int initialSize = currentAccount.getVault().size();
 
-        assert (this.accountManager.deleteInfo(newID.getId(), "hayknazaryan"));
+        assert (this.accountManager.deleteInfo(newIdentification.getId(), "hayknazaryan"));
         assert (this.accountManager.getAccount("hayknazaryan").getVault().size() == initialSize - 1);
     }
 
@@ -210,5 +216,46 @@ public class AccountManagerTest {
 
         assert (this.accountManager.deleteInfo(newNote.getId(), "hayknazaryan"));
         assert (this.accountManager.getAccount("hayknazaryan").getVault().size() == initialSize - 1);
+    }
+
+    /**
+     * Tests the creation of a new account into our system.
+     */
+    @Test
+    public void testCreateAccount(){
+        // Create a second account.
+        assert this.accountManager.createAccount("ryanzhao", "Ilikeanime");
+        String encryptedMasterPassword = MasterEncryption.encryptMaster("Ilikeanime");
+
+        // Test if the newly created account matches our records.
+        Account newAccount = accountManager.getAccount("ryanzhao");
+        assert (newAccount.getUsername().equals("ryanzhao"));
+        assert (newAccount.getMasterPassword().equals(encryptedMasterPassword));
+
+    }
+
+    /**
+     * Tests the deletion of given account from our system.
+     */
+    @Test
+    public void testDeleteAccount(){
+        // Create a second account.
+        assert (this.accountManager.createAccount("kelian", "IamFrench"));
+
+        assert(this.accountManager.deleteAccount("kelian"));
+
+        // Let's call delete again to see if the account still exists!
+        boolean actual = this.accountManager.deleteAccount("kelian");
+
+        // We need to assert that the second time deleting the account with username "kelian" returns false.
+        assert !actual;
+    }
+
+    // Delete left over, dangling, test files.
+    @After
+    public void cleanUp() {
+
+        this.accountManager.deleteAccount("hayknazaryan");
+        this.accountManager.deleteAccount("ryanzhao");
     }
 }

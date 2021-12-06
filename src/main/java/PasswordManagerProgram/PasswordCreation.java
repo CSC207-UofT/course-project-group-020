@@ -16,7 +16,7 @@ import java.security.SecureRandom;
  */
 
 public class PasswordCreation {
-    private static String[] allowedChars = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/"};
+    private static String[] allowedChars = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/", "0123456789"};
 
 
     public PasswordCreation(){
@@ -40,8 +40,6 @@ public class PasswordCreation {
         if (length < 12){
             throw new IllegalArgumentException("Randomly generated passwords must have length of at least 12.");
         }
-
-
         SecureRandom random = new SecureRandom();
         StringBuilder password;
         // generates password randomly and then checks to see if it fulfills the strong password requirements

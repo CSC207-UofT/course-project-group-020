@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * An abstract class that is a parent to the following classes:
  * - Contact.java
- * - ID.java
+ * - Identification.java
  * - LogIn.java
  * - Note.java
  * <p>
@@ -17,7 +17,7 @@ import java.util.UUID;
  * the HashMap, it then maps the keys to Strings values that are the actual instance attributes of the subclass.
  */
 public abstract class PrivateInfo implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     public HashMap<String, String> info;
     public String id;
     public String type;
@@ -83,39 +83,6 @@ public abstract class PrivateInfo implements Serializable {
         return this.info.toString();
     }
 
-
-    /**
-     * This is the decryption method that again takes in a key and the encrypted text to be decrypted.
-     * <p>
-     * The text is converted to an arraylist of bytes to be decrypted using the blowfish api again. Both the key
-     * and the text have to match when they were encrypted for this to work.
-     * <p>
-     * Then the bytes arraylist is converted back to be displayed.
-     *
-     * @param key The string representation of the key that will be used to decrypt the ciphertext back to plaintext
-     * @param label The label is the attribute of the PrivateInfo that we are trying to decrypt
-     */
-    public String decryptInfo(String key, String label){
-        try{
-            byte[] bb = new byte[this.info.get(label).length()];
-
-            for (int i=0; i<this.info.get(label).length(); i++) {
-                bb[i] = (byte) this.info.get(label).charAt(i);
-            }
-
-            byte[] KeyData = key.getBytes();
-            SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
-            Cipher cipher = Cipher.getInstance("Blowfish");
-            cipher.init(Cipher.DECRYPT_MODE, keyspec);
-            //actual decryption happens here and we return it straight away
-            return new String(cipher.doFinal(bb));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     /**
      * A setter method that sets the id attribute of this object
      *
@@ -125,10 +92,4 @@ public abstract class PrivateInfo implements Serializable {
         this.id = id;
     }
 
-    public abstract PrivateInfo decryptInfoType(String key);
-
 }
-
-
-
-
