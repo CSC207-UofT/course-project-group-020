@@ -4,7 +4,7 @@ import Account.AccountManager;
 
 import Encryption.BlowfishEncryption;
 import Encryption.PrivateInfoEncryptor;
-import PasswordManagerProgram.PasswordCreation;
+import Password.PasswordCreation;
 import PrivateInfoObjects.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

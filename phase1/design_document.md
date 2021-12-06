@@ -22,7 +22,7 @@ Currently, the Account entity class is dependent on the PrivateInfoManager class
 
 PrivateInfoManager, AccountManager, Serializer, EncryptMaster, and EncryptPrivInfo are all examples of Use Cases. Some use cases interact with the entities directly such as AccountManager, while others such as the encryption classes, tend to interact with other use cases. The use cases all interact with other use cases or depend on other entities. 
 
-At the Interface Adapter Level, there should be controller classes that process and validate user input and that assign it to the appropriate use case of AccountManager or PrivateInfoManager. We have one driver class called PasswordManagerProgram where the main method is located. 
+At the Interface Adapter Level, there should be controller classes that process and validate user input and that assign it to the appropriate use case of AccountManager or PrivateInfoManager. We have one driver class called Password where the main method is located. 
 
 The UIMain used to be the command line interface for the program, but it is not in use anymore, as we are moving to a gui. The classes for this are in a separate branch called springTest, and they do not appear in the main branch as they are still in development, so they do not appear on the class diagram. 
 

@@ -1,4 +1,4 @@
-package PasswordManagerProgram;
+package Password;
 
 import java.security.SecureRandom;
 
