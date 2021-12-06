@@ -171,7 +171,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryUnauthorized(){
+    public void testDeleteEntryUnauthorized() {
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
         deleteForm.password = "WrongPassword";
@@ -224,5 +224,6 @@ public class AccountControllerTest {
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
+    }
 }
