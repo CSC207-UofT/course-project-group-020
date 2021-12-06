@@ -17,7 +17,7 @@ import java.util.UUID;
  * the HashMap, it then maps the keys to Strings values that are the actual instance attributes of the subclass.
  */
 public abstract class PrivateInfo implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     public HashMap<String, String> info;
     public String id;
     public String type;

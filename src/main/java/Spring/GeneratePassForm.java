@@ -5,5 +5,5 @@ package Spring;
  * wants to generate a password.
  */
 public class GeneratePassForm {
-    int length;
+    public int length;
 }

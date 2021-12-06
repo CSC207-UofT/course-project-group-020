@@ -18,6 +18,7 @@ public class Account implements Serializable {
     private final String masterPassword;
     private final ArrayList<PrivateInfo> vault;
     public Throwable IndexOutOfBoundsException;
+    private static final long serialVersionUID = 1L;
 
     /**
      * @param username       The username of this password manager account.
