@@ -275,6 +275,53 @@ public class AccountControllerTest {
 
     @Test
     public void testDeleteUserOK(){
+        UserInfoForm userInfoForm = new UserInfoForm();
+        userInfoForm.username = "deleteOkTest";
+        userInfoForm.password = "CorrectPassword";
+
+        ResponseEntity<?> createUserResults = accountController.createUser(userInfoForm);
+        ResponseEntity<?> testResult = accountController.deleteUser(userInfoForm);
+        assertEquals(200, testResult.getStatusCodeValue());
+    }
+
+    @Test
+    public void testDeleteUserUnauthorized(){
+        UserInfoForm userInfoForm = new UserInfoForm();
+        userInfoForm.username = "deleteUnauthorizedTest";
+        userInfoForm.password = "CorrectPassword";
+
+        ResponseEntity<?> createUserResults = accountController.createUser(userInfoForm);
+
+        UserInfoForm wrongUserForm = new UserInfoForm();
+        userInfoForm.username = "deleteUnauthorizedTest";
+        userInfoForm.password = "WrongPassword";
+        ResponseEntity<?> testResult = accountController.deleteUser(wrongUserForm);
+        assertEquals(401, testResult.getStatusCodeValue());
+    }
+
+    @Test
+    public void testDeleteUserNotFound(){
+        UserInfoForm userInfoForm = new UserInfoForm();
+        userInfoForm.username = "deleteNotFoundTest";
+        userInfoForm.password = "CorrectPassword";
+
+        ResponseEntity<?> createUserResults = accountController.createUser(userInfoForm);
+
+        UserInfoForm wrongUserForm = new UserInfoForm();
+        userInfoForm.username = "WrongUser";
+        userInfoForm.password = "CorrectPassword";
+
+        ResponseEntity<?> testResult = accountController.deleteUser(userInfoForm);
+        assertEquals(404, testResult.getStatusCodeValue());
+    }
+
+    @Test
+    public void testGeneratePassword(){
+        GeneratePassForm generatePassForm = new GeneratePassForm();
+        generatePassForm.length = 13;
+        ResponseEntity<?> testResult = accountController.generatePassword(generatePassForm);
+
+        assertEquals(200, testResult.getStatusCodeValue());
 
     }
 
