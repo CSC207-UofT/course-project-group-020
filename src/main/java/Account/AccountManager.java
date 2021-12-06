@@ -136,7 +136,6 @@ public class AccountManager {
 
         while (iter.hasNext()) {
             PrivateInfo info = iter.next();
-            System.out.println(info.getId());
             if (info.getId().equals(infoId)) {
                 iter.remove();
                 Serializer.serialize(currentAccount);
