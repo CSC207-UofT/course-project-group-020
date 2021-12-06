@@ -5,10 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import Account.Account;
 import PrivateInfoObjects.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
@@ -86,7 +83,7 @@ public class PrivateInfoEncryption {
                 return decryptLogin(privateInfo, key);
             case "Contact":
                 return decryptContact(privateInfo, key);
-            case "ID":
+            case "Identification":
                 return decryptId(privateInfo, key);
             case "Note":
                 return decryptNote(privateInfo, key);
@@ -112,7 +109,7 @@ public class PrivateInfoEncryption {
 
     public static PrivateInfo decryptId(PrivateInfo privateId, String key){
 
-        return new ID(decryptInfo(privateId.getInfo("IDType"), key),
+        return new Identification(decryptInfo(privateId.getInfo("IDType"), key),
                 decryptInfo(privateId.getInfo("IDNumber"), key),
                 decryptInfo(privateId.getInfo("IDExpirationDate"), key));
     }

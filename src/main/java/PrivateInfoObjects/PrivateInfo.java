@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * An abstract class that is a parent to the following classes:
  * - Contact.java
- * - ID.java
+ * - Identification.java
  * - LogIn.java
  * - Note.java
  * <p>

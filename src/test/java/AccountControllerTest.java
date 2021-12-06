@@ -175,7 +175,7 @@ public class AccountControllerTest {
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
         deleteForm.password = "WrongPassword";
-        deleteForm.id = "Some Random ID";
+        deleteForm.id = "Some Random Identification";
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 401);
