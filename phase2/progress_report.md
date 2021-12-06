@@ -38,4 +38,8 @@ PR:
 
 <u>Yousuf</u>
 
-PR:
+Yousuf has been helping to restructure the program to fix dependency issues, adding more test cases to AccountManagerTest.java (formerly named PrivateInfoTest.java), creating the test suite AccountTest.java, and documenting code.
+
+PR: https://github.com/CSC207-UofT/course-project-group-020/pull/8
+
+In this pull request, Yousuf fixed the issues causing 3 tests to fail in AccountManagerTest.Java and added 9 more, changed the implementation of deleteInfo which was causing it to throw an Exception previously, and also changed the return types of some methods from void to booleans since it made more logical sense. Another significant contribution was from Phase 0, which was implementing a functioning command-line interface that would allow us to demo our skeleton program. However, back then we didn't use pull requests to merge the code, so there is no PR link associated with that feature.
