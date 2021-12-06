@@ -9,7 +9,7 @@ import org.junit.Test;
  * Contacts from an individual account.
  */
 
-public class PrivateInfoTest {
+public class AccountManagerTest {
     String myMasterPassword = "Ilikedogsalot";
     AccountManager accountManager = new AccountManager();
 
@@ -164,7 +164,7 @@ public class PrivateInfoTest {
      * The four tests below test the deleteInfo method with different PrivateInfo objects.
      */
     @Test
-    public void testDeleteInfoWithLogin() throws Throwable {
+    public void testDeleteInfoWithLogin()  {
         LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
 
 
@@ -177,7 +177,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithContact() throws Throwable {
+    public void testDeleteInfoWithContact()  {
         Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
 
         this.accountManager.addInfo(newContact, "hayknazaryan");
@@ -190,7 +190,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithID() throws Throwable {
+    public void testDeleteInfoWithID()  {
         ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
 
 
@@ -203,7 +203,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithNote() throws Throwable {
+    public void testDeleteInfoWithNote() {
         Note newNote = new Note("Shopping List", "Apples");
 
         this.accountManager.addInfo(newNote, "hayknazaryan");

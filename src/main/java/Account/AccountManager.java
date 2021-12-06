@@ -153,7 +153,6 @@ public class AccountManager {
     }
 
 
-
     public boolean deleteAccount(String username){
 
         try {
