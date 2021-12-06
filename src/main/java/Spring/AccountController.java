@@ -11,59 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//TODO : add docstrings
-
-/*
-/verify-identity
-REQ: (u, poi)
-RES: 401 (no access) || 200 (success)
-
-/get-all-user-data
-REQ: (u, poi) + (key)
-RES: 401 || 200 (with arr of all user entries)
-
-/create-entry
-REQ: (u, poi) + (key) + (data)
-RES: 401 || 200 || 500 (server fault)
-
-/update-entry
-REQ: (u, poi) + (key) + ({username?: newVal, password?: newVal}, indexInUserArr)
-RES: 401 || 200 || 500
-
-/delete-entry
-REQ: (u, poi) + (key) + (indexInUserArr)
-RES: 401 || 200 || 500
-
-Not important rn
-/change-key
-REQ: (u, oldPoi) + (oldKey) + (newPoi, newKey)
-RES: 401 || 200 || 500
+/**
+ * A Controller class that takes input from a web-based frontend and returns HTTP response objects back.
  */
-
 @RestController
 public class AccountController { ;
     AccountManager accountManager = new AccountManager();
 
     public AccountController(){
     }
-
-    // TODO: Remove this method? for testing only
-//    @GetMapping("/get-all-user-data")
-//    List<Account> getAllUserData(){
-//
-//        File f = new File("/Users/ryanzhao/Projects/course-project-group-020/src/main/java/Serializer/Data");
-//        String[] fileList = f.list();
-//        List<Account> accList = new ArrayList<Account>();
-//
-//        for (String username: fileList) {
-//
-//            if (username.endsWith(".bin")){
-//                Account acc = Serializer.deserialize(username.substring(0, username.length() - 4));
-//                accList.add(acc);
-//            }
-//        }
-//        return accList;
-//    }
 
     /**
      * Returns all the decrypted data of a given user.

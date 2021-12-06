@@ -273,6 +273,11 @@ public class AccountControllerTest {
         assertEquals(404, result.getStatusCodeValue());
     }
 
+    @Test
+    public void testDeleteUserOK(){
+
+    }
+
     @After
     public void cleanUp(){
 
