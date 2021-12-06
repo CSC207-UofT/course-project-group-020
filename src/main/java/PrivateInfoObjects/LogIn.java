@@ -19,7 +19,7 @@ public class LogIn extends PrivateInfo {
      */
     public LogIn(String username, String password, String webpage, String url) {
         super();
-        this.type = "LogIn";
+        this.type = "Login";
         info.put("username", username);
         info.put("password", password);
         info.put("webpage", webpage);
