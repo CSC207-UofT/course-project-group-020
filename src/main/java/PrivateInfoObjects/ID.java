@@ -28,12 +28,4 @@ public class ID extends PrivateInfo{
         this.type = "ID";
     }
 
-
-    public ID decryptInfoType(String key){
-        List<String> decrypted = new ArrayList<>();
-        decrypted.add(decryptInfo(key, "IDType"));
-        decrypted.add(decryptInfo(key, "IDNumber"));
-        decrypted.add(decryptInfo(key, "IDExpirationDate"));
-        return new ID(decrypted.get(0), decrypted.get(1), decrypted.get(2));
-    }
 }

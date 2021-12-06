@@ -26,13 +26,4 @@ public class LogIn extends PrivateInfo {
         info.put("url", url);
     }
 
-
-    public LogIn decryptInfoType(String key){
-        List<String> decrypted = new ArrayList<>();
-        decrypted.add(decryptInfo(key, "username"));
-        decrypted.add(decryptInfo(key, "password"));
-        decrypted.add(decryptInfo(key, "webpage"));
-        decrypted.add(decryptInfo(key, "url"));
-        return new LogIn(decrypted.get(0), decrypted.get(1), decrypted.get(2), decrypted.get(3));
-    }
 }

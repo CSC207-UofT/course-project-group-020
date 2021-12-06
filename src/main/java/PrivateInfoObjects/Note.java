@@ -25,11 +25,4 @@ public class Note extends PrivateInfo {
         this.type = "Note";
     }
 
-    public Note decryptInfoType(String key){
-        List<String> decrypted = new ArrayList<>();
-        decrypted.add(decryptInfo(key, "title"));
-        decrypted.add(decryptInfo(key, "content"));
-        return new Note(decrypted.get(0), decrypted.get(1));
-    }
-
 }
