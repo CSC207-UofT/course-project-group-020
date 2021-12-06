@@ -14,9 +14,9 @@ import java.security.NoSuchAlgorithmException;
  * choose the type of encryption and character use.
  */
 
-public class MasterEncryption {
+public class SecureHashEncryption implements MasterEncryptor {
 
-    private static final Charset utf_8 = StandardCharsets.UTF_8;
+    private static final Charset UTF_8 = StandardCharsets.UTF_8;
     private static final String ALGO = "SHA-256"; //"SHA-256"; --> for SHA-2 etc...
 
     /**
@@ -24,37 +24,36 @@ public class MasterEncryption {
      *
      * @param to_encrypt This is the string that is to be encrypted
      */
-    public static String encryptMaster(String to_encrypt) {
-        return bytesToHex(MasterEncryption.digest(to_encrypt.getBytes(utf_8), ALGO));
+    public String encryptMaster(String to_encrypt) {
+        return bytesToHex(SecureHashEncryption.digest(to_encrypt.getBytes(UTF_8)));
     }
 
     /**
      * This method is in charge of the actual encryption.
+     *  @param input An array of bytes
      *
-     * @param input An array of bytes
-     * @param algorithm The string representation of the algorithm used to digest
      */
-    public static byte[] digest(byte[] input, String algorithm) {
+    private static byte[] digest(byte[] input) {
         MessageDigest md;
         try {
-            md = MessageDigest.getInstance(algorithm);
+            md = MessageDigest.getInstance(SecureHashEncryption.ALGO);
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e);
         }
         return md.digest(input);
     }
-
     /**
      * This method is to convert from bytes to hexadecimal and to be able to output it as a hex string.
      * Mainly for visual representation and later storing purposes.
      *
      * @param bytes An array of bytes
      */
-    public static String bytesToHex(byte[] bytes) {
+    private static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
     }
+
 }

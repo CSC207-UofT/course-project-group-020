@@ -1,5 +1,5 @@
-import Account.Account;
-import Encryption.PrivateInfoEncryption;
+import Encryption.BlowfishEncryption;
+import Encryption.PrivateInfoEncryptor;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import Spring.AccountController;
@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
+    PrivateInfoEncryptor encryptor = new BlowfishEncryption();
 
     @Before
     public void setUp() {
@@ -155,7 +156,7 @@ public class AccountControllerTest {
         entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
-        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
+        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
                 Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
 
         PrivateInfo note = acc.get(0);
@@ -190,7 +191,7 @@ public class AccountControllerTest {
         entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
-        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
+        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
                 Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
 
         String id = "randomId";

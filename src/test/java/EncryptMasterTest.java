@@ -3,7 +3,8 @@
  */
 
 import Account.AccountManager;
-import Encryption.MasterEncryption;
+import Encryption.MasterEncryptor;
+import Encryption.SecureHashEncryption;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,11 +16,12 @@ import static org.junit.Assert.assertEquals;
 public class EncryptMasterTest {
     String myMasterPassword = "Ilikedogsalot";
     AccountManager accountManager = new AccountManager();
-
+    MasterEncryptor encryptor = new SecureHashEncryption();
 
     @Before
     public void setUp() {
         accountManager.createAccount("hayknazaryan", myMasterPassword);
+
     }
 
     /**
@@ -28,7 +30,7 @@ public class EncryptMasterTest {
      */
     @Test
     public void testIfEncryptedAndStoredMasterPasswordsMatch() throws Throwable {
-        String encryptedMasterPassword = MasterEncryption.encryptMaster(myMasterPassword);
+        String encryptedMasterPassword = encryptor.encryptMaster(myMasterPassword);
         String storedMasterPassword = this.accountManager.getAccount("hayknazaryan").getMasterPassword();
         assertEquals(encryptedMasterPassword, storedMasterPassword);
     }
@@ -38,8 +40,7 @@ public class EncryptMasterTest {
      */
     @Test
     public void testEncryption() {
-        String encryptedMasterPassword = MasterEncryption.encryptMaster(myMasterPassword);
-
+        String encryptedMasterPassword = encryptor.encryptMaster(myMasterPassword);
         assert (!myMasterPassword.equals(encryptedMasterPassword));
 
     }
