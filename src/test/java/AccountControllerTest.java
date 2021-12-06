@@ -150,11 +150,7 @@ public class AccountControllerTest {
         entry1.password = "CorrectPassword";
         entry1.type = "Note";
         entry1.data = new String[]{"DeleteTest", "Content"};
-<<<<<<< HEAD
         accountController.createEntry(entry1);
-=======
-        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
->>>>>>> b2e4c857d261a50aede6f4418dc510f6367ee273
 
         ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
                 Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
@@ -189,16 +185,7 @@ public class AccountControllerTest {
         entry1.password = "WrongPassword";
         entry1.type = "Note";
         entry1.data = new String[]{"DeleteTest", "Content"};
-<<<<<<< HEAD
         accountController.createEntry(entry1);
-=======
-        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
-
-        ArrayList<PrivateInfo> acc = PrivateInfoEncryption.decryptVault(
-                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
-
-        String id = "randomId";
->>>>>>> b2e4c857d261a50aede6f4418dc510f6367ee273
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
@@ -216,11 +203,8 @@ public class AccountControllerTest {
         entry1.password = "WrongPassword";
         entry1.type = "Note";
         entry1.data = new String[]{"DeleteTest", "Content"};
-<<<<<<< HEAD
         accountController.createEntry(entry1);
-=======
-        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
->>>>>>> b2e4c857d261a50aede6f4418dc510f6367ee273
+
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
@@ -240,9 +224,9 @@ public class AccountControllerTest {
         entry1.data = new String[]{"Title", "Content"};
         accountController.createEntry(entry1);
 
-        Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
+        ArrayList<PrivateInfo> vault = PrivateInfoEncryption.decryptVault(Serializer.deserialize("Cliff"), "CorrectPassword");
 
-        PrivateInfo note = acc.getVault().get(0);
+        PrivateInfo note = vault.get(0);
         String id = note.id;
 
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
