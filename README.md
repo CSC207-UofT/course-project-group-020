@@ -13,7 +13,7 @@ MonKeyPass is a multi-user application that securely stores and retrieves sensit
 
 ### Running the program
 1. Clone this repository
-2. Run the main method in **src/main/java/Spring/RestServiceApplication.java
+2. Run the main method in **src/main/java/Spring/RestServiceApplication.java**
 3. Go to the url https://207.netlify.app/
 
 Now you can create an account and securely store all of your private data!
