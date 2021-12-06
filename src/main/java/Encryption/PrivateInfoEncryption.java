@@ -6,7 +6,6 @@ import Account.Account;
 import PrivateInfoObjects.*;
 
 import java.util.ArrayList;
-
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
@@ -83,7 +82,7 @@ public class PrivateInfoEncryption {
                 return decryptLogin(privateInfo, key);
             case "Contact":
                 return decryptContact(privateInfo, key);
-            case "Identification":
+            case "ID":
                 return decryptId(privateInfo, key);
             case "Note":
                 return decryptNote(privateInfo, key);
@@ -108,7 +107,6 @@ public class PrivateInfoEncryption {
     }
 
     public static PrivateInfo decryptId(PrivateInfo privateId, String key){
-
         return new Identification(decryptInfo(privateId.getInfo("IDType"), key),
                 decryptInfo(privateId.getInfo("IDNumber"), key),
                 decryptInfo(privateId.getInfo("IDExpirationDate"), key));
