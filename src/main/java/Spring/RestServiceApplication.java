@@ -36,8 +36,16 @@ public class RestServiceApplication {
                 registry.addMapping("/delete-entry").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/update-entry").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/delete-user").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/generate-password").allowedOrigins("http://localhost:3000");
 
-
+                registry.addMapping("/get-user-data").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/verify-user").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/create-user").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/create-entry").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/delete-entry").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/update-entry").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/delete-user").allowedOrigins("https://207.netlify.app");
+                registry.addMapping("/generate-password").allowedOrigins("https://207.netlify.app");
             }
         };
     }

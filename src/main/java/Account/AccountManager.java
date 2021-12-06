@@ -6,10 +6,6 @@ import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.io.File;
 import java.util.Iterator;
 
@@ -23,7 +19,7 @@ import java.util.Iterator;
  * It has an instance attribute called accounts that is an ArrayList that
  */
 public class AccountManager {
-//    public ArrayList<Account> accounts;
+    //    public ArrayList<Account> accounts;
     public Throwable NullPointerException;
     private Account currentAccount;
 
@@ -31,7 +27,8 @@ public class AccountManager {
 //        accounts = new ArrayList<>();
     }
 
-    /** Creates a new account into our system.
+    /**
+     * Creates a new account into our system.
      *
      * @param username       The username associated with this new Account.
      * @param masterPassword The master password associated with this new Account.
@@ -45,7 +42,7 @@ public class AccountManager {
         return true;
     }
 
-    public Account getAccount(String username){
+    public Account getAccount(String username) {
 
         return Serializer.deserialize(username);
 
@@ -57,16 +54,16 @@ public class AccountManager {
      * @param username String of user's username
      * @param password String of user's password
      * @return returns an HTTP 200 response with the user as response body if the specified user exists and the password
-     *         is correct. Otherwise, returns an HTTP 404 response if the user does not exist or an HTTP 401
-     *         response if the password is incorrect
+     * is correct. Otherwise, returns an HTTP 404 response if the user does not exist or an HTTP 401
+     * response if the password is incorrect
      */
-    public ResponseEntity<?> verifyUser(String username, String password){
+    public ResponseEntity<?> verifyUser(String username, String password) {
         Account user = Serializer.deserialize(username);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else {
+        } else {
             String userAttempt = MasterEncryption.encryptMaster(password);
-            if (userAttempt.equals(user.getMasterPassword())){
+            if (userAttempt.equals(user.getMasterPassword())) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -77,7 +74,7 @@ public class AccountManager {
     /**
      * This method is responsible for adding new instances of PrivateInfo into the vault of a given account.
      *
-     * @param newInfo The new PrivateInfo that is to be added to the vault.
+     * @param newInfo         The new PrivateInfo that is to be added to the vault.
      * @param accountUsername The username of the account that the PrivateInfo instance newInfo is to be
      *                        added to.
      * @return Returns true if the PrivateInfo object was added to the vault.
@@ -93,14 +90,15 @@ public class AccountManager {
         return true;
     }
 
-    /** This method is responsible to edit an instance of PrivateInfo from the vault of a given account.
+    /**
+     * This method is responsible to edit an instance of PrivateInfo from the vault of a given account.
      * It uses the string representation of the UUID of an PrivateInfo already present in the account, deletes it,
      * and replaces it with the given new PrivateInfo instance, newInfo.
      *
-     * @param newInfo The new PrivateInfo that is to be added into the account.
+     * @param newInfo         The new PrivateInfo that is to be added into the account.
      * @param accountUsername The username of the account that is need of editing.
-     * @param oldInfoId The string representation of the UUID of an old PrivateInfo already present
-     *                  in the given account.
+     * @param oldInfoId       The string representation of the UUID of an old PrivateInfo already present
+     *                        in the given account.
      * @return Returns true if the PrivateInfo was changed.
      */
     public boolean editInfo(PrivateInfo newInfo, String accountUsername, String oldInfoId) {
@@ -110,7 +108,7 @@ public class AccountManager {
         // Delete the info first
         boolean check = deleteInfo(oldInfoId, accountUsername);
 
-        if (check){
+        if (check) {
             return addInfo(newInfo, accountUsername);
 
         }
@@ -135,7 +133,6 @@ public class AccountManager {
 
         while (iter.hasNext()) {
             PrivateInfo info = iter.next();
-            System.out.println(info.getId());
             if (info.getId().equals(infoId)) {
                 iter.remove();
                 Serializer.serialize(currentAccount);
@@ -146,8 +143,7 @@ public class AccountManager {
     }
 
 
-
-    public boolean deleteAccount(String username){
+    public boolean deleteAccount(String username) {
 
         try {
             String PATH = "src/main/java/Serializer/Data/";
@@ -156,7 +152,7 @@ public class AccountManager {
             return fin.delete();
 
 
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("An account with this username does not exist.");
             return false;
@@ -164,8 +160,6 @@ public class AccountManager {
     }
 
 }
-
-
 
 
 //    public ArrayList<Account> getAccounts() {

@@ -40,20 +40,20 @@ public class PrivateInfoFactory {
     }
 
     /**
-     * Creates an ID object with the given data and encrypted with the given key. The order of
+     * Creates an Identification object with the given data and encrypted with the given key. The order of
      * the values in data correspond to the values in the created object.
      *
      *
-     * @param data Data that is stored in the created ID object. Indexes correspond to attribute in object.
-     *             Index 0 is the IDType.
-     *             Index 1 is the IDNumber.
-     *             Index 2 is the IDExpirationDay.
-     * @param key  Key used to encrypted newly created ID
-     * @return ID object
+     * @param data Data that is stored in the created Identification object. Indexes correspond to attribute in object.
+     *             Index 0 is the IdType.
+     *             Index 1 is the IdNumber.
+     *             Index 2 is the IdExpirationDay.
+     * @param key  Key used to encrypted newly created Identification
+     * @return Identification object
      */
-    public static ID createID(String[] data, String key){
+    public static Identification createIdentification(String[] data, String key){
         String[] eData = PrivateInfoEncryption.encryptList(data, key);
-        return new ID(eData[0], eData[1], eData[2]);
+        return new Identification(eData[0], eData[1], eData[2]);
     }
 
     /**
@@ -65,7 +65,7 @@ public class PrivateInfoFactory {
      *             Index 0 is the Title.
      *             Index 1 is the Content.
      * @param key  Key used to encrypted newly created Note
-     * @return ID object
+     * @return Identification object
      */
     public static Note createNote(String[] data, String key){
         String[] eData = PrivateInfoEncryption.encryptList(data, key);
@@ -76,9 +76,9 @@ public class PrivateInfoFactory {
      * Creates an object of the given type with the given data and encrypted with the given key.
      *
      * @param type String value representing types of accepted types. Value can be one of
-     *             ["Login", "Contact", "ID", "Note"]
-     * @param data Data that is stored in the created ID object. Indexes correspond to attribute in object.
-     * @param key  Key used to encrypted newly created ID
+     *             ["Login", "Contact", "Identification", "Note"]
+     * @param data Data that is stored in the created Identification object. Indexes correspond to attribute in object.
+     * @param key  Key used to encrypted newly created Identification
      * @return Instance of PrivateInfo subclass
      */
     public static PrivateInfo createEntryByType(String type, String[] data, String key) {
@@ -88,7 +88,7 @@ public class PrivateInfoFactory {
             case "Contact":
                 return createContact(data, key);
             case "ID":
-                return createID(data, key);
+                return createIdentification(data, key);
             case "Note":
                 return createNote(data, key);
             default:
