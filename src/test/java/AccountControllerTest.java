@@ -5,10 +5,7 @@ import Encryption.PrivateInfoEncryption;
 import PrivateInfoObjects.Note;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
-import Spring.AccountController;
-import Spring.DeleteEntryForm;
-import Spring.EntryInfoForm;
-import Spring.UserInfoForm;
+import Spring.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -154,8 +151,7 @@ public class AccountControllerTest {
         entry1.username = "Cliff";
         entry1.password = "CorrectPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
         Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
@@ -189,8 +185,7 @@ public class AccountControllerTest {
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
         Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
@@ -212,8 +207,7 @@ public class AccountControllerTest {
         entry1.username = "ImaginaryPerson";
         entry1.password = "WrongPassword";
         entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
+        entry1.data = new String[]{"DeleteTest", "Content"};
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
@@ -223,6 +217,60 @@ public class AccountControllerTest {
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 404);
+    }
+
+    @Test
+    public void testUpdateEntryOK(){
+        EntryInfoForm entry1 = new EntryInfoForm();
+        entry1.username = "Cliff";
+        entry1.password = "CorrectPassword";
+        entry1.type = "Note";
+        entry1.data = new String[]{"Title", "Content"};
+        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
+
+        Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
+
+        PrivateInfo note = acc.getVault().get(0);
+        String id = note.id;
+
+        UpdateEntryForm updateEntryForm = new UpdateEntryForm();
+        updateEntryForm.username = "Cliff";
+        updateEntryForm.password = "CorrectPassword";
+        updateEntryForm.id = id;
+        updateEntryForm.type = "Note";
+        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+
+        ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
+
+        assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUpdateEntryUnauthorized(){
+        UpdateEntryForm updateEntryForm = new UpdateEntryForm();
+        updateEntryForm.username = "Cliff";
+        updateEntryForm.password = "WrongPassword";
+        updateEntryForm.id = "SomeRandomId";
+        updateEntryForm.type = "Note";
+        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+
+        ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
+
+        assertEquals(401, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUpdateEntryUserNotFound(){
+        UpdateEntryForm updateEntryForm = new UpdateEntryForm();
+        updateEntryForm.username = "ImaginaryPerson";
+        updateEntryForm.password = "WrongPassword";
+        updateEntryForm.id = "SomeRandomId";
+        updateEntryForm.type = "Note";
+        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+
+        ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
+
+        assertEquals(404, result.getStatusCodeValue());
     }
 
     @After
