@@ -6,6 +6,7 @@ import Spring.AccountController;
 import Spring.DeleteEntryForm;
 import Spring.EntryInfoForm;
 import Spring.UserInfoForm;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,7 @@ public class AccountControllerTest {
         user.password = "WrongPassword";
         ResponseEntity<?> result = accountController.getUserData(user);
 
-        assertEquals(result.getStatusCodeValue(), 409);
+        assertEquals(result.getStatusCodeValue(), 401);
     }
 
     @Test
@@ -90,7 +91,7 @@ public class AccountControllerTest {
         user.password = "WrongPassword";
         ResponseEntity<?> result = accountController.getUserData(user);
 
-        assertEquals(result.getStatusCodeValue(), 409);
+        assertEquals(result.getStatusCodeValue(), 401);
     }
 
     @Test
@@ -128,7 +129,7 @@ public class AccountControllerTest {
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
-        assertEquals(result.getStatusCodeValue(), 409);
+        assertEquals(result.getStatusCodeValue(), 401);
     }
 
     @Test
@@ -170,27 +171,14 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testDeleteEntryUnauthorized() {
-        EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "Cliff";
-        entry1.password = "WrongPassword";
-        entry1.type = "Note";
-        String[] entry1Data = {"DeleteTest", "Content"};
-        entry1.data = entry1Data;
-        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
-
-        Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
-
-        PrivateInfo note = acc.getVault().get(0);
-        String id = note.id;
-
+    public void testDeleteEntryUnauthorized(){
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
-        deleteForm.password = "CorrectPassword";
-        deleteForm.id = id;
+        deleteForm.password = "WrongPassword";
+        deleteForm.id = "Some Random ID";
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
-        assertEquals(result.getStatusCodeValue(), 409);
+        assertEquals(result.getStatusCodeValue(), 401);
     }
 
     @Test
@@ -205,8 +193,7 @@ public class AccountControllerTest {
 
         Account acc = PrivateInfoEncryption.decryptAccount(Serializer.deserialize("Cliff"), "CorrectPassword");
 
-        PrivateInfo note = acc.getVault().get(0);
-        String id = note.id;
+        String id = "randomId";
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.username = "Cliff";
@@ -236,5 +223,6 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
-
+    @After
+    public void cleanUp(){
 }

@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Driver class to start the local server.
+ */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class RestServiceApplication {
 
@@ -14,9 +17,16 @@ public class RestServiceApplication {
         SpringApplication.run(RestServiceApplication.class, args);
     }
 
+    /**
+     * Configuration class for the web server
+     * @return
+     */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
+            /**
+             * Allows for CORS for all request outlined in the AccountController
+             */
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/get-user-data").allowedOrigins("http://localhost:3000");

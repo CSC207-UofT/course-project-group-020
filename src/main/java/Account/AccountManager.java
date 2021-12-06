@@ -34,13 +34,6 @@ public class AccountManager {
      * @param masterPassword The master password associated with this new Account.
      */
     public boolean createAccount(String username, String masterPassword) {
-//        if (Serializer.deserialize(username) == null) {
-//            Account newUser = new Account(username, MasterEncryption.encryptMaster(masterPassword));
-//            Serializer.serialize(newUser);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } else{
-//            return new ResponseEntity<>(HttpStatus.CONFLICT);
-//        }
         String encryptedMasterPassword = MasterEncryption.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
 

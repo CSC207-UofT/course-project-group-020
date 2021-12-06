@@ -5,6 +5,9 @@ import javax.crypto.spec.SecretKeySpec;
 import Account.Account;
 import PrivateInfoObjects.PrivateInfo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
@@ -73,5 +76,4 @@ public class PrivateInfoEncryption {
         }
         return eData;
     }
-
 }
