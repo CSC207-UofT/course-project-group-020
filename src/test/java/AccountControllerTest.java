@@ -1,8 +1,5 @@
 import Account.Account;
-import Account.AccountManager;
-import Encryption.MasterEncryption;
 import Encryption.PrivateInfoEncryption;
-import PrivateInfoObjects.Note;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import Spring.*;
@@ -27,7 +24,7 @@ public class AccountControllerTest {
     public void testCreateUserSuccess(){
         UserInfoForm user = new UserInfoForm();
         user.username = "Ryan";
-        user.password = "Password";
+        user.password = "CorrectPassword";
         ResponseEntity<?> result = accountController.createUser(user);
 
         assertEquals(result.getStatusCodeValue(), 200);
@@ -293,8 +290,8 @@ public class AccountControllerTest {
         ResponseEntity<?> createUserResults = accountController.createUser(userInfoForm);
 
         UserInfoForm wrongUserForm = new UserInfoForm();
-        userInfoForm.username = "deleteUnauthorizedTest";
-        userInfoForm.password = "WrongPassword";
+        wrongUserForm.username = "deleteUnauthorizedTest";
+        wrongUserForm.password = "WrongPassword";
         ResponseEntity<?> testResult = accountController.deleteUser(wrongUserForm);
         assertEquals(401, testResult.getStatusCodeValue());
     }
@@ -327,6 +324,22 @@ public class AccountControllerTest {
 
     @After
     public void cleanUp(){
+        UserInfoForm deleteUserForm = new UserInfoForm();
+        deleteUserForm.username = "Ryan";
+        deleteUserForm.password = "CorrectPassword";
 
+        accountController.deleteUser(deleteUserForm);
+
+        deleteUserForm.username = "Cliff";
+        accountController.deleteUser(deleteUserForm);
+
+        deleteUserForm.username = "Cliff";
+        accountController.deleteUser(deleteUserForm);
+
+        deleteUserForm.username = "deleteNotFoundTest";
+        accountController.deleteUser(deleteUserForm);
+
+        deleteUserForm.username = "deleteUnauthorizedTest";
+        accountController.deleteUser(deleteUserForm);
     }
 }
