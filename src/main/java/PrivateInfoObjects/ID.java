@@ -8,6 +8,7 @@ import java.util.List;
  */
 // Java warns that Class ID is never used, but we will not solve this style warning for the beta program.
 public class ID extends PrivateInfo{
+    private static final long serialVersionUID = 1L;
 
     /**
      * This is a constructor for ID that takes in three parameters and assigns them into its inherited HashMap from

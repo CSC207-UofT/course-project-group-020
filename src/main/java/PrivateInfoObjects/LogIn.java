@@ -8,6 +8,7 @@ import java.util.List;
  * TODO: Write Javadoc
  */
 public class LogIn extends PrivateInfo {
+    private static final long serialVersionUID = 1L;
 
 
     /**
