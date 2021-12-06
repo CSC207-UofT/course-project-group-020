@@ -66,9 +66,9 @@ public class AccountManagerTest {
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
 
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdExpirationDate").equals("Dec 31, 2030"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDExpirationDate").equals("Dec 31, 2030"));
     }
 
     @Test
@@ -142,9 +142,9 @@ public class AccountManagerTest {
 
 
         assert (currentAccount.getVault().size() == 1);
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdType").equals("Driver's License"));
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdNumber").equals("12345"));
-        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IdExpirationDate").
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDType").equals("Driver's License"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDNumber").equals("12345"));
+        assert (currentAccount.getPrivateInfo(newIdentification.getId()).getInfo("IDExpirationDate").
                 equals("Dec 31, 2030"));
     }
 
