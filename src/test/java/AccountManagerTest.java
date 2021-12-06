@@ -9,7 +9,7 @@ import org.junit.Test;
  * Contacts from an individual account.
  */
 
-public class PrivateInfoTest {
+public class AccountManagerTest {
     String myMasterPassword = "Ilikedogsalot";
     AccountManager accountManager = new AccountManager();
 
@@ -69,7 +69,7 @@ public class PrivateInfoTest {
     public void testAddInfoWithNote() throws Throwable {
         Note newNote = new Note("Shopping List", "Apples");
 
-        assert (this.accountManager.addInfo(newNote,"hayknazaryan"));
+        assert (this.accountManager.addInfo(newNote, "hayknazaryan"));
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
 
         assert (currentAccount.getVault().size() == 1);
@@ -89,7 +89,7 @@ public class PrivateInfoTest {
 
 
         // Add old LogIn for then after to test the changes.
-        this.accountManager.addInfo(oldLogIn,"hayknazaryan");
+        this.accountManager.addInfo(oldLogIn, "hayknazaryan");
 
 
         assert (this.accountManager.editInfo(newLogIn1, "hayknazaryan", oldLogIn.getId()));
@@ -109,9 +109,8 @@ public class PrivateInfoTest {
         Contact oldContact = new Contact("Hayk", "564-2345567", "280 Quebec Avenue");
 
 
-
         // Add old Contact for then after to test the changes.
-        this.accountManager.addInfo(oldContact,"hayknazaryan");
+        this.accountManager.addInfo(oldContact, "hayknazaryan");
         assert (this.accountManager.editInfo(newContact, "hayknazaryan", oldContact.getId()));
 
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
@@ -129,9 +128,8 @@ public class PrivateInfoTest {
         ID oldID = new ID("Driver's License", "12345", "March 25, 2015");
 
 
-
         // Add old ID for then after to test changes.
-        this.accountManager.addInfo(oldID,"hayknazaryan");
+        this.accountManager.addInfo(oldID, "hayknazaryan");
 
         assert (this.accountManager.editInfo(newID, "hayknazaryan", oldID.getId()));
         Account currentAccount = this.accountManager.getAccount("hayknazaryan");
@@ -151,7 +149,7 @@ public class PrivateInfoTest {
 
 
         // Add old Note for then after to test changes.
-        this.accountManager.addInfo(oldNote,"hayknazaryan");
+        this.accountManager.addInfo(oldNote, "hayknazaryan");
 
         assert (this.accountManager.editInfo(newNote, "hayknazaryan", oldNote.getId()));
 
@@ -164,7 +162,7 @@ public class PrivateInfoTest {
      * The four tests below test the deleteInfo method with different PrivateInfo objects.
      */
     @Test
-    public void testDeleteInfoWithLogin() throws Throwable {
+    public void testDeleteInfoWithLogin() {
         LogIn newLogIn = new LogIn("hayknazaryan", "Idontlikecats", "instagram", "insta");
 
 
@@ -177,7 +175,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithContact() throws Throwable {
+    public void testDeleteInfoWithContact() {
         Contact newContact = new Contact("Hayk", "123-4567890", "55 Joe Street");
 
         this.accountManager.addInfo(newContact, "hayknazaryan");
@@ -190,7 +188,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithID() throws Throwable {
+    public void testDeleteInfoWithID() {
         ID newID = new ID("Driver's License", "12345", "Dec 31, 2030");
 
 
@@ -203,7 +201,7 @@ public class PrivateInfoTest {
     }
 
     @Test
-    public void testDeleteInfoWithNote() throws Throwable {
+    public void testDeleteInfoWithNote() {
         Note newNote = new Note("Shopping List", "Apples");
 
         this.accountManager.addInfo(newNote, "hayknazaryan");
