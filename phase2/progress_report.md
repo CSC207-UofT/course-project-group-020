@@ -5,7 +5,20 @@ PR:
 
 <u>Ryan</u>
 
-PR: 
+Ryan has been implementing the AccountController class which is responsible for
+interaction between the frontend and backend. He has also been writing numerous 
+test cases for AccountController. He has been providing input on solutions
+to violations of Clean Architecture and SOLID along with helping with bug fixes
+generally. 
+
+PR: https://github.com/CSC207-UofT/course-project-group-020/pull/9
+
+This pull request includes the first implementation of the Controller class. In this 
+PR, Spring boot is integrated into the project through gradle and all the required 
+java files are create. the POST and GET requests were created and implemented, although
+they will be later changed to better fit with the Clean Architecure. Furthermore, the 
+Factory Design Pattern was implemented in this PR as well. Without this PR, the backend
+would stay disconnected from the frontend.
 
 <u>Kelian</u>
 
