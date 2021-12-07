@@ -7,9 +7,7 @@ import Encryption.SecureHashEncryption;
 import Exceptions.AttributeNotFoundException;
 import Password.PasswordCreation;
 
-
-import PrivateInfoObjects.*;
-
+import PrivateInfoObjects.PrivateInfoFactory;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +40,7 @@ public class AccountController {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
                 PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-                List<PrivateInfo> decryptedAcc = encryptor.decryptVault(accountManager.getAccount(userInfoForm.getUsername()), userInfoForm.getPassword());
-                return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
+                return new ResponseEntity<>(encryptor.decryptVault(accountManager.getAccount(userInfoForm.getUsername()), userInfoForm.getPassword()), verifyResult.getStatusCode());
             } else {
                 return verifyResult;
             }
@@ -102,8 +99,7 @@ public class AccountController {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.getUsername(), createEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newEntry = PrivateInfoFactory.createEntryByType(createEntryForm.getType(), createEntryForm.getData(), createEntryForm.getPassword());
-                accountManager.addInfo(newEntry, createEntryForm.getUsername());
+                accountManager.addInfo(PrivateInfoFactory.createEntryByType(createEntryForm.getType(), createEntryForm.getData(), createEntryForm.getPassword(), new BlowfishEncryption()), createEntryForm.getUsername());
             }
             return verifyResult;
         } catch (ClassNotFoundException e){
@@ -156,8 +152,7 @@ public class AccountController {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.getUsername(), updateEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.getType(), updateEntryForm.getData(), updateEntryForm.getPassword());
-                boolean result = accountManager.editInfo(newInfo, updateEntryForm.getUsername(), updateEntryForm.getId());
+                boolean result = accountManager.editInfo(PrivateInfoFactory.createEntryByType(updateEntryForm.getType(), updateEntryForm.getData(), updateEntryForm.getPassword(), new BlowfishEncryption()), updateEntryForm.getUsername(), updateEntryForm.getId());
 
                 if(result){
                     return verifyResult;
