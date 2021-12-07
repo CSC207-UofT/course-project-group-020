@@ -3,7 +3,7 @@ package Serializer;
 import Account.Account;
 
 /**
- * This interface describes the necessary methods that are required for an Serializer class used for persisting data
+ * This interface describes the necessary methods that are required for a Serializer class used for persisting data
  * between sessions
  */
 public interface ISerializer {
