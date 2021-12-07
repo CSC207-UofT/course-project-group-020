@@ -1,8 +1,5 @@
 package PrivateInfoObjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class represents an Identification of a user.
  */
@@ -22,9 +19,9 @@ public class Identification extends PrivateInfo{
     // Java warns that Class constructor is never used, but we will not solve this style warning for the beta program.
     public Identification(String IdType, String IdNumber, String IdExpirationDate){
         super();
-        info.put("IDType", IdType);
-        info.put("IDNumber", IdNumber);
-        info.put("IDExpirationDate", IdExpirationDate);
+        this.buildInfo("IDType", IdType);
+        this.buildInfo("IDNumber", IdNumber);
+        this.buildInfo("IDExpirationDate", IdExpirationDate);
         this.setType("ID");
     }
 

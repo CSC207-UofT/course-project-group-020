@@ -1,8 +1,5 @@
 package PrivateInfoObjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class is responsible for representing a contact of the user.
  *
@@ -24,9 +21,9 @@ public class Contact extends PrivateInfo {
     public Contact(String name, String number, String address) {
 
         super();
-        info.put("name", name);
-        info.put("number", number);
-        info.put("address", address);
+        this.buildInfo("name", name);
+        this.buildInfo("number", number);
+        this.buildInfo("address", address);
         this.setType("Contact");
     }
 
