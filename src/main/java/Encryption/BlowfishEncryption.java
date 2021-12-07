@@ -30,17 +30,17 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * Then the encryption is converted back using StringBuilder to display it and store it.
      *
      * @param key The string representation of the key that will be used to encrypt.
-     * @param text_to_encrypt The string which is to be encrypted.
+     * @param textToEncrypt The string which is to be encrypted.
      *
      */
-    public String encryptInfo(String key, String text_to_encrypt) {  //56 char max length key
+    public String encryptInfo(String key, String textToEncrypt) {  //56 char max length key
         byte[] KeyData = key.getBytes();
         try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(Cipher.ENCRYPT_MODE, keyspec);
             //the actual encryption happens here
-            byte[] encrypted = cipher.doFinal(text_to_encrypt.getBytes());
+            byte[] encrypted = cipher.doFinal(textToEncrypt.getBytes());
 
             //construct the encrypted char sentence
             StringBuilder string_bytes = new StringBuilder();
