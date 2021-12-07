@@ -48,7 +48,7 @@ public abstract class PrivateInfo implements Serializable {
         if (this.info.containsKey(attribute)) {
             return info.get(attribute);
         } else{
-            throw new AttributeNotFoundException("Attribute not found");
+            throw new AttributeNotFoundException();
         }
     }
 
@@ -59,15 +59,13 @@ public abstract class PrivateInfo implements Serializable {
      */
     public String getId(){return this.id;}
 
-    public String setInfo(String attributeToChange, String newValue) {
+    public void setInfo(String attributeToChange, String newValue) throws AttributeNotFoundException{
         if (info.containsKey(attributeToChange)){
             info.put(attributeToChange, newValue);
         }
-        // TODO: Same as above TODO.
         else{
-            return "Error";
+            throw new AttributeNotFoundException();
         }
-        return null; // remove this once we fix the code
     }
 
     /**
