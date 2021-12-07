@@ -146,8 +146,13 @@ public class AccountController {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.username, updateEntryForm.password);
             if (verifyResult.getStatusCodeValue() == 200) {
                 PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.type, updateEntryForm.data, updateEntryForm.password);
-                accountManager.editInfo(newInfo, updateEntryForm.username, updateEntryForm.id);
-                return new ResponseEntity<>(HttpStatus.OK);
+                boolean result = accountManager.editInfo(newInfo, updateEntryForm.username, updateEntryForm.id);
+
+                if(result){
+                    return verifyResult;
+                } else{
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
             }
             return verifyResult;
         } catch (NullPointerException e){

@@ -15,6 +15,12 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class tests the functionality of the AccountController class. It tests that each endpoint returns the correct
+ * HTTP response with the given request body. Since modifications to the database are made by use-case classes, we
+ * do not test that these functions correctly modify the database.
+ */
+
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
     PrivateInfoEncryptor encryptor = new BlowfishEncryption();
@@ -28,6 +34,10 @@ public class AccountControllerTest {
         accountController.createUser(user);
     }
 
+    /**
+     * Tests that createUser returns an HTTP 200(OK) response given username does not already exist in
+     * database.
+     */
     @Test
     public void testCreateUserSuccess() {
         UserInfoForm user = new UserInfoForm();
@@ -38,6 +48,10 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 200);
     }
 
+    /**
+     * Tests that createUser returns an HTTP 409(Conflict) response if given username already exists in
+     * the database.
+     */
     @Test
     public void testCreateUserFailure() {
         UserInfoForm user = new UserInfoForm();
@@ -48,6 +62,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 409);
     }
 
+    /**
+     * Tests that getUserData returns an HTTP 200(OK) response if given a valid username and password.
+     */
     @Test
     public void testGetUserDataOK() {
         UserInfoForm user = new UserInfoForm();
@@ -58,6 +75,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 200);
     }
 
+    /**
+     * Tests that getUserData returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
+     */
     @Test
     public void testGetUserDataUnauthorized() {
         UserInfoForm user = new UserInfoForm();
@@ -68,6 +88,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 401);
     }
 
+    /**
+     * Tests that getUserData returns an HTTP 404(Not Found) response if given an invalid username.
+     */
     @Test
     public void testGetUserDataNotFound() {
         UserInfoForm user = new UserInfoForm();
@@ -78,6 +101,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
+    /**
+     * Tests that verifyUser returns an HTTP 200(OK) response if given a valid username and password.
+     */
     @Test
     public void testVerifyUserOK() {
         UserInfoForm user = new UserInfoForm();
@@ -88,6 +114,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 200);
     }
 
+    /**
+     * Tests that verifyUser returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
+     */
     @Test
     public void testVerifyUserUnauthorized() {
         UserInfoForm user = new UserInfoForm();
@@ -98,6 +127,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 401);
     }
 
+    /**
+     * Tests that verifyUser returns an HTTP 404(Not Found) response if given an invalid username.
+     */
     @Test
     public void testVerifyUserNotFound() {
         UserInfoForm user = new UserInfoForm();
@@ -108,6 +140,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
+    /**
+     * Tests that createEntry returns an HTTP 200(OK) response if given a valid username and password.
+     */
     @Test
     public void testCreateEntrySuccess() {
         EntryInfoForm form = new EntryInfoForm();
@@ -121,6 +156,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 200);
     }
 
+    /**
+     * Tests that createEntry returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
+     */
     @Test
     public void testCreateEntryUnauthorized() {
         EntryInfoForm form = new EntryInfoForm();
@@ -134,6 +172,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 401);
     }
 
+    /**
+     * Tests that createEntry returns an HTTP 404(Not Found) response if given an invalid username.
+     */
     @Test
     public void testCreateEntryNotFound() {
         EntryInfoForm form = new EntryInfoForm();
@@ -147,6 +188,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
+    /**
+     * Tests that deleteEntry returns an HTTP 200(OK) response if given a valid username, password, and id.
+     */
     @Test
     public void testDeleteEntryOK() {
         EntryInfoForm entry1 = new EntryInfoForm();
@@ -171,6 +215,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 200);
     }
 
+    /**
+     * Tests that deleteEntry returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
+     */
     @Test
     public void testDeleteEntryUnauthorized() {
         DeleteEntryForm deleteForm = new DeleteEntryForm();
@@ -182,6 +229,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 401);
     }
 
+    /**
+     * Tests that deleteEntry returns an HTTP 404(Not Found) response if given an invalid username.
+     */
     @Test
     public void testDeleteEntryUserNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
@@ -205,6 +255,10 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
+    /**
+     * Tests that deleteEntry returns an HTTP 404(Not Found) response if given a valid username and password but invalid
+     * id.
+     */
     @Test
     public void testDeleteEntryEntryNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
@@ -224,6 +278,9 @@ public class AccountControllerTest {
         assertEquals(result.getStatusCodeValue(), 404);
     }
 
+    /**
+     * Tests that updateEntry returns an HTTP 200(OK) response if given a valid username, password, and id.
+     */
     @Test
     public void testUpdateEntryOK(){
         EntryInfoForm entry1 = new EntryInfoForm();
@@ -251,6 +308,9 @@ public class AccountControllerTest {
         assertEquals(200, result.getStatusCodeValue());
     }
 
+    /**
+     * Tests that updateEntry returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
+     */
     @Test
     public void testUpdateEntryUnauthorized(){
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
@@ -265,6 +325,9 @@ public class AccountControllerTest {
         assertEquals(401, result.getStatusCodeValue());
     }
 
+    /**
+     * Tests that updateEntry returns an HTTP 404(Not Found) response if given an invalid username.
+     */
     @Test
     public void testUpdateEntryUserNotFound(){
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
@@ -279,6 +342,35 @@ public class AccountControllerTest {
         assertEquals(404, result.getStatusCodeValue());
     }
 
+    /**
+     * Tests that updateEntry returns an HTTP 404(Not Found) response if given a valid username and password but invalid
+     * id.
+     */
+    @Test
+    public void testUpdateEntryEntryNotFound(){
+        EntryInfoForm entry1 = new EntryInfoForm();
+        entry1.username = "Cliff";
+        entry1.password = "CorrectPassword";
+        entry1.type = "Note";
+        entry1.data = new String[]{"Title", "Content"};
+        accountController.createEntry(entry1);
+
+        UpdateEntryForm updateEntryForm = new UpdateEntryForm();
+        updateEntryForm.username = "Cliff";
+        updateEntryForm.password = "CorrectPassword";
+        updateEntryForm.id = "RANDOMWRONGID";
+        updateEntryForm.type = "Note";
+        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+
+        ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
+
+        assertEquals(404, result.getStatusCodeValue());
+    }
+
+    /**
+     * Tests that deleteUser returns an HTTP response with status code 200(OK) when given a valid username and
+     * password.
+     */
     @Test
     public void testDeleteUserOK(){
         UserInfoForm userInfoForm = new UserInfoForm();
@@ -290,6 +382,10 @@ public class AccountControllerTest {
         assertEquals(200, testResult.getStatusCodeValue());
     }
 
+    /**
+     * Tests that deleteUser returns an HTTP response with status code 401(OK) when given a valid username but
+     * invalid password.
+     */
     @Test
     public void testDeleteUserUnauthorized(){
         UserInfoForm userInfoForm = new UserInfoForm();
@@ -305,6 +401,9 @@ public class AccountControllerTest {
         assertEquals(401, testResult.getStatusCodeValue());
     }
 
+    /**
+     * Tests that deleteUser returns an HTTP response with status code 404(Not Found) when given an invalid username.
+     */
     @Test
     public void testDeleteUserNotFound(){
         UserInfoForm userInfoForm = new UserInfoForm();
@@ -321,6 +420,9 @@ public class AccountControllerTest {
         assertEquals(404, testResult.getStatusCodeValue());
     }
 
+    /**
+     * tests the generatePassword returns an HTTP response with a status code 200(OK)
+     */
     @Test
     public void testGeneratePassword(){
         GeneratePassForm generatePassForm = new GeneratePassForm();
