@@ -70,7 +70,7 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
 
         for(PrivateInfo private_info: account.getVault()){
             PrivateInfo decryptedInfo = decryptPrivateInfo(private_info, private_info.getType(), key);
-            decryptedInfo.setId(private_info.id);
+            decryptedInfo.setId(private_info.getId());
             decryptedVault.add(decryptedInfo);
         }
         return decryptedVault;

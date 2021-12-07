@@ -19,7 +19,7 @@ public class RestServiceApplication {
 
     /**
      * Configuration class for the web server
-     * @return
+     * @return WebMvcConfigurer
      */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
