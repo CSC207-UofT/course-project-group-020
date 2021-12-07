@@ -19,8 +19,8 @@ import java.util.UUID;
 public abstract class PrivateInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     public HashMap<String, String> info;
-    public String id;
-    public String type;
+    private String id;
+    private String type;
 
 
 
@@ -92,4 +92,21 @@ public abstract class PrivateInfo implements Serializable {
         this.id = id;
     }
 
+    /**
+     * A getter method that gets type value
+     *
+     * @return String
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * A setter method that sets the type attribute of this object
+     *
+     * @param id String
+     */
+    public void setType(String id){
+        this.type = id;
+    }
 }

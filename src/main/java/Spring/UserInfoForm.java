@@ -5,6 +5,22 @@ package Spring;
  * wants to verify a user or get a user's data.
  */
 public class UserInfoForm {
-    public String username;
-    public String password;
+    private String username;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

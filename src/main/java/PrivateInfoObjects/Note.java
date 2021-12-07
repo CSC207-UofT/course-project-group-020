@@ -22,7 +22,7 @@ public class Note extends PrivateInfo {
         super();
         info.put("title", title);
         info.put("content", content);
-        this.type = "Note";
+        this.setType("Note");
     }
 
 }

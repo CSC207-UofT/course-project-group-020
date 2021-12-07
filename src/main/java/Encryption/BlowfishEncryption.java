@@ -69,13 +69,20 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
         ArrayList<PrivateInfo> decryptedVault = new ArrayList<>();
 
         for(PrivateInfo private_info: account.getVault()){
-            PrivateInfo decryptedInfo = decryptPrivateInfo(private_info, private_info.type, key);
+            PrivateInfo decryptedInfo = decryptPrivateInfo(private_info, private_info.getType(), key);
             decryptedInfo.setId(private_info.id);
             decryptedVault.add(decryptedInfo);
         }
         return decryptedVault;
     }
 
+    /**
+     * Function to decrypt PrivateInfo object based on which subclass it belongs to
+     * @param privateInfo to be decrypted
+     * @param type String type can be Login, ID, Contact, Note
+     * @param key String key used to decrypt
+     * @return PrivateInfo but with decrypted info
+     */
     public PrivateInfo decryptPrivateInfo(PrivateInfo privateInfo, String type, String key){
         switch (type){
             case "Login":
@@ -91,6 +98,13 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
         }
     }
 
+    /**
+     * Function to decrypt a Login object
+     *
+     * @param privateLogin to be decrypted
+     * @param key String key used to decrypt
+     * @return Login object upcasted to PrivateInfo
+     */
     private PrivateInfo decryptLogin(PrivateInfo privateLogin, String key){
         return new LogIn(decryptInfo(privateLogin.getInfo("username"), key),
                 decryptInfo(privateLogin.getInfo("password"), key),
@@ -98,19 +112,39 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
                 decryptInfo(privateLogin.getInfo("url"), key));
     }
 
+    /**
+     * Function to decrypt Contact object
+     *
+     * @param privateContact to be decrypted
+     * @param key String key used to decrypt
+     * @return Contact object upcasted to PrivateInfo
+     */
     private PrivateInfo decryptContact(PrivateInfo privateContact, String key){
         return new Contact(decryptInfo(privateContact.getInfo("name"), key),
                 decryptInfo(privateContact.getInfo("number"), key),
                 decryptInfo(privateContact.getInfo("address"), key));
     }
 
-
+    /**
+     * Function to decrypt ID object
+     *
+     * @param privateId to be decrypted
+     * @param key String key used to decrypt
+     * @return ID object upcasted to PrivateInfo
+     */
     private PrivateInfo decryptId(PrivateInfo privateId, String key){
         return new Identification(decryptInfo(privateId.getInfo("IDType"), key),
                 decryptInfo(privateId.getInfo("IDNumber"), key),
                 decryptInfo(privateId.getInfo("IDExpirationDate"), key));
     }
 
+    /**
+     * Function to decrypt Note object
+     *
+     * @param privateNote to be decrypted
+     * @param key String key used to decrypt
+     * @return Note object upcasted to PrivateInfo
+     */
     private PrivateInfo decryptNote(PrivateInfo privateNote, String key){
         return new Note(decryptInfo(privateNote.getInfo("title"), key),
                 decryptInfo(privateNote.getInfo("content"), key));
