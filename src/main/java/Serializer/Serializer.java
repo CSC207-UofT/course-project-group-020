@@ -7,13 +7,13 @@ import java.io.*;
  * Class responsible for serializing the current state of the program.
  *
  */
-public class Serializer {
+public class Serializer implements ISerializer{
 
     public Serializer(){
         // We would iterate over each account in accounts and make a separate .txt file to save them
     }
 
-    public static void serialize(Account account){
+    public void serialize(Account account){
         // So when we close the program, before we close we input the current state of the
         // into this method, and it stores it.
 
@@ -30,7 +30,7 @@ public class Serializer {
         catch(Exception e){e.printStackTrace();}
     }
 
-    public static Account deserialize(String username){
+    public Account deserialize(String username){
         // We would call this method when we first open the program to check if there are any
         // previously created accounts
         try {
