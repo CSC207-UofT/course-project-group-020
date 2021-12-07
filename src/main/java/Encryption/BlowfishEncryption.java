@@ -7,6 +7,7 @@ import Exceptions.AttributeNotFoundException;
 import PrivateInfoObjects.*;
 
 import java.util.ArrayList;
+
 /**
  * The class that is in charge of the encryption of the information the user is storing. Works using a key that
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
@@ -17,7 +18,7 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
     public String[] encryptList(String[] data, String key){
         String[] eData = new String[data.length];
         for(int i = 0; i < eData.length; i++){
-            eData[i] = encryptInfo(key, data[i]);
+            eData[i] = encryptString(key, data[i]);
         }
         return eData;
     }
@@ -34,7 +35,7 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * @param textToEncrypt The string which is to be encrypted.
      *
      */
-    public String encryptInfo(String key, String textToEncrypt) {  //56 char max length key
+    public String encryptString(String key, String textToEncrypt) {  //56 char max length key
         byte[] KeyData = key.getBytes();
         try {
             SecretKeySpec keyspec = new SecretKeySpec(KeyData, "Blowfish");
@@ -61,13 +62,13 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
     /**
      * This is the Account decryption method that again takes in an account with encrypted vault
      * and the key.
-     *
-     * @param account The Account to have its info decrypted.
+     *  @param account The Account to have its info decrypted.
      * @param key The string representation of the key corresponding to the Account.
+     * @return
      */
     public ArrayList<PrivateInfo> decryptVault(Account account, String key) throws AttributeNotFoundException {
 
-        ArrayList<PrivateInfo> decryptedVault = new ArrayList<>();
+        ArrayList<PrivateInfo> decryptedVault = new ArrayList<PrivateInfo>();
 
         for(PrivateInfo private_info: account.getVault()){
             PrivateInfo decryptedInfo = decryptPrivateInfo(private_info, private_info.getType(), key);
@@ -107,10 +108,10 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * @return Login object upcasted to PrivateInfo
      */
     private PrivateInfo decryptLogin(PrivateInfo privateLogin, String key) throws AttributeNotFoundException{
-        return new LogIn(decryptInfo(privateLogin.getInfo("username"), key),
-                decryptInfo(privateLogin.getInfo("password"), key),
-                decryptInfo(privateLogin.getInfo("webpage"), key),
-                decryptInfo(privateLogin.getInfo("url"), key));
+        return new LogIn(decryptString(privateLogin.getInfo("username"), key),
+                decryptString(privateLogin.getInfo("password"), key),
+                decryptString(privateLogin.getInfo("webpage"), key),
+                decryptString(privateLogin.getInfo("url"), key));
     }
 
     /**
@@ -121,9 +122,9 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * @return Contact object upcasted to PrivateInfo
      */
     private PrivateInfo decryptContact(PrivateInfo privateContact, String key) throws AttributeNotFoundException{
-        return new Contact(decryptInfo(privateContact.getInfo("name"), key),
-                decryptInfo(privateContact.getInfo("number"), key),
-                decryptInfo(privateContact.getInfo("address"), key));
+        return new Contact(decryptString(privateContact.getInfo("name"), key),
+                decryptString(privateContact.getInfo("number"), key),
+                decryptString(privateContact.getInfo("address"), key));
     }
 
     /**
@@ -134,9 +135,9 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * @return ID object upcasted to PrivateInfo
      */
     private PrivateInfo decryptId(PrivateInfo privateId, String key) throws AttributeNotFoundException{
-        return new Identification(decryptInfo(privateId.getInfo("IDType"), key),
-                decryptInfo(privateId.getInfo("IDNumber"), key),
-                decryptInfo(privateId.getInfo("IDExpirationDate"), key));
+        return new Identification(decryptString(privateId.getInfo("IDType"), key),
+                decryptString(privateId.getInfo("IDNumber"), key),
+                decryptString(privateId.getInfo("IDExpirationDate"), key));
     }
 
     /**
@@ -147,8 +148,8 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      * @return Note object upcasted to PrivateInfo
      */
     private PrivateInfo decryptNote(PrivateInfo privateNote, String key) throws AttributeNotFoundException{
-        return new Note(decryptInfo(privateNote.getInfo("title"), key),
-                decryptInfo(privateNote.getInfo("content"), key));
+        return new Note(decryptString(privateNote.getInfo("title"), key),
+                decryptString(privateNote.getInfo("content"), key));
     }
 
     /**
@@ -163,7 +164,7 @@ public class BlowfishEncryption implements PrivateInfoEncryptor{
      *            to plaintext.
      * @param text The label is the attribute of the PrivateInfo that we are trying to decrypt.
      */
-    public String decryptInfo(String text, String key){
+    public String decryptString(String text, String key){
         try{
             byte[] bb = new byte[text.length()];
 

@@ -3,6 +3,7 @@ import Account.AccountManager;
 import Encryption.MasterEncryptor;
 import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.*;
+import Serializer.Serializer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import org.junit.Test;
 
 public class AccountManagerTest {
     String myMasterPassword = "Ilikedogsalot";
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
 
     @Before
     public void setUp() {

@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -201,7 +202,7 @@ public class AccountControllerTest {
             entry1.setData(new String[]{"DeleteTest", "Content"});
             accountController.createEntry(entry1);
 
-            ArrayList<PrivateInfo> acc = encryptor.decryptVault(
+            List<PrivateInfo> acc = encryptor.decryptVault(
                     Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
 
             PrivateInfo note = acc.get(0);
@@ -291,7 +292,7 @@ public class AccountControllerTest {
             accountController.createEntry(entry1);
 
             PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-            ArrayList<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
+            List<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
 
             PrivateInfo note = vault.get(0);
             String id = note.getId();

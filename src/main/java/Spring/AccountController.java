@@ -1,24 +1,30 @@
 package Spring;
-import Account.Account;
 import Account.AccountManager;
 
 import Encryption.BlowfishEncryption;
 import Encryption.PrivateInfoEncryptor;
+import Encryption.SecureHashEncryption;
 import Exceptions.AttributeNotFoundException;
 import Password.PasswordCreation;
+
+
 import PrivateInfoObjects.*;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import Serializer.Serializer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Controller class that takes input from a web-based frontend and returns HTTP response objects back.
  */
 @RestController
 public class AccountController {
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
 
     public AccountController(){
     }
@@ -35,9 +41,8 @@ public class AccountController {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                Account userAcc = accountManager.getAccount(userInfoForm.getUsername());
                 PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-                ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.getPassword());
+                List<PrivateInfo> decryptedAcc = encryptor.decryptVault(accountManager.getAccount(userInfoForm.getUsername()), userInfoForm.getPassword());
                 return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
             } else {
                 return verifyResult;

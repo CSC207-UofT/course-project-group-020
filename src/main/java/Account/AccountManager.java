@@ -1,10 +1,8 @@
 package Account;
 
 import Encryption.MasterEncryptor;
-import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.ISerializer;
-import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -22,9 +20,11 @@ import java.util.Iterator;
  */
 public class AccountManager {
     private final ISerializer serializer;
+    private final MasterEncryptor encryptor;
 
-    public AccountManager() {
-        this.serializer = new Serializer();
+    public AccountManager(ISerializer serializer, MasterEncryptor masterEncryptor) {
+        this.serializer = serializer;
+        this.encryptor = masterEncryptor;
     }
 
     /**
@@ -34,7 +34,6 @@ public class AccountManager {
      * @param masterPassword The master password associated with this new Account.
      */
     public boolean createAccount(String username, String masterPassword) {
-        MasterEncryptor encryptor = new SecureHashEncryption();
         String encryptedMasterPassword = encryptor.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
 
@@ -63,7 +62,6 @@ public class AccountManager {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            MasterEncryptor encryptor = new SecureHashEncryption();
             String userAttempt = encryptor.encryptMaster(password);
             if (userAttempt.equals(user.getMasterPassword())) {
                 return new ResponseEntity<>(HttpStatus.OK);
