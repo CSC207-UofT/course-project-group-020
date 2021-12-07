@@ -55,7 +55,6 @@ public class Serializer implements ISerializer{
             return account;
 
         } catch(IOException | ClassNotFoundException e){
-            e.printStackTrace();
             return null;
         }
     }
