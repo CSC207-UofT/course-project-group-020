@@ -4,6 +4,7 @@ import Encryption.BlowfishEncryption;
 import Encryption.PrivateInfoEncryptor;
 
 public class PrivateInfoFactory {
+
     /**
      * Creates a Login object with the given data and encrypted with the given key. The order of
      * the values in data correspond to the values in the created Login object.
@@ -85,7 +86,7 @@ public class PrivateInfoFactory {
      * @param key  Key used to encrypted newly created Identification
      * @return Instance of PrivateInfo subclass
      */
-    public static PrivateInfo createEntryByType(String type, String[] data, String key) {
+    public static PrivateInfo createEntryByType(String type, String[] data, String key) throws ClassNotFoundException{
         switch (type) {
             case "Login":
                 return createLogin(data, key);
@@ -96,7 +97,7 @@ public class PrivateInfoFactory {
             case "Note":
                 return createNote(data, key);
             default:
-                return createNote(data, key); //TODO fix this to raise error
+                throw new ClassNotFoundException("Cannot create entry of this class.");
         }
     }
 

@@ -1,7 +1,7 @@
 package PrivateInfoObjects;
 
 /**
- * TODO: Write Javadoc
+ * This class represents a Login of a user.
  */
 public class LogIn extends PrivateInfo {
     private static final long serialVersionUID = 1L;

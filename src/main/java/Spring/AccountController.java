@@ -4,6 +4,7 @@ import Account.AccountManager;
 
 import Encryption.BlowfishEncryption;
 import Encryption.PrivateInfoEncryptor;
+import Exceptions.AttributeNotFoundException;
 import Password.PasswordCreation;
 import PrivateInfoObjects.*;
 import org.springframework.http.HttpStatus;
@@ -31,14 +32,18 @@ public class AccountController {
      */
     @PostMapping("/get-user-data")
     public ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
-        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
-        if(verifyResult.getStatusCodeValue() == 200){
-            Account userAcc = accountManager.getAccount(userInfoForm.getUsername());
-            PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-            ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.getPassword());
-            return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
-        } else {
-            return verifyResult;
+        try {
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
+            if (verifyResult.getStatusCodeValue() == 200) {
+                Account userAcc = accountManager.getAccount(userInfoForm.getUsername());
+                PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+                ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.getPassword());
+                return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
+            } else {
+                return verifyResult;
+            }
+        } catch (AttributeNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -96,8 +101,9 @@ public class AccountController {
                 accountManager.addInfo(newEntry, createEntryForm.getUsername());
             }
             return verifyResult;
-        } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -126,7 +132,7 @@ public class AccountController {
             }
             return verifyResult;
         } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -155,8 +161,9 @@ public class AccountController {
                 }
             }
             return verifyResult;
-        } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 
