@@ -5,8 +5,24 @@ package Spring;
  * wants to create an entry from their vault.
  */
 public class EntryInfoForm {
-    public String username;
-    public String password;
-    public String type;
-    public String[] data;
+    private String username;
+    private String password;
+    private String type;
+    private String[] data;
+
+    public String[] getData() {
+        return data;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

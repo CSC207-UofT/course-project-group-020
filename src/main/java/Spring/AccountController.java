@@ -31,11 +31,11 @@ public class AccountController {
      */
     @PostMapping("/get-user-data")
     public ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
-        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
         if(verifyResult.getStatusCodeValue() == 200){
-            Account userAcc = accountManager.getAccount(userInfoForm.username);
+            Account userAcc = accountManager.getAccount(userInfoForm.getUsername());
             PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-            ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.password);
+            ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.getPassword());
             return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
         } else {
             return verifyResult;
@@ -52,7 +52,7 @@ public class AccountController {
      */
     @PostMapping("/verify-user")
     public ResponseEntity<?> verifyUser(@RequestBody UserInfoForm userInfoForm){
-        return accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        return accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
     }
 
 
@@ -67,12 +67,12 @@ public class AccountController {
      */
     @PostMapping("/create-user")
     public ResponseEntity<?>  createUser(@RequestBody UserInfoForm userInfoForm){
-        ResponseEntity<?> verifyResults = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        ResponseEntity<?> verifyResults = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
 
         if(verifyResults.getStatusCodeValue()==200 || verifyResults.getStatusCodeValue()==401){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else{
-            accountManager.createAccount(userInfoForm.username, userInfoForm.password);
+            accountManager.createAccount(userInfoForm.getUsername(), userInfoForm.getPassword());
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
@@ -90,10 +90,10 @@ public class AccountController {
     @PostMapping("/create-entry")
     public ResponseEntity<?> createEntry(@RequestBody EntryInfoForm createEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.username, createEntryForm.password);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.getUsername(), createEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newEntry = PrivateInfoFactory.createEntryByType(createEntryForm.type, createEntryForm.data, createEntryForm.password);
-                accountManager.addInfo(newEntry, createEntryForm.username);
+                PrivateInfo newEntry = PrivateInfoFactory.createEntryByType(createEntryForm.getType(), createEntryForm.getData(), createEntryForm.getPassword());
+                accountManager.addInfo(newEntry, createEntryForm.getUsername());
             }
             return verifyResult;
         } catch (NullPointerException e){
@@ -114,9 +114,9 @@ public class AccountController {
     @PostMapping("/delete-entry")
     public ResponseEntity<?> deleteEntry(@RequestBody DeleteEntryForm deleteEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = accountManager.verifyUser(deleteEntryForm.username, deleteEntryForm.password);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(deleteEntryForm.getUsername(), deleteEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                boolean result = accountManager.deleteInfo(deleteEntryForm.id, deleteEntryForm.username);
+                boolean result = accountManager.deleteInfo(deleteEntryForm.getId(), deleteEntryForm.getUsername());
 
                 if(result){
                     return verifyResult;
@@ -143,10 +143,10 @@ public class AccountController {
     @PostMapping("/update-entry")
     public ResponseEntity<?> updateEntry(@RequestBody UpdateEntryForm updateEntryForm) {
         try {
-            ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.username, updateEntryForm.password);
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.getUsername(), updateEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.type, updateEntryForm.data, updateEntryForm.password);
-                boolean result = accountManager.editInfo(newInfo, updateEntryForm.username, updateEntryForm.id);
+                PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.getType(), updateEntryForm.getData(), updateEntryForm.getPassword());
+                boolean result = accountManager.editInfo(newInfo, updateEntryForm.getUsername(), updateEntryForm.getId());
 
                 if(result){
                     return verifyResult;
@@ -169,9 +169,9 @@ public class AccountController {
      */
     @PostMapping("/delete-user")
     public ResponseEntity<?> deleteUser(@RequestBody UserInfoForm userInfoForm) {
-        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.username, userInfoForm.password);
+        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
         if (verifyResult.getStatusCodeValue() == 200) {
-            accountManager.deleteAccount(userInfoForm.username);
+            accountManager.deleteAccount(userInfoForm.getUsername());
         }
         return verifyResult;
     }
@@ -186,7 +186,7 @@ public class AccountController {
      */
     @PostMapping("/generate-password")
     public ResponseEntity<?> generatePassword(@RequestBody GeneratePassForm generatePassForm) {
-        String newPass = PasswordCreation.generatePassword(generatePassForm.length);
+        String newPass = PasswordCreation.generatePassword(generatePassForm.getLength());
 
         return new ResponseEntity<>(newPass, HttpStatus.OK);
     }

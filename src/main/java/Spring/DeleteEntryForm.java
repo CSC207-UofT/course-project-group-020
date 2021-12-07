@@ -5,7 +5,19 @@ package Spring;
  * wants to delete an entry from their vault.
  */
 public class DeleteEntryForm {
-    public String username;
-    public String password;
-    public String id;
+    private String username;
+    private String password;
+    private String id;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

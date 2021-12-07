@@ -5,9 +5,29 @@ package Spring;
  * wants to update/edit an entry.
  */
 public class UpdateEntryForm {
-    public String username;
-    public String password;
-    public String id;
-    public String type;
-    public String[] data;
+    private String username;
+    private String password;
+    private String id;
+    private String type;
+    private String[] data;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String[] getData() {
+        return data;
+    }
 }
