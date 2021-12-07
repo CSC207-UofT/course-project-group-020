@@ -29,8 +29,8 @@ public class AccountControllerTest {
     @Before
     public void setUp() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "CorrectPassword";
+        user.setUsername("Cliff");
+        user.setPassword("CorrectPassword");
         accountController.createUser(user);
     }
 
@@ -41,8 +41,8 @@ public class AccountControllerTest {
     @Test
     public void testCreateUserSuccess() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Ryan";
-        user.password = "CorrectPassword";
+        user.setUsername("Ryan");
+        user.setPassword("CorrectPassword");
         ResponseEntity<?> result = accountController.createUser(user);
 
         assertEquals(result.getStatusCodeValue(), 200);
@@ -55,8 +55,8 @@ public class AccountControllerTest {
     @Test
     public void testCreateUserFailure() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "Password1";
+        user.setUsername("Cliff");
+        user.setPassword("Password1");
         ResponseEntity<?> result = accountController.createUser(user);
 
         assertEquals(result.getStatusCodeValue(), 409);
@@ -68,8 +68,8 @@ public class AccountControllerTest {
     @Test
     public void testGetUserDataOK() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "CorrectPassword";
+        user.setUsername("Cliff");
+        user.setPassword("CorrectPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 200);
@@ -81,8 +81,8 @@ public class AccountControllerTest {
     @Test
     public void testGetUserDataUnauthorized() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "WrongPassword";
+        user.setUsername("Cliff");
+        user.setPassword("WrongPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 401);
@@ -94,8 +94,8 @@ public class AccountControllerTest {
     @Test
     public void testGetUserDataNotFound() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "ImaginaryPerson";
-        user.password = "WrongPassword";
+        user.setUsername("ImaginaryPerson");
+        user.setPassword("WrongPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 404);
@@ -107,8 +107,8 @@ public class AccountControllerTest {
     @Test
     public void testVerifyUserOK() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "CorrectPassword";
+        user.setUsername("Cliff");
+        user.setPassword("CorrectPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 200);
@@ -120,8 +120,8 @@ public class AccountControllerTest {
     @Test
     public void testVerifyUserUnauthorized() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "Cliff";
-        user.password = "WrongPassword";
+        user.setUsername("Cliff");
+        user.setPassword("WrongPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 401);
@@ -133,8 +133,8 @@ public class AccountControllerTest {
     @Test
     public void testVerifyUserNotFound() {
         UserInfoForm user = new UserInfoForm();
-        user.username = "ImaginaryPerson";
-        user.password = "WrongPassword";
+        user.setUsername("ImaginaryPerson");
+        user.setPassword("WrongPassword");
         ResponseEntity<?> result = accountController.getUserData(user);
 
         assertEquals(result.getStatusCodeValue(), 404);
@@ -146,10 +146,10 @@ public class AccountControllerTest {
     @Test
     public void testCreateEntrySuccess() {
         EntryInfoForm form = new EntryInfoForm();
-        form.username = "Cliff";
-        form.password = "CorrectPassword";
-        form.type = "Login";
-        form.data = new String[]{"username", "password", "web", "url"};
+        form.setUsername("Cliff");
+        form.setPassword("CorrectPassword");
+        form.setType("Login");
+        form.setData(new String[]{"username", "password", "web", "url"});
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -162,10 +162,10 @@ public class AccountControllerTest {
     @Test
     public void testCreateEntryUnauthorized() {
         EntryInfoForm form = new EntryInfoForm();
-        form.username = "Cliff";
-        form.password = "WrongPassword";
-        form.type = "Login";
-        form.data = new String[]{"username", "password", "web", "url"};
+        form.setUsername("Cliff");
+        form.setPassword("WrongPassword");
+        form.setType("Login");
+        form.setData(new String[]{"username", "password", "web", "url"});
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -178,10 +178,10 @@ public class AccountControllerTest {
     @Test
     public void testCreateEntryNotFound() {
         EntryInfoForm form = new EntryInfoForm();
-        form.username = "ImaginaryPerson";
-        form.password = "WrongPassword";
-        form.type = "Login";
-        form.data = new String[]{"username", "password", "web", "url"};
+        form.setUsername("ImaginaryPerson");
+        form.setPassword("WrongPassword");
+        form.setType("Login");
+        form.setData(new String[]{"username", "password", "web", "url"});
 
         ResponseEntity<?> result = accountController.createEntry(form);
 
@@ -194,10 +194,10 @@ public class AccountControllerTest {
     @Test
     public void testDeleteEntryOK() {
         EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "Cliff";
-        entry1.password = "CorrectPassword";
-        entry1.type = "Note";
-        entry1.data = new String[]{"DeleteTest", "Content"};
+        entry1.setUsername("Cliff");
+        entry1.setPassword("CorrectPassword");
+        entry1.setType("Note");
+        entry1.setData(new String[]{"DeleteTest", "Content"});
         accountController.createEntry(entry1);
 
         ArrayList<PrivateInfo> acc = encryptor.decryptVault(
@@ -207,9 +207,9 @@ public class AccountControllerTest {
         String id = note.id;
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
-        deleteForm.username = "Cliff";
-        deleteForm.password = "CorrectPassword";
-        deleteForm.id = id;
+        deleteForm.setUsername("Cliff");
+        deleteForm.setPassword("CorrectPassword");
+        deleteForm.setId(id);
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 200);
@@ -221,9 +221,9 @@ public class AccountControllerTest {
     @Test
     public void testDeleteEntryUnauthorized() {
         DeleteEntryForm deleteForm = new DeleteEntryForm();
-        deleteForm.username = "Cliff";
-        deleteForm.password = "WrongPassword";
-        deleteForm.id = "Some Random Identification";
+        deleteForm.setUsername("Cliff");
+        deleteForm.setPassword("WrongPassword");
+        deleteForm.setId("Some Random Identification");
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 401);
@@ -235,21 +235,16 @@ public class AccountControllerTest {
     @Test
     public void testDeleteEntryUserNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "ImaginaryPerson";
-        entry1.password = "WrongPassword";
-        entry1.type = "Note";
-        entry1.data = new String[]{"DeleteTest", "Content"};
-
-        ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
-        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
-                Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
-        String id = "randomId";
+        entry1.setUsername("ImaginaryPerson");
+        entry1.setPassword("WrongPassword");
+        entry1.setType("Note");
+        entry1.setData(new String[]{"DeleteTest", "Content"});
         accountController.createEntry(entry1);
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
-        deleteForm.username = "Cliff";
-        deleteForm.password = "CorrectPassword";
-        deleteForm.id = "RandomID";
+        deleteForm.setUsername("Cliff");
+        deleteForm.setPassword("CorrectPassword");
+        deleteForm.setId("RandomID");
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 404);
@@ -262,17 +257,17 @@ public class AccountControllerTest {
     @Test
     public void testDeleteEntryEntryNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "ImaginaryPerson";
-        entry1.password = "WrongPassword";
-        entry1.type = "Note";
-        entry1.data = new String[]{"DeleteTest", "Content"};
+        entry1.setUsername("ImaginaryPerson");
+        entry1.setPassword("WrongPassword");
+        entry1.setType("Note");
+        entry1.setData(new String[]{"DeleteTest", "Content"});
         accountController.createEntry(entry1);
 
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
-        deleteForm.username = "Cliff";
-        deleteForm.password = "CorrectPassword";
-        deleteForm.id = "RandomWrongId";
+        deleteForm.setUsername("Cliff");
+        deleteForm.setPassword("CorrectPassword");
+        deleteForm.setId("RandomWrongId");
 
         ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
         assertEquals(result.getStatusCodeValue(), 404);
@@ -284,10 +279,10 @@ public class AccountControllerTest {
     @Test
     public void testUpdateEntryOK(){
         EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "Cliff";
-        entry1.password = "CorrectPassword";
-        entry1.type = "Note";
-        entry1.data = new String[]{"Title", "Content"};
+        entry1.setUsername("Cliff");
+        entry1.setPassword("CorrectPassword");
+        entry1.setType("Note");
+        entry1.setData(new String[]{"Title", "Content"});
         accountController.createEntry(entry1);
 
         PrivateInfoEncryptor encryptor = new BlowfishEncryption();
@@ -297,11 +292,11 @@ public class AccountControllerTest {
         String id = note.id;
 
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
-        updateEntryForm.username = "Cliff";
-        updateEntryForm.password = "CorrectPassword";
-        updateEntryForm.id = id;
-        updateEntryForm.type = "Note";
-        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+        updateEntryForm.setUsername("Cliff");
+        updateEntryForm.setPassword("CorrectPassword");
+        updateEntryForm.setId(id);
+        updateEntryForm.setType("Note");
+        updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
 
         ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
@@ -314,11 +309,11 @@ public class AccountControllerTest {
     @Test
     public void testUpdateEntryUnauthorized(){
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
-        updateEntryForm.username = "Cliff";
-        updateEntryForm.password = "WrongPassword";
-        updateEntryForm.id = "SomeRandomId";
-        updateEntryForm.type = "Note";
-        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+        updateEntryForm.setUsername("Cliff");
+        updateEntryForm.setPassword("WrongPassword");
+        updateEntryForm.setId("SomeRandomId");
+        updateEntryForm.setType("Note");
+        updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
 
         ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
@@ -331,11 +326,11 @@ public class AccountControllerTest {
     @Test
     public void testUpdateEntryUserNotFound(){
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
-        updateEntryForm.username = "ImaginaryPerson";
-        updateEntryForm.password = "WrongPassword";
-        updateEntryForm.id = "SomeRandomId";
-        updateEntryForm.type = "Note";
-        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+        updateEntryForm.setUsername("ImaginaryPerson");
+        updateEntryForm.setPassword("WrongPassword");
+        updateEntryForm.setId("SomeRandomId");
+        updateEntryForm.setType("Note");
+        updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
 
         ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
@@ -349,18 +344,18 @@ public class AccountControllerTest {
     @Test
     public void testUpdateEntryEntryNotFound(){
         EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.username = "Cliff";
-        entry1.password = "CorrectPassword";
-        entry1.type = "Note";
-        entry1.data = new String[]{"Title", "Content"};
+        entry1.setUsername("Cliff");
+        entry1.setPassword("CorrectPassword");
+        entry1.setType("Note");
+        entry1.setData(new String[]{"Title", "Content"});
         accountController.createEntry(entry1);
 
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
-        updateEntryForm.username = "Cliff";
-        updateEntryForm.password = "CorrectPassword";
-        updateEntryForm.id = "RANDOMWRONGID";
-        updateEntryForm.type = "Note";
-        updateEntryForm.data = new String[]{"UpdatedTitle", "updatedContent"};
+        updateEntryForm.setUsername("Cliff");
+        updateEntryForm.setPassword("CorrectPassword");
+        updateEntryForm.setId("RANDOMWRONGID");
+        updateEntryForm.setType("Note");
+        updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
 
         ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
@@ -374,8 +369,8 @@ public class AccountControllerTest {
     @Test
     public void testDeleteUserOK(){
         UserInfoForm userInfoForm = new UserInfoForm();
-        userInfoForm.username = "deleteOkTest";
-        userInfoForm.password = "CorrectPassword";
+        userInfoForm.setUsername("deleteOkTest");
+        userInfoForm.setPassword("CorrectPassword");
 
         accountController.createUser(userInfoForm);
         ResponseEntity<?> testResult = accountController.deleteUser(userInfoForm);
@@ -389,14 +384,14 @@ public class AccountControllerTest {
     @Test
     public void testDeleteUserUnauthorized(){
         UserInfoForm userInfoForm = new UserInfoForm();
-        userInfoForm.username = "deleteUnauthorizedTest";
-        userInfoForm.password = "CorrectPassword";
+        userInfoForm.setUsername("deleteUnauthorizedTest");
+        userInfoForm.setPassword("CorrectPassword");
 
         accountController.createUser(userInfoForm);
 
         UserInfoForm wrongUserForm = new UserInfoForm();
-        wrongUserForm.username = "deleteUnauthorizedTest";
-        wrongUserForm.password = "WrongPassword";
+        wrongUserForm.setUsername("deleteUnauthorizedTest");
+        wrongUserForm.setPassword("WrongPassword");
         ResponseEntity<?> testResult = accountController.deleteUser(wrongUserForm);
         assertEquals(401, testResult.getStatusCodeValue());
     }
@@ -407,14 +402,14 @@ public class AccountControllerTest {
     @Test
     public void testDeleteUserNotFound(){
         UserInfoForm userInfoForm = new UserInfoForm();
-        userInfoForm.username = "deleteNotFoundTest";
-        userInfoForm.password = "CorrectPassword";
+        userInfoForm.setUsername("deleteNotFoundTest");
+        userInfoForm.setPassword("CorrectPassword");
 
         accountController.createUser(userInfoForm);
 
         UserInfoForm wrongUserForm = new UserInfoForm();
-        wrongUserForm.username = "WrongUser";
-        wrongUserForm.password = "CorrectPassword";
+        wrongUserForm.setUsername("WrongUser");
+        wrongUserForm.setPassword("CorrectPassword");
 
         ResponseEntity<?> testResult = accountController.deleteUser(wrongUserForm);
         assertEquals(404, testResult.getStatusCodeValue());
@@ -426,7 +421,7 @@ public class AccountControllerTest {
     @Test
     public void testGeneratePassword(){
         GeneratePassForm generatePassForm = new GeneratePassForm();
-        generatePassForm.length = 13;
+        generatePassForm.setLength(13);
         ResponseEntity<?> testResult = accountController.generatePassword(generatePassForm);
 
         assertEquals(200, testResult.getStatusCodeValue());
@@ -436,21 +431,21 @@ public class AccountControllerTest {
     @After
     public void cleanUp(){
         UserInfoForm deleteUserForm = new UserInfoForm();
-        deleteUserForm.username = "Ryan";
-        deleteUserForm.password = "CorrectPassword";
+        deleteUserForm.setUsername("Ryan");
+        deleteUserForm.setPassword("CorrectPassword");
 
         accountController.deleteUser(deleteUserForm);
 
-        deleteUserForm.username = "Cliff";
+        deleteUserForm.setUsername("Cliff");
         accountController.deleteUser(deleteUserForm);
 
-        deleteUserForm.username = "Cliff";
+        deleteUserForm.setUsername("Cliff");
         accountController.deleteUser(deleteUserForm);
 
-        deleteUserForm.username = "deleteNotFoundTest";
+        deleteUserForm.setUsername("deleteNotFoundTest");
         accountController.deleteUser(deleteUserForm);
 
-        deleteUserForm.username = "deleteUnauthorizedTest";
+        deleteUserForm.setUsername("deleteUnauthorizedTest");
         accountController.deleteUser(deleteUserForm);
     }
 }

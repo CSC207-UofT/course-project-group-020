@@ -30,4 +30,24 @@ public class UpdateEntryForm {
     public String[] getData() {
         return data;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setData(String[] data) {
+        this.data = data;
+    }
 }

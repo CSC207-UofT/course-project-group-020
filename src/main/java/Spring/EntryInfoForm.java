@@ -25,4 +25,20 @@ public class EntryInfoForm {
     public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setData(String[] data) {
+        this.data = data;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
