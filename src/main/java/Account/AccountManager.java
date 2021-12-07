@@ -21,7 +21,9 @@ import java.util.Iterator;
  * It has an instance attribute called accounts that is an ArrayList that
  */
 public class AccountManager {
+    //    public ArrayList<Account> accounts;
     public Throwable NullPointerException;
+    private Account currentAccount;
     private ISerializer serializer;
 
     public AccountManager() {
@@ -145,11 +147,7 @@ public class AccountManager {
         return false;
     }
 
-    /**
-     * This method is responsible for deleting an account from the data folder.
-     * @param username String username of Account/.bin folder to be deleted.
-     * @return true if file with username exists. false otherwise.
-     */
+
     public boolean deleteAccount(String username) {
 
         try {
@@ -167,4 +165,36 @@ public class AccountManager {
     }
 
 }
+
+
+//    public ArrayList<Account> getAccounts() {
+//        return this.accounts;
+//    }
+//
+//    public Account getAccount(Account wantedAccount) {
+//
+//        int i = 0;
+//        for (Account account : this.accounts) {
+//            if (account == wantedAccount) {
+//                break;
+//            }
+//            i += 1;
+//        }
+//        return this.accounts.get(i);
+//
+//
+//    }
+
+//    public Account getAccountByUsername(String usernameOfWantedAccount) throws Throwable{
+//        int i = 0;
+//        for (Account account : this.accounts) {
+//
+//            if (account.getUsername().equals(usernameOfWantedAccount)) {
+//                return this.accounts.get(i);
+//            }
+//            i += 1;
+//        }
+//        throw NullPointerException;
+//    }
+//}
 
