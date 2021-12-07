@@ -16,7 +16,7 @@ import java.security.SecureRandom;
  */
 
 public class PasswordCreation {
-    private static String[] allowedChars = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/", "0123456789"};
+    private static final String[] ALLOWED_CHARS = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/", "0123456789"};
 
 
     public PasswordCreation(){
@@ -48,7 +48,7 @@ public class PasswordCreation {
             for(int i=0; i<length; i++){
                 // randomly choose a type of character
                 int chooseType = random.nextInt(4);
-                String charType = allowedChars[chooseType];
+                String charType = ALLOWED_CHARS[chooseType];
 
                 // randomly choose a character from the chosen character type
                 int random_index = random.nextInt(charType.length());
@@ -75,10 +75,10 @@ public class PasswordCreation {
 
         for(int i = 0;i<password.length(); i++){
             char c = password.charAt(i);
-            for (int j=0; j<allowedChars.length; j++) {
-                if (allowedChars[j].indexOf(c) != -1){
+            for (int j = 0; j< ALLOWED_CHARS.length; j++) {
+                if (ALLOWED_CHARS[j].indexOf(c) != -1){
                     charTypeChecker[j] = true;
-                    message = editMessage(message, allowedChars[j]);
+                    message = editMessage(message, ALLOWED_CHARS[j]);
                 }
             }
         }
@@ -119,13 +119,13 @@ public class PasswordCreation {
      * make it stronger.
      */
     private static String editMessage(String message, String key) {
-        if (key.equals(allowedChars[0])) {
+        if (key.equals(ALLOWED_CHARS[0])) {
             message = message.replace("lowercase letters, ", "");
         }
-        else if (key.equals(allowedChars[1])) {
+        else if (key.equals(ALLOWED_CHARS[1])) {
             message = message.replace("uppercase letters, ", "");
         }
-        else if (key.equals(allowedChars[2])) {
+        else if (key.equals(ALLOWED_CHARS[2])) {
             message = message.replace("symbols, ", "");
         }
         else{
