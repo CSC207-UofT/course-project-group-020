@@ -3,6 +3,7 @@ package Account;
 import Encryption.MasterEncryptor;
 import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.PrivateInfo;
+import Serializer.ISerializer;
 import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,10 @@ public class AccountManager {
     //    public ArrayList<Account> accounts;
     public Throwable NullPointerException;
     private Account currentAccount;
+    private ISerializer serializer;
 
     public AccountManager() {
-//        accounts = new ArrayList<>();
+        this.serializer = new Serializer();
     }
 
     /**
@@ -40,13 +42,13 @@ public class AccountManager {
         Account account = new Account(username, encryptedMasterPassword);
 
         // Stores this new account in our data folder with the other accounts.
-        Serializer.serialize(account);
+        serializer.serialize(account);
         return true;
     }
 
     public Account getAccount(String username) {
 
-        return Serializer.deserialize(username);
+        return serializer.deserialize(username);
 
     }
 
@@ -60,7 +62,7 @@ public class AccountManager {
      * response if the password is incorrect
      */
     public ResponseEntity<?> verifyUser(String username, String password) {
-        Account user = Serializer.deserialize(username);
+        Account user = serializer.deserialize(username);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -88,7 +90,7 @@ public class AccountManager {
 
         currentAccount.getVault().add(newInfo);
 
-        Serializer.serialize(currentAccount);
+        serializer.serialize(currentAccount);
 
         return true;
     }
@@ -129,7 +131,7 @@ public class AccountManager {
      */
     public boolean deleteInfo(String infoId, String accountUsername) {
 
-        Account currentAccount = Serializer.deserialize(accountUsername);
+        Account currentAccount = serializer.deserialize(accountUsername);
 
         assert currentAccount != null;
         Iterator<PrivateInfo> iter = currentAccount.getVault().iterator();
@@ -138,7 +140,7 @@ public class AccountManager {
             PrivateInfo info = iter.next();
             if (info.getId().equals(infoId)) {
                 iter.remove();
-                Serializer.serialize(currentAccount);
+                serializer.serialize(currentAccount);
                 return true;
             }
         }

@@ -1,6 +1,7 @@
 import Encryption.BlowfishEncryption;
 import Encryption.PrivateInfoEncryptor;
 import Encryption.SecureHashEncryption;
+import Serializer.ISerializer;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
 import Spring.*;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
     PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    ISerializer serializer = new Serializer();
 
     @Before
     public void setUp() {
@@ -155,7 +157,7 @@ public class AccountControllerTest {
         accountController.createEntry(entry1);
 
         ArrayList<PrivateInfo> acc = encryptor.decryptVault(
-                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
+                Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
 
         PrivateInfo note = acc.get(0);
         String id = note.id;
@@ -190,7 +192,7 @@ public class AccountControllerTest {
 
         ResponseEntity<?> createEntry1Result = accountController.createEntry(entry1);
         ArrayList<PrivateInfo> acc = encryptor.decryptVault(
-                Objects.requireNonNull(Serializer.deserialize("Cliff")), "CorrectPassword");
+                Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
         String id = "randomId";
         accountController.createEntry(entry1);
 
@@ -232,7 +234,7 @@ public class AccountControllerTest {
         accountController.createEntry(entry1);
 
         PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-        ArrayList<PrivateInfo> vault = encryptor.decryptVault(Serializer.deserialize("Cliff"), "CorrectPassword");
+        ArrayList<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
 
         PrivateInfo note = vault.get(0);
         String id = note.id;
