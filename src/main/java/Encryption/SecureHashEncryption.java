@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * choose the type of encryption and character use.
  */
 
-public class SecureHashEncryption implements MasterEncryptor {
+public class SecureHashEncryption implements IMasterEncryptor {
 
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
     private static final String ALGO = "SHA-256"; //"SHA-256"; --> for SHA-2 etc...

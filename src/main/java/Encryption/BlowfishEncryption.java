@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * is used for the encryption and decryption. Without it, the data would not be able to be converted back.
  */
 
-public class BlowfishEncryption implements PrivateInfoEncryptor{
+public class BlowfishEncryption implements IPrivateInfoEncryptor {
 
     public String[] encryptList(String[] data, String key){
         String[] eData = new String[data.length];

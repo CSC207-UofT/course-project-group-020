@@ -1,6 +1,6 @@
 package Account;
 
-import Encryption.MasterEncryptor;
+import Encryption.IMasterEncryptor;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.ISerializer;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ import java.util.Iterator;
  */
 public class AccountManager {
     private final ISerializer serializer;
-    private final MasterEncryptor encryptor;
+    private final IMasterEncryptor encryptor;
 
-    public AccountManager(ISerializer serializer, MasterEncryptor masterEncryptor) {
+    public AccountManager(ISerializer serializer, IMasterEncryptor IMasterEncryptor) {
         this.serializer = serializer;
-        this.encryptor = masterEncryptor;
+        this.encryptor = IMasterEncryptor;
     }
 
     /**

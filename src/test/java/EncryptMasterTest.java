@@ -3,7 +3,7 @@
  */
 
 import Account.AccountManager;
-import Encryption.MasterEncryptor;
+import Encryption.IMasterEncryptor;
 import Encryption.SecureHashEncryption;
 import Serializer.Serializer;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class EncryptMasterTest {
     String myMasterPassword = "Ilikedogsalot";
     AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
-    MasterEncryptor encryptor = new SecureHashEncryption();
+    IMasterEncryptor encryptor = new SecureHashEncryption();
 
     @Before
     public void setUp() {

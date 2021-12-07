@@ -1,5 +1,5 @@
 import Encryption.BlowfishEncryption;
-import Encryption.PrivateInfoEncryptor;
+import Encryption.IPrivateInfoEncryptor;
 import Exceptions.AttributeNotFoundException;
 import Serializer.ISerializer;
 import PrivateInfoObjects.PrivateInfo;
@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
-    PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    IPrivateInfoEncryptor encryptor = new BlowfishEncryption();
     ISerializer serializer = new Serializer();
 
     @Before
@@ -291,7 +290,7 @@ public class AccountControllerTest {
             entry1.setData(new String[]{"Title", "Content"});
             accountController.createEntry(entry1);
 
-            PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+            IPrivateInfoEncryptor encryptor = new BlowfishEncryption();
             List<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
 
             PrivateInfo note = vault.get(0);

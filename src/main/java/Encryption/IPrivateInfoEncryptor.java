@@ -11,7 +11,7 @@ import java.util.List;
  * This interface describes the necessary methods that are required for an encryption class used for encryption and
  * decryption of PrivateInfo Objects.
  */
-public interface PrivateInfoEncryptor{
+public interface IPrivateInfoEncryptor {
     String encryptString(String key, String text_to_encrypt);
     String decryptString(String text, String key);
     String[] encryptList(String[] data, String key);
