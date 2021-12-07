@@ -220,7 +220,7 @@ public class AccountManagerTest {
      * Tests the creation of a new account into our system.
      */
     @Test
-    public void testCreateAccount(){
+    public void testCreateAccount() {
         // Create a second account.
         assert this.accountManager.createAccount("ryanzhao", "Ilikeanime");
         IMasterEncryptor encryptor = new SecureHashEncryption();
@@ -237,11 +237,11 @@ public class AccountManagerTest {
      * Tests the deletion of given account from our system.
      */
     @Test
-    public void testDeleteAccount(){
+    public void testDeleteAccount() {
         // Create a second account.
         assert (this.accountManager.createAccount("kelian", "IamFrench"));
 
-        assert(this.accountManager.deleteAccount("kelian"));
+        assert (this.accountManager.deleteAccount("kelian"));
 
         // Let's call delete again to see if the account still exists!
         boolean actual = this.accountManager.deleteAccount("kelian");

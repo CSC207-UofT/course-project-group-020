@@ -1,4 +1,5 @@
 package Serializer;
+
 import Account.Account;
 
 /**
@@ -7,5 +8,6 @@ import Account.Account;
  */
 public interface ISerializer {
     void serialize(Account account);
+
     Account deserialize(String username);
 }

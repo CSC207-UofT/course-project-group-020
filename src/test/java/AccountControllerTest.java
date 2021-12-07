@@ -281,7 +281,7 @@ public class AccountControllerTest {
      * Tests that updateEntry returns an HTTP 200(OK) response if given a valid username, password, and id.
      */
     @Test
-    public void testUpdateEntryOK(){
+    public void testUpdateEntryOK() {
         try {
             EntryInfoForm entry1 = new EntryInfoForm();
             entry1.setUsername("Cliff");
@@ -306,7 +306,7 @@ public class AccountControllerTest {
             ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
             assertEquals(200, result.getStatusCodeValue());
-        } catch (AttributeNotFoundException e){
+        } catch (AttributeNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -315,7 +315,7 @@ public class AccountControllerTest {
      * Tests that updateEntry returns an HTTP 401(Unauthorized) response if given a valid username but invalid password.
      */
     @Test
-    public void testUpdateEntryUnauthorized(){
+    public void testUpdateEntryUnauthorized() {
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
         updateEntryForm.setUsername("Cliff");
         updateEntryForm.setPassword("WrongPassword");
@@ -332,7 +332,7 @@ public class AccountControllerTest {
      * Tests that updateEntry returns an HTTP 404(Not Found) response if given an invalid username.
      */
     @Test
-    public void testUpdateEntryUserNotFound(){
+    public void testUpdateEntryUserNotFound() {
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
         updateEntryForm.setUsername("ImaginaryPerson");
         updateEntryForm.setPassword("WrongPassword");
@@ -350,7 +350,7 @@ public class AccountControllerTest {
      * id.
      */
     @Test
-    public void testUpdateEntryEntryNotFound(){
+    public void testUpdateEntryEntryNotFound() {
         EntryInfoForm entry1 = new EntryInfoForm();
         entry1.setUsername("Cliff");
         entry1.setPassword("CorrectPassword");
@@ -375,7 +375,7 @@ public class AccountControllerTest {
      * password.
      */
     @Test
-    public void testDeleteUserOK(){
+    public void testDeleteUserOK() {
         UserInfoForm userInfoForm = new UserInfoForm();
         userInfoForm.setUsername("deleteOkTest");
         userInfoForm.setPassword("CorrectPassword");
@@ -390,7 +390,7 @@ public class AccountControllerTest {
      * invalid password.
      */
     @Test
-    public void testDeleteUserUnauthorized(){
+    public void testDeleteUserUnauthorized() {
         UserInfoForm userInfoForm = new UserInfoForm();
         userInfoForm.setUsername("deleteUnauthorizedTest");
         userInfoForm.setPassword("CorrectPassword");
@@ -408,7 +408,7 @@ public class AccountControllerTest {
      * Tests that deleteUser returns an HTTP response with status code 404(Not Found) when given an invalid username.
      */
     @Test
-    public void testDeleteUserNotFound(){
+    public void testDeleteUserNotFound() {
         UserInfoForm userInfoForm = new UserInfoForm();
         userInfoForm.setUsername("deleteNotFoundTest");
         userInfoForm.setPassword("CorrectPassword");
@@ -427,7 +427,7 @@ public class AccountControllerTest {
      * tests the generatePassword returns an HTTP response with a status code 200(OK)
      */
     @Test
-    public void testGeneratePassword(){
+    public void testGeneratePassword() {
         GeneratePassForm generatePassForm = new GeneratePassForm();
         generatePassForm.setLength(13);
         ResponseEntity<?> testResult = accountController.generatePassword(generatePassForm);
@@ -437,7 +437,7 @@ public class AccountControllerTest {
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         UserInfoForm deleteUserForm = new UserInfoForm();
         deleteUserForm.setUsername("TESTESTESTESTSET");
         deleteUserForm.setPassword("CorrectPassword");

@@ -4,14 +4,14 @@ import java.security.SecureRandom;
 
 /**
  * Class responsible for facilitating the creation of strong passwords. A strong password consists of
- *
+ * <p>
  * - At least 12 characters
  * - A character from at least 3 of the following character types:
- *      - lowercaseLetters
- *      - uppercaseLetters
- *      - numbers
- *      - symbols
- *
+ * - lowercaseLetters
+ * - uppercaseLetters
+ * - numbers
+ * - symbols
+ * <p>
  * Source: https://wmich.edu/arts-sciences/technology-password-tips
  */
 
@@ -19,19 +19,20 @@ public class PasswordCreation {
     private static final String[] ALLOWED_CHARS = {"abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/", "0123456789"};
 
 
-    public PasswordCreation(){
+    public PasswordCreation() {
     }
+
     /**
      * This method generates and returns a strong password using the SecureRandom class, which is a cryptographically
      * strong random number generator.
-     *
+     * <p>
      * Documentation: https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html
      *
      * @param length The length of the password that is generated. Must be >= 12.
      * @return string that is a strong password of the specified length
      */
     public static String generatePassword(int length) {
-        if (length < 12){
+        if (length < 12) {
             throw new IllegalArgumentException("Randomly generated passwords must have length of at least 12.");
         }
         SecureRandom random = new SecureRandom();
@@ -39,7 +40,7 @@ public class PasswordCreation {
         // generates password randomly and then checks to see if it fulfills the strong password requirements
         do {
             password = new StringBuilder(length);
-            for(int i=0; i<length; i++){
+            for (int i = 0; i < length; i++) {
                 // randomly choose a type of character
                 int chooseType = random.nextInt(4);
                 String charType = ALLOWED_CHARS[chooseType];
@@ -49,7 +50,7 @@ public class PasswordCreation {
                 password.append(charType.charAt(random_index));
             }
 
-        } while(!checkPasswordStrength(new String(password))[0].equals(PasswordStrength.STRONG.toString()));
+        } while (!checkPasswordStrength(new String(password))[0].equals(PasswordStrength.STRONG.toString()));
         return new String(password);
     }
 
@@ -60,17 +61,17 @@ public class PasswordCreation {
      *
      * @param password The password that is to be checked.
      * @return array of strings where the first element is the strength of the password and the second element is a
-     *         recommendation on how to increase the rating of the password. If the password is considered strong, then
-     *         the second element is an empty string.
+     * recommendation on how to increase the rating of the password. If the password is considered strong, then
+     * the second element is an empty string.
      */
-    public static String[] checkPasswordStrength(String password){
+    public static String[] checkPasswordStrength(String password) {
         String message = "Missing: lowercase letters, uppercase letters, symbols, numbers";
         boolean[] charTypeChecker = new boolean[]{false, false, false, false};
 
-        for(int i = 0;i<password.length(); i++){
+        for (int i = 0; i < password.length(); i++) {
             char c = password.charAt(i);
-            for (int j = 0; j< ALLOWED_CHARS.length; j++) {
-                if (ALLOWED_CHARS[j].indexOf(c) != -1){
+            for (int j = 0; j < ALLOWED_CHARS.length; j++) {
+                if (ALLOWED_CHARS[j].indexOf(c) != -1) {
                     charTypeChecker[j] = true;
                     message = editMessage(message, ALLOWED_CHARS[j]);
                 }
@@ -86,24 +87,20 @@ public class PasswordCreation {
     private static String[] determineRatingAndMessage(String password, String message, boolean[] charTypeChecker) {
         int numTrue = 0;
 
-        for (boolean value : charTypeChecker){
-            if (value){
-                numTrue ++;
+        for (boolean value : charTypeChecker) {
+            if (value) {
+                numTrue++;
             }
         }
-        if(password.length() >= 12 && numTrue == 4){
+        if (password.length() >= 12 && numTrue == 4) {
             return new String[]{PasswordStrength.STRONG.toString(), ""};
-        }
-        else if(password.length() >= 12 && numTrue == 3){
+        } else if (password.length() >= 12 && numTrue == 3) {
             return new String[]{PasswordStrength.STRONG.toString(), message};
-        }
-        else if (password.length() < 6){
+        } else if (password.length() < 6) {
             return new String[]{PasswordStrength.WEAK.toString(), "Needs more characters"};
-        }
-        else if(numTrue == 1){
+        } else if (numTrue == 1) {
             return new String[]{PasswordStrength.WEAK.toString(), message};
-        }
-        else{
+        } else {
             return new String[]{PasswordStrength.MEDIUM.toString(), message};
         }
     }
@@ -115,14 +112,11 @@ public class PasswordCreation {
     private static String editMessage(String message, String key) {
         if (key.equals(ALLOWED_CHARS[0])) {
             message = message.replace("lowercase letters, ", "");
-        }
-        else if (key.equals(ALLOWED_CHARS[1])) {
+        } else if (key.equals(ALLOWED_CHARS[1])) {
             message = message.replace("uppercase letters, ", "");
-        }
-        else if (key.equals(ALLOWED_CHARS[2])) {
+        } else if (key.equals(ALLOWED_CHARS[2])) {
             message = message.replace("symbols, ", "");
-        }
-        else{
+        } else {
             message = message.replace(", numbers", "");
         }
         return message;

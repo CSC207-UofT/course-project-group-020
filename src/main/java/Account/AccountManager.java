@@ -42,6 +42,12 @@ public class AccountManager {
         return true;
     }
 
+    /**
+     * A getter method that retrieves the deserialized Account instance from the given username.
+     *
+     * @param username The username of the wanted Account.
+     * @return Returns the deserialized Account instance.
+     */
     public Account getAccount(String username) {
 
         return serializer.deserialize(username);
@@ -142,6 +148,7 @@ public class AccountManager {
 
     /**
      * Method to delete an Account from the data files based on the username given
+     *
      * @param username String
      * @return True if user exists. False if user not found.
      */

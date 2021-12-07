@@ -13,7 +13,10 @@ import java.util.List;
  */
 public interface IPrivateInfoEncryptor {
     String encryptString(String key, String text_to_encrypt);
+
     String decryptString(String text, String key);
+
     String[] encryptList(String[] data, String key);
+
     List<PrivateInfo> decryptVault(Account account, String key) throws AttributeNotFoundException;
 }

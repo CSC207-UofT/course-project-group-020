@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Driver class to start the local server.
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class RestServiceApplication {
 
     public static void main(String[] args) {
@@ -19,6 +19,7 @@ public class RestServiceApplication {
 
     /**
      * Configuration class for the web server
+     *
      * @return WebMvcConfigurer
      */
     @Bean

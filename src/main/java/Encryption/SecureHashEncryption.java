@@ -1,6 +1,7 @@
 package Encryption;
 
 //obtained inspiration from: https://mkyong.com/java/java-sha-hashing-example/
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -9,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * A class that is charged with encrypting the Master Passwords to log-in to the main program for users to access
  * their data (that is also encrypted).
- *
+ * <p>
  * It just has two instance attributes that are 'global variables' used only for the class as parameters to
  * choose the type of encryption and character use.
  */
@@ -30,8 +31,8 @@ public class SecureHashEncryption implements IMasterEncryptor {
 
     /**
      * This method is in charge of the actual encryption.
-     *  @param input An array of bytes
      *
+     * @param input An array of bytes
      */
     private static byte[] digest(byte[] input) {
         MessageDigest md;
@@ -42,6 +43,7 @@ public class SecureHashEncryption implements IMasterEncryptor {
         }
         return md.digest(input);
     }
+
     /**
      * This method is to convert from bytes to hexadecimal and to be able to output it as a hex string.
      * Mainly for visual representation and later storing purposes.
