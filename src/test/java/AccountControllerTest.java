@@ -41,7 +41,7 @@ public class AccountControllerTest {
     @Test
     public void testCreateUserSuccess() {
         UserInfoForm user = new UserInfoForm();
-        user.setUsername("Ryan");
+        user.setUsername("TESTESTESTESTSET");
         user.setPassword("CorrectPassword");
         ResponseEntity<?> result = accountController.createUser(user);
 
@@ -204,7 +204,7 @@ public class AccountControllerTest {
                 Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
 
         PrivateInfo note = acc.get(0);
-        String id = note.id;
+        String id = note.getId();
 
         DeleteEntryForm deleteForm = new DeleteEntryForm();
         deleteForm.setUsername("Cliff");
@@ -289,7 +289,7 @@ public class AccountControllerTest {
         ArrayList<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
 
         PrivateInfo note = vault.get(0);
-        String id = note.id;
+        String id = note.getId();
 
         UpdateEntryForm updateEntryForm = new UpdateEntryForm();
         updateEntryForm.setUsername("Cliff");
@@ -431,7 +431,7 @@ public class AccountControllerTest {
     @After
     public void cleanUp(){
         UserInfoForm deleteUserForm = new UserInfoForm();
-        deleteUserForm.setUsername("Ryan");
+        deleteUserForm.setUsername("TESTESTESTESTSET");
         deleteUserForm.setPassword("CorrectPassword");
 
         accountController.deleteUser(deleteUserForm);

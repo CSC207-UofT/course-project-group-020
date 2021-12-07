@@ -19,7 +19,7 @@ import java.util.UUID;
 public abstract class PrivateInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     public HashMap<String, String> info;
-    public String id;
+    private String id;
     private String type;
 
 

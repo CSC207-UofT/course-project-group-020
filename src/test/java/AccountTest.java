@@ -67,7 +67,7 @@ public class AccountTest {
     public void testGetPrivateInfo() throws Throwable {
         Account account = accountManager.getAccount("username");
         PrivateInfo expectedLogIn = logIn;
-        String logInID = account.getVault().get(0).id;
+        String logInID = account.getVault().get(0).getId();
 
         assert (expectedLogIn.toString().equals(account.getPrivateInfo(logInID).toString()));
     }
