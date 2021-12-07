@@ -1,9 +1,12 @@
 import Account.Account;
 import Account.AccountManager;
+import Encryption.BlowfishEncryption;
+import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.*;
 
 import java.util.ArrayList;
 
+import Serializer.Serializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +17,7 @@ import org.junit.Test;
 
 public class AccountTest {
     Account loneAccount = new Account("username123", "masterPassword123");
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
     PrivateInfo logIn = createLogin();
 
     @Before

@@ -4,6 +4,7 @@ import PrivateInfoObjects.PrivateInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An entity class that represents a password manager account.
@@ -16,7 +17,7 @@ public class Account implements Serializable {
 
     private final String username;
     private final String masterPassword;
-    private final ArrayList<PrivateInfo> vault;
+    private final List<PrivateInfo> vault;
     public Throwable IndexOutOfBoundsException;
     private static final long serialVersionUID = 1L;
 
@@ -54,7 +55,7 @@ public class Account implements Serializable {
      *
      * @return Returns the vault which is an ArrayList of PrivateInfo.
      */
-    public ArrayList<PrivateInfo> getVault() {
+    public List<PrivateInfo> getVault() {
         return this.vault;
     }
 

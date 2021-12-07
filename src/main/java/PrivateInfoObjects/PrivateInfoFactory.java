@@ -1,9 +1,9 @@
 package PrivateInfoObjects;
 
-import Encryption.BlowfishEncryption;
-import Encryption.PrivateInfoEncryptor;
+import Encryption.IPrivateInfoEncryptor;
 
 public class PrivateInfoFactory {
+
     /**
      * Creates a Login object with the given data and encrypted with the given key. The order of
      * the values in data correspond to the values in the created Login object.
@@ -15,10 +15,10 @@ public class PrivateInfoFactory {
      *             Index 2 is the webpage.
      *             Index 3 is the url.
      * @param key  Key used to encrypted newly created Login
+     * @param encryptor IPrivateInfoEncryptor used to encrypt Info
      * @return Login object
      */
-    public static LogIn createLogin(String[] data, String key){
-        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    public static LogIn createLogin(String[] data, String key, IPrivateInfoEncryptor encryptor){
         String[] eData = encryptor.encryptList(data, key);
         return new LogIn(eData[0], eData[1], eData[2], eData[3]);
     }
@@ -33,10 +33,11 @@ public class PrivateInfoFactory {
      *             Index 1 is the number.
      *             Index 2 is the address.
      * @param key  Key used to encrypted newly created Contact
+     * @param encryptor IPrivateInfoEncryptor used to encrypt Info
      * @return Contact object
      */
-    public static Contact createContact(String[] data, String key){
-        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    public static Contact createContact(String[] data, String key, IPrivateInfoEncryptor encryptor){
+
         String[] eData = encryptor.encryptList(data, key);
         return new Contact(eData[0], eData[1], eData[2]);
     }
@@ -51,10 +52,10 @@ public class PrivateInfoFactory {
      *             Index 1 is the IdNumber.
      *             Index 2 is the IdExpirationDay.
      * @param key  Key used to encrypted newly created Identification
+     * @param encryptor IPrivateInfoEncryptor used to encrypt Info
      * @return Identification object
      */
-    public static Identification createIdentification(String[] data, String key){
-        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    public static Identification createIdentification(String[] data, String key, IPrivateInfoEncryptor encryptor){
         String[] eData = encryptor.encryptList(data, key);
         return new Identification(eData[0], eData[1], eData[2]);
     }
@@ -68,10 +69,10 @@ public class PrivateInfoFactory {
      *             Index 0 is the Title.
      *             Index 1 is the Content.
      * @param key  Key used to encrypted newly created Note
+     * @param encryptor IPrivateInfoEncryptor used to encrypt Info
      * @return Identification object
      */
-    public static Note createNote(String[] data, String key){
-        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    public static Note createNote(String[] data, String key, IPrivateInfoEncryptor encryptor){
         String[] eData = encryptor.encryptList(data, key);
         return new Note(eData[0], eData[1]);
     }
@@ -83,20 +84,21 @@ public class PrivateInfoFactory {
      *             ["Login", "Contact", "Identification", "Note"]
      * @param data Data that is stored in the created Identification object. Indexes correspond to attribute in object.
      * @param key  Key used to encrypted newly created Identification
+     * @param encryptor IPrivateInfoEncryptor used to encrypt Info
      * @return Instance of PrivateInfo subclass
      */
-    public static PrivateInfo createEntryByType(String type, String[] data, String key) {
+    public static PrivateInfo createEntryByType(String type, String[] data, String key, IPrivateInfoEncryptor encryptor) throws ClassNotFoundException{
         switch (type) {
             case "Login":
-                return createLogin(data, key);
+                return createLogin(data, key, encryptor);
             case "Contact":
-                return createContact(data, key);
+                return createContact(data, key, encryptor);
             case "ID":
-                return createIdentification(data, key);
+                return createIdentification(data, key, encryptor);
             case "Note":
-                return createNote(data, key);
+                return createNote(data, key, encryptor);
             default:
-                return createNote(data, key); //TODO fix this to raise error
+                throw new ClassNotFoundException("Cannot create entry of this class.");
         }
     }
 

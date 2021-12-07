@@ -1,23 +1,25 @@
 package Spring;
-import Account.Account;
 import Account.AccountManager;
 
 import Encryption.BlowfishEncryption;
-import Encryption.PrivateInfoEncryptor;
+import Encryption.IPrivateInfoEncryptor;
+import Encryption.SecureHashEncryption;
+import Exceptions.AttributeNotFoundException;
 import Password.PasswordCreation;
-import PrivateInfoObjects.*;
+
+import PrivateInfoObjects.PrivateInfoFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import Serializer.Serializer;
 
 /**
  * A Controller class that takes input from a web-based frontend and returns HTTP response objects back.
  */
 @RestController
 public class AccountController {
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
 
     public AccountController(){
     }
@@ -31,14 +33,16 @@ public class AccountController {
      */
     @PostMapping("/get-user-data")
     public ResponseEntity<?> getUserData(@RequestBody UserInfoForm userInfoForm){
-        ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
-        if(verifyResult.getStatusCodeValue() == 200){
-            Account userAcc = accountManager.getAccount(userInfoForm.getUsername());
-            PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-            ArrayList<PrivateInfo> decryptedAcc = encryptor.decryptVault(userAcc, userInfoForm.getPassword());
-            return new ResponseEntity<>(decryptedAcc, verifyResult.getStatusCode());
-        } else {
-            return verifyResult;
+        try {
+            ResponseEntity<?> verifyResult = accountManager.verifyUser(userInfoForm.getUsername(), userInfoForm.getPassword());
+            if (verifyResult.getStatusCodeValue() == 200) {
+                IPrivateInfoEncryptor encryptor = new BlowfishEncryption();
+                return new ResponseEntity<>(encryptor.decryptVault(accountManager.getAccount(userInfoForm.getUsername()), userInfoForm.getPassword()), verifyResult.getStatusCode());
+            } else {
+                return verifyResult;
+            }
+        } catch (AttributeNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -92,12 +96,12 @@ public class AccountController {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(createEntryForm.getUsername(), createEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newEntry = PrivateInfoFactory.createEntryByType(createEntryForm.getType(), createEntryForm.getData(), createEntryForm.getPassword());
-                accountManager.addInfo(newEntry, createEntryForm.getUsername());
+                accountManager.addInfo(PrivateInfoFactory.createEntryByType(createEntryForm.getType(), createEntryForm.getData(), createEntryForm.getPassword(), new BlowfishEncryption()), createEntryForm.getUsername());
             }
             return verifyResult;
-        } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -126,7 +130,7 @@ public class AccountController {
             }
             return verifyResult;
         } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -145,8 +149,7 @@ public class AccountController {
         try {
             ResponseEntity<?> verifyResult = accountManager.verifyUser(updateEntryForm.getUsername(), updateEntryForm.getPassword());
             if (verifyResult.getStatusCodeValue() == 200) {
-                PrivateInfo newInfo = PrivateInfoFactory.createEntryByType(updateEntryForm.getType(), updateEntryForm.getData(), updateEntryForm.getPassword());
-                boolean result = accountManager.editInfo(newInfo, updateEntryForm.getUsername(), updateEntryForm.getId());
+                boolean result = accountManager.editInfo(PrivateInfoFactory.createEntryByType(updateEntryForm.getType(), updateEntryForm.getData(), updateEntryForm.getPassword(), new BlowfishEncryption()), updateEntryForm.getUsername(), updateEntryForm.getId());
 
                 if(result){
                     return verifyResult;
@@ -155,8 +158,9 @@ public class AccountController {
                 }
             }
             return verifyResult;
-        } catch (NullPointerException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 

@@ -1,9 +1,5 @@
 package PrivateInfoObjects;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This is a class that represents a Note of the user
  */
@@ -20,8 +16,8 @@ public class Note extends PrivateInfo {
     // Java warns that Class constructor is never used, but we will not solve this style warning for the beta program.
     public Note(String title, String content) {
         super();
-        info.put("title", title);
-        info.put("content", content);
+        this.buildInfo("title", title);
+        this.buildInfo("content", content);
         this.setType("Note");
     }
 

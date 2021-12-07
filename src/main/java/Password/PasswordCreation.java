@@ -20,12 +20,6 @@ public class PasswordCreation {
 
 
     public PasswordCreation(){
-//        final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-//        final String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//        final String numbers = "0123456789";
-//        final String symbols = "!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/";
-//
-//        allowedChars = new String[]{lowercaseLetters, uppercaseLetters, numbers, symbols};
     }
     /**
      * This method generates and returns a strong password using the SecureRandom class, which is a cryptographically

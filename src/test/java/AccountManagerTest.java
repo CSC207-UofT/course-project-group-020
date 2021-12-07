@@ -1,8 +1,9 @@
 import Account.Account;
 import Account.AccountManager;
-import Encryption.MasterEncryptor;
+import Encryption.IMasterEncryptor;
 import Encryption.SecureHashEncryption;
 import PrivateInfoObjects.*;
+import Serializer.Serializer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import org.junit.Test;
 
 public class AccountManagerTest {
     String myMasterPassword = "Ilikedogsalot";
-    AccountManager accountManager = new AccountManager();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
 
     @Before
     public void setUp() {
@@ -222,7 +223,7 @@ public class AccountManagerTest {
     public void testCreateAccount(){
         // Create a second account.
         assert this.accountManager.createAccount("ryanzhao", "Ilikeanime");
-        MasterEncryptor encryptor = new SecureHashEncryption();
+        IMasterEncryptor encryptor = new SecureHashEncryption();
         String encryptedMasterPassword = encryptor.encryptMaster("Ilikeanime");
 
         // Test if the newly created account matches our records.

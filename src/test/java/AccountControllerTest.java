@@ -1,6 +1,6 @@
 import Encryption.BlowfishEncryption;
-import Encryption.PrivateInfoEncryptor;
-import Encryption.SecureHashEncryption;
+import Encryption.IPrivateInfoEncryptor;
+import Exceptions.AttributeNotFoundException;
 import Serializer.ISerializer;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.Serializer;
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountControllerTest {
     AccountController accountController = new AccountController();
-    PrivateInfoEncryptor encryptor = new BlowfishEncryption();
+    IPrivateInfoEncryptor encryptor = new BlowfishEncryption();
     ISerializer serializer = new Serializer();
 
     @Before
@@ -193,26 +193,30 @@ public class AccountControllerTest {
      */
     @Test
     public void testDeleteEntryOK() {
-        EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.setUsername("Cliff");
-        entry1.setPassword("CorrectPassword");
-        entry1.setType("Note");
-        entry1.setData(new String[]{"DeleteTest", "Content"});
-        accountController.createEntry(entry1);
+        try {
+            EntryInfoForm entry1 = new EntryInfoForm();
+            entry1.setUsername("Cliff");
+            entry1.setPassword("CorrectPassword");
+            entry1.setType("Note");
+            entry1.setData(new String[]{"DeleteTest", "Content"});
+            accountController.createEntry(entry1);
 
-        ArrayList<PrivateInfo> acc = encryptor.decryptVault(
-                Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
+            List<PrivateInfo> acc = encryptor.decryptVault(
+                    Objects.requireNonNull(serializer.deserialize("Cliff")), "CorrectPassword");
 
-        PrivateInfo note = acc.get(0);
-        String id = note.getId();
+            PrivateInfo note = acc.get(0);
+            String id = note.getId();
 
-        DeleteEntryForm deleteForm = new DeleteEntryForm();
-        deleteForm.setUsername("Cliff");
-        deleteForm.setPassword("CorrectPassword");
-        deleteForm.setId(id);
+            DeleteEntryForm deleteForm = new DeleteEntryForm();
+            deleteForm.setUsername("Cliff");
+            deleteForm.setPassword("CorrectPassword");
+            deleteForm.setId(id);
 
-        ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
-        assertEquals(result.getStatusCodeValue(), 200);
+            ResponseEntity<?> result = accountController.deleteEntry(deleteForm);
+            assertEquals(result.getStatusCodeValue(), 200);
+        } catch (AttributeNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -278,29 +282,33 @@ public class AccountControllerTest {
      */
     @Test
     public void testUpdateEntryOK(){
-        EntryInfoForm entry1 = new EntryInfoForm();
-        entry1.setUsername("Cliff");
-        entry1.setPassword("CorrectPassword");
-        entry1.setType("Note");
-        entry1.setData(new String[]{"Title", "Content"});
-        accountController.createEntry(entry1);
+        try {
+            EntryInfoForm entry1 = new EntryInfoForm();
+            entry1.setUsername("Cliff");
+            entry1.setPassword("CorrectPassword");
+            entry1.setType("Note");
+            entry1.setData(new String[]{"Title", "Content"});
+            accountController.createEntry(entry1);
 
-        PrivateInfoEncryptor encryptor = new BlowfishEncryption();
-        ArrayList<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
+            IPrivateInfoEncryptor encryptor = new BlowfishEncryption();
+            List<PrivateInfo> vault = encryptor.decryptVault(serializer.deserialize("Cliff"), "CorrectPassword");
 
-        PrivateInfo note = vault.get(0);
-        String id = note.getId();
+            PrivateInfo note = vault.get(0);
+            String id = note.getId();
 
-        UpdateEntryForm updateEntryForm = new UpdateEntryForm();
-        updateEntryForm.setUsername("Cliff");
-        updateEntryForm.setPassword("CorrectPassword");
-        updateEntryForm.setId(id);
-        updateEntryForm.setType("Note");
-        updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
+            UpdateEntryForm updateEntryForm = new UpdateEntryForm();
+            updateEntryForm.setUsername("Cliff");
+            updateEntryForm.setPassword("CorrectPassword");
+            updateEntryForm.setId(id);
+            updateEntryForm.setType("Note");
+            updateEntryForm.setData(new String[]{"UpdatedTitle", "updatedContent"});
 
-        ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
+            ResponseEntity<?> result = accountController.updateEntry(updateEntryForm);
 
-        assertEquals(200, result.getStatusCodeValue());
+            assertEquals(200, result.getStatusCodeValue());
+        } catch (AttributeNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     /**

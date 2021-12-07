@@ -1,7 +1,7 @@
 package PrivateInfoObjects;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
+import Exceptions.AttributeNotFoundException;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
@@ -44,15 +44,11 @@ public abstract class PrivateInfo implements Serializable {
      * @param attribute A string input which indicates which attribute to get
      */
 
-    public String getInfo(String attribute) {
-        if (info.containsKey(attribute)) {
+    public String getInfo(String attribute) throws AttributeNotFoundException {
+        if (this.info.containsKey(attribute)) {
             return info.get(attribute);
-        }
-        // TODO: Instead of returning these strings, raise a custom exception.
-        // Do this for every place in the code that can raise an exception.
-        else {
-            return ("This datatype does not have the " + attribute + " attribute");
-
+        } else{
+            throw new AttributeNotFoundException();
         }
     }
 
@@ -63,15 +59,13 @@ public abstract class PrivateInfo implements Serializable {
      */
     public String getId(){return this.id;}
 
-    public String setInfo(String attributeToChange, String newValue) {
+    public void setInfo(String attributeToChange, String newValue) throws AttributeNotFoundException{
         if (info.containsKey(attributeToChange)){
             info.put(attributeToChange, newValue);
         }
-        // TODO: Same as above TODO.
         else{
-            return "Error";
+            throw new AttributeNotFoundException();
         }
-        return null; // remove this once we fix the code
     }
 
     /**
@@ -108,5 +102,9 @@ public abstract class PrivateInfo implements Serializable {
      */
     public void setType(String id){
         this.type = id;
+    }
+
+    public void buildInfo(String key, String value){
+        this.info.put(key, value);
     }
 }

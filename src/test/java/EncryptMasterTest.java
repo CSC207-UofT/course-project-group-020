@@ -3,8 +3,9 @@
  */
 
 import Account.AccountManager;
-import Encryption.MasterEncryptor;
+import Encryption.IMasterEncryptor;
 import Encryption.SecureHashEncryption;
+import Serializer.Serializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class EncryptMasterTest {
     String myMasterPassword = "Ilikedogsalot";
-    AccountManager accountManager = new AccountManager();
-    MasterEncryptor encryptor = new SecureHashEncryption();
+    AccountManager accountManager = new AccountManager(new Serializer(), new SecureHashEncryption());
+    IMasterEncryptor encryptor = new SecureHashEncryption();
 
     @Before
     public void setUp() {
@@ -29,7 +30,7 @@ public class EncryptMasterTest {
      * of the user's privacy!
      */
     @Test
-    public void testIfEncryptedAndStoredMasterPasswordsMatch() throws Throwable {
+    public void testIfEncryptedAndStoredMasterPasswordsMatch(){
         String encryptedMasterPassword = encryptor.encryptMaster(myMasterPassword);
         String storedMasterPassword = this.accountManager.getAccount("hayknazaryan").getMasterPassword();
         assertEquals(encryptedMasterPassword, storedMasterPassword);

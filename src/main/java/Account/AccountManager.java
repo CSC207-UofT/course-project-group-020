@@ -1,10 +1,8 @@
 package Account;
 
-import Encryption.MasterEncryptor;
-import Encryption.SecureHashEncryption;
+import Encryption.IMasterEncryptor;
 import PrivateInfoObjects.PrivateInfo;
 import Serializer.ISerializer;
-import Serializer.Serializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,13 +19,12 @@ import java.util.Iterator;
  * It has an instance attribute called accounts that is an ArrayList that
  */
 public class AccountManager {
-    //    public ArrayList<Account> accounts;
-    public Throwable NullPointerException;
-    private Account currentAccount;
-    private ISerializer serializer;
+    private final ISerializer serializer;
+    private final IMasterEncryptor encryptor;
 
-    public AccountManager() {
-        this.serializer = new Serializer();
+    public AccountManager(ISerializer serializer, IMasterEncryptor IMasterEncryptor) {
+        this.serializer = serializer;
+        this.encryptor = IMasterEncryptor;
     }
 
     /**
@@ -37,7 +34,6 @@ public class AccountManager {
      * @param masterPassword The master password associated with this new Account.
      */
     public boolean createAccount(String username, String masterPassword) {
-        MasterEncryptor encryptor = new SecureHashEncryption();
         String encryptedMasterPassword = encryptor.encryptMaster(masterPassword);
         Account account = new Account(username, encryptedMasterPassword);
 
@@ -66,7 +62,6 @@ public class AccountManager {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            MasterEncryptor encryptor = new SecureHashEncryption();
             String userAttempt = encryptor.encryptMaster(password);
             if (userAttempt.equals(user.getMasterPassword())) {
                 return new ResponseEntity<>(HttpStatus.OK);
@@ -108,8 +103,6 @@ public class AccountManager {
      */
     public boolean editInfo(PrivateInfo newInfo, String accountUsername, String oldInfoId) {
 
-        Account currentAccount = getAccount(accountUsername);
-
         // Delete the info first
         boolean check = deleteInfo(oldInfoId, accountUsername);
 
@@ -147,7 +140,11 @@ public class AccountManager {
         return false;
     }
 
-
+    /**
+     * Method to delete an Account from the data files based on the username given
+     * @param username String
+     * @return True if user exists. False if user not found.
+     */
     public boolean deleteAccount(String username) {
 
         try {
@@ -165,36 +162,4 @@ public class AccountManager {
     }
 
 }
-
-
-//    public ArrayList<Account> getAccounts() {
-//        return this.accounts;
-//    }
-//
-//    public Account getAccount(Account wantedAccount) {
-//
-//        int i = 0;
-//        for (Account account : this.accounts) {
-//            if (account == wantedAccount) {
-//                break;
-//            }
-//            i += 1;
-//        }
-//        return this.accounts.get(i);
-//
-//
-//    }
-
-//    public Account getAccountByUsername(String usernameOfWantedAccount) throws Throwable{
-//        int i = 0;
-//        for (Account account : this.accounts) {
-//
-//            if (account.getUsername().equals(usernameOfWantedAccount)) {
-//                return this.accounts.get(i);
-//            }
-//            i += 1;
-//        }
-//        throw NullPointerException;
-//    }
-//}
 
