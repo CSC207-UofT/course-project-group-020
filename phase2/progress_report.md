@@ -27,11 +27,11 @@ would stay disconnected from the frontend.
 
 ### Kelian
 
-Kelian has been working on both Encryption as well as Serialization, which are used throughout the program. And he has also participated in decisions revolving designing the backend.
+Kelian has been working on both Encryption and Serialization classes that are use cases involved throughout the entire program, primarily upon boot up and safe termination. He has also participated in multiple key decision making discussions on the backend design architecture/patterns such as the encryption architecture, simple factory design, and strategy design.
 
 PR: https://github.com/CSC207-UofT/course-project-group-020/pull/28
 
-Changed the Decryption methods to fit better with Dependency rules. Also changed a little of the AccountController.java since it used old version of decryption.
+This pull request shows the major changes Kelian had to apply on the Decryption methods to better fit with the Dependency principle. He also changed a little of the AccountController.java file since it used the old version of the decryption architecture.
 
 ### Patricia
 
