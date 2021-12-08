@@ -1,7 +1,10 @@
 # Progress Report
 <u>Cliff</u>
+Cliff has been working on the front end while also giving feedback and suggestions for design tips in the backend.
 
-PR: 
+PR: https://github.com/CSC207-UofT/course-project-group-020/pull/30/files
+
+In this pull request you will find everything to do with the front end of the MonKeyPass Program.
 
 <u>Ryan</u>
 
