@@ -64,8 +64,10 @@ as "people who like games". Try to give a bit more detail along with the categor
 
    What I mean by this is that our program offers a way to digitally store sensitive data that the user
    might not want to risk forgetting or writing on paper. We can view this as a personal digital data 
-   bank/vault system. The older demographic is a part of this target audience as well as with age, people
-   tend to have troubles in memory (more on the older demographic below).
+   bank/vault system. For example, someone with a medical condition that affects their memeory might forget their SIN, 
+   so they could store it securely in our program. Also, anyone who has a digital footprint that needs to log in anywhere could benefit from our program. It is advised that you should not
+   repeat passwords, and given the amount of passwords that most people use, it is unreasonable to remember a new password for every website that you log on to. 
+   So a password manager would help protect people who are not able to remember such large amounts of information and people suceptible to memory loss. 
    
 
 5. Write a paragraph about whether or not your program is less likely to be used by certain 
@@ -76,4 +78,6 @@ braille printer are less likely to be used by people who do not read braille.
    This program would less likely be used by an older demographic as they tend to not be inclined towards
    digital methods of function. However, we could also infer that they are the most likely to need such
    a program as with age, memory declines and the older demographic doesn't have a clear understanding of
-   the digital world and could therefore benefit from the password generator feature.
+   the digital world and could therefore benefit from the password generator feature. This program is also 
+   less likely to be used by non-English speakers, since we only offer this program in English, and someone
+   who only speaks French would not be able to understand the user interface. 
