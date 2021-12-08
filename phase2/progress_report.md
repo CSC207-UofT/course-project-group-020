@@ -1,12 +1,14 @@
 # Progress Report
-<u>Cliff</u>
+
+### Cliff
+
 Cliff has been working on the front end while also giving feedback and suggestions for design tips in the backend.
 
 PR: https://github.com/CSC207-UofT/course-project-group-020/pull/30/files
 
 In this pull request you will find everything to do with the front end of the MonKeyPass Program.
 
-<u>Ryan</u>
+### Ryan
 
 Ryan has been implementing the AccountController class which is responsible for
 interaction between the frontend and backend. He has also been writing numerous 
@@ -23,7 +25,7 @@ they will be later changed to better fit with the Clean Architecure. Furthermore
 Factory Design Pattern was implemented in this PR as well. Without this PR, the backend
 would stay disconnected from the frontend.
 
-<u>Kelian</u>
+### Kelian
 
 Kelian has been working on both Encryption as well as Serialization, which are used throughout the program. And he has also participated in decisions revolving designing the backend.
 
@@ -31,7 +33,7 @@ PR: https://github.com/CSC207-UofT/course-project-group-020/pull/28
 
 Changed the Decryption methods to fit better with Dependency rules. Also changed a little of the AccountController.java since it used old version of decryption.
 
-<u>Patricia</u>
+### Patricia
 
 Patricia has been implementing the PasswordCreation Class. She has also been working on redesigning the code structure since Phase 1 to resolve the Clean Architecture issues that were brought up. She has also been refactoring the code to remove code smells. 
 
@@ -39,14 +41,15 @@ PR: https://github.com/CSC207-UofT/course-project-group-020/pull/20
 
 This is the implementation of the feature that LogIn PrivateInfo objects use to make sure that passwords are created properly. The main features of this class includes password generation and password rating. 
 
-<u>Hayk</u>
+### Hayk
 Hayk has been working on backend and testing since Phase 1. Notably, he is moving specific methods from Account to Account Manager to adhere to clean architecture and also implementing test classes and test cases to test each newly implemented method.
 
 PR: https://github.com/CSC207-UofT/course-project-group-020/pull/14
+
 In this PR, as per the request of my team, I updated the architecture of our backend. More specifically, I transferred crucial methods,
 addInfo, editInfo, deleteInfo from account class to the accountmanager usecase class to adhere to clean architecture. Furthermore, I changed createAccount, getAccount to work with new architecture, as well as made a new method, deleteAccount to remove files using java.File. Lastly, I fixed a small spelling error in Serializer class.
 
-<u>Yousuf</u>
+### Yousuf
 
 Yousuf has been helping to restructure the program to fix dependency issues, adding more test cases to AccountManagerTest.java (formerly named PrivateInfoTest.java), creating the test suite AccountTest.java, and documenting code.
 
