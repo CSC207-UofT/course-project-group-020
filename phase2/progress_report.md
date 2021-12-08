@@ -25,7 +25,11 @@ would stay disconnected from the frontend.
 
 <u>Kelian</u>
 
-PR: 
+Kelian has been working on both Encryption as well as Serialization, which are used throughout the program. And he has also participated in decisions revolving designing the backend.
+
+PR: https://github.com/CSC207-UofT/course-project-group-020/pull/28
+
+Changed the Decryption methods to fit better with Dependency rules. Also changed a little of the AccountController.java since it used old version of decryption.
 
 <u>Patricia</u>
 
