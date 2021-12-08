@@ -12,7 +12,7 @@ The main use case classes include Serializer, AccountManager, PasswordCreation, 
 
 At the interface adapter level, we have the AccountController, which directs user input from the UI to the use cases. At the Frameworks and Drivers level, there is the class RestServiceApplication, which is the driver class, and there is the Javascript classes, which create the front end of the program. 
 
-In a typical scenario, the main method would run in the RestServiceApplication class, which would …
+In a typical scenario, the main method would run in the RestServiceApplication class, which would run Spring, and start up the local host. When the user visits the website, they can interact with the GUI. 
 
 When the user tries to create an account by pressing the “Create an Account” tab, a request is sent to AccountController. The controller asks the AccoutnManager to create a new account through a method call. The AccountManager does this by instantiating a new Account class. If this Account does not already exist, the method call will return a true value, which the controller sends back to the user interface to display to the user. The controller currently also serves as the presenter, since it is telling the UI what to display based on what the method call returns. As the program becomes more complex, it would be optimal to create a separate presenter class in case we wanted to change how we were sending information to the UI. 
 
