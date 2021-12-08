@@ -2,11 +2,22 @@
 
 ### Cliff
 
-Cliff has been working on the front end while also giving feedback and suggestions for design tips in the backend.
+Cliff designed and implemented the frontend, which is a single-page app built 
+with react and styled with scss. The app is built with ease-of-use and accessibility 
+in mind, allowing users to interface with the core functionalities of MonKeyPass 
+with minimal friction.
+
+He helped coordinate and design the necessary endpoints for the backend spring 
+server (request / response methods, body shapes, status codes), and setup the 
+frontend to initiate and reflect data CRUD operations.
+
+The following PR contributes the entire frontend codebase to the main branch.
+The react code is modular and easily extensible.
 
 PR: https://github.com/CSC207-UofT/course-project-group-020/pull/30/files
 
-In this pull request you will find everything to do with the front end of the MonKeyPass Program.
+He also gave design suggestions for the backend, including adding a unique 
+identifier for the entries, so they can be easily retrieved.
 
 ### Ryan
 
