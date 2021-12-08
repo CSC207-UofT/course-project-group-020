@@ -4,7 +4,7 @@
 
 The password manager is a multi-user application that securely stores and retrieves sensitive data for its accounts. The user can create new accounts, sign in and out to an account, as well as delete accounts. To create a new account, the user must set a username and a master password. The password is salted and hashed (one-way encrypted) as a security measure. Each account can store entries of login information, notes, contacts, and/or identification information. The entries in each account are private to the other accounts and are also only accessible to the user when they are signed in. Each entry is stored in our program but encrypted using Blowfish, a symmetric block cipher. It is encrypted by the plaintext of the master password of the given account which is unattainable for developers. The encrypted entry is stored in a serialized bin file located at a specified file path given by the user.
 
-A useful feature occurs when the user is creating a new login entry, the application gives the user the option to generate a strong password based on an algorithm developed in-file. The user can access the entries they have stored through the main menu of the application, which displays all the entries of the data that the manager is currently storing. The entry is accessed by decrypting the ciphertext from the serialized bin file and displayed for the user. An exception to this is when the user is accessing login information. In that case, the password is displayed in asterisks but it can be revealed by clicking the monkey icon. Notably, any given entry of any type can be also edited and deleted by the user.
+One useful feature occurs when the user is creating a new login entry, the application gives the user the option to generate a strong password based on an algorithm developed in-file. The user can access the entries they have stored through the main menu of the application, which displays all the entries of the data that the manager is currently storing. The entry is accessed by decrypting the ciphertext from the serialized bin file and displayed for the user. An exception to this is when the user is accessing login information. In that case, the password is displayed in asterisks but it can be revealed by clicking the monkey icon. Notably, any given entry of any type can be also edited and deleted by the user.
 
 
 ### Major Design Changes
@@ -29,7 +29,14 @@ We decided to Package by Component. For example, the Encryption classes encapsul
 
 ### Design Patterns
 
+For phase 2, we implemented three different design patterns: Simple Factory design pattern, Strategy design pattern, and Dependency Injection design pattern.
 
+The Simple Factory design pattern was implemented in the “Spring test” pull request(#9) in order to create instances of subclasses of PrivateInfo. We used this design pattern because we found there were often times were we had to create instances of subclasses but we were not exactly which we would have to create. By extracting the
+Constructors into a PrivateInfoFactory class, we were able to write code to determine which type to create based on the input parameters. With more time, we could upgrade to a more complex factory design pattern, such as the Abstract Factory Design Pattern.
+
+The Strategy  design pattern was implemented in order to make out program more extendable. We applied the design pattern to our encryption class, making it very easy to add/switch between different encryption methods other than the ones we used. The IMasterEncryption and IPrivateInfoEncryption outlines the necessary methods and subclasses which implement these interfaces can outline different encryption algorithms. This was implemented in pull request #34.
+
+Dependency Injection was used twice in order to remove tight coupling between use case classes. This was used to decouple Serializer and AccountManager and SecureHashEncryption and AccountManager. Dependency Injection was mostly implemented in pull request #46 but some interfaces were create in earlier pull requests.
 
 ### Testing
 

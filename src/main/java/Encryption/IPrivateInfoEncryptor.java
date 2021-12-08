@@ -4,7 +4,6 @@ import Account.Account;
 import Exceptions.AttributeNotFoundException;
 import PrivateInfoObjects.PrivateInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
