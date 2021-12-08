@@ -33,8 +33,11 @@ PR: https://github.com/CSC207-UofT/course-project-group-020/pull/20
 This is the implementation of the feature that LogIn PrivateInfo objects use to make sure that passwords are created properly. The main features of this class includes password generation and password rating. 
 
 <u>Hayk</u>
+Hayk has been working on backend and testing since Phase 1. Notably, he is moving specific methods from Account to Account Manager to adhere to clean architecture and also implementing test classes and test cases to test each newly implemented method.
 
-PR: 
+PR: https://github.com/CSC207-UofT/course-project-group-020/pull/14
+In this PR, as per the request of my team, I updated the architecture of our backend. More specifically, I transferred crucial methods,
+addInfo, editInfo, deleteInfo from account class to the accountmanager usecase class to adhere to clean architecture. Furthermore, I changed createAccount, getAccount to work with new architecture, as well as made a new method, deleteAccount to remove files using java.File. Lastly, I fixed a small spelling error in Serializer class.
 
 <u>Yousuf</u>
 
